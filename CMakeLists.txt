@@ -3,4 +3,4 @@ project(NAGYHF)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(NAGYHF main.cpp)
+add_executable(NAGYHF outofmymind.cpp)
