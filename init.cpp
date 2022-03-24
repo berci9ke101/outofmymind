@@ -4,42 +4,66 @@
 #include <iostream>
 #include <fstream>
 
-bool init::loadstart()
+
+GameFile::~GameFile()
 {
-    char filename[50 + 1];
+    delete[] filename;
+}
 
-    //Filename
-    std::cout << "What's the name of the gamefile that you would like to load? (max 50 characters): ";
-    std::cin.getline(filename, 51);
+const char *GameFile::myname()
+{
+    return filename;
+}
 
+const char *GameFile::readname()
+{
+    //Filename read
+    char *filename = new char[50 + 1];
+    char c = 'n';
+    do
+    {
+        //asking for the name of the game file
+        std::cout << "What's the name of the gamefile that you would like to load? (max 50 characters): ";
+        std::cin.getline(filename, 51);
+
+        //verifying whether the name is correct
+        std::cout << '"' << filename << '"' << " is that correct? (y/n): ";
+        std::cin >> c;
+        //ignoring a character
+        std::cin.ignore();
+
+    } while (c != 'y'); //exiting if the answer is yes
+
+    return filename;
+}
+
+bool GameFile::loadgame()
+{
     //Fileopen
     std::fstream gamefile(filename);
 
     if (!(gamefile.is_open()))
     {
-        //If it couldn't be opened we return "false"
         return false;
+        //If it couldn't be opened we return "false"
     }
 
-    ///safs
-    /// af
-    /// dssads
-    /// f
-    /// saf
+    ///
+    ///
+    ///magic happens here
+    ///
+    ///
 
 
     //If everything loaded correctly we return "true"
     return true;
 }
 
-
-bool init::console()
+bool init::console(GameFile &G)
 {
-    if (!(loadstart()))
-    {
-        return false;
-    }
-
+    G.loadgame() ? return true : return false;
+    //Clearing the screen
     econio_clrscr();
+
     return true;
 }
