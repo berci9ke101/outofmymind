@@ -61,7 +61,7 @@ bool GameFile::loadgame()
 
 bool init::console(GameFile &G)
 {
-    G.loadgame() ? return true : return false;
+    return G.loadgame() ? true : ;
     //Clearing the screen
     econio_clrscr();
 
