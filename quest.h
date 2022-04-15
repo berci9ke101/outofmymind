@@ -17,7 +17,7 @@ class Quest
 {
 protected:
     ///a küldetés típusát állítja át
-    void settype();
+    void settype(questtype type);
 
 private:
     questtype type;
@@ -102,6 +102,16 @@ public:
 
     ///visszaadja, hogy az automatikus ugrás melyik másik küldetésre ugrik
     size_t getautojmp();
+
+    //------------------------>
+    ///konstruktor
+    VisitedQuest();
+
+    ///másoló konstruktor
+    VisitedQuest(const SimpleQuest &);
+
+    ///destruktor
+    ~VisitedQuest();
 };
 
 ///--------------------------------///
