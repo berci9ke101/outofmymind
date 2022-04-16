@@ -21,13 +21,13 @@ protected:
 
 private:
     questtype type;
-    const size_t ID;
-    const std::string desc;
-    const std::string optA;
-    const size_t jmpA;
-    const std::string optB;
-    const size_t jmpB;
-    const size_t jmpauto;
+    size_t ID;
+    std::string desc;
+    std::string optA;
+    size_t jmpA;
+    std::string optB;
+    size_t jmpB;
+    size_t jmpauto;
 public:
     ///beolvassa a küldetést a szövegtömbből
     virtual void read(size_t) const = 0;
