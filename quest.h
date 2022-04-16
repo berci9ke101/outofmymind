@@ -87,7 +87,7 @@ public:
     Quest *clone() const;
 
     //------------------------>
-    ///paramétter nélkül hívható konstruktor
+    ///paraméter nélkül hívható konstruktor
     SimpleQuest();
 
     ///konstruktor
@@ -121,8 +121,12 @@ public:
     void change();
 
     //------------------------>
-    ///konstruktor
+    ///paraméter nélkül hívható konstruktor
     VisitedQuest();
+
+    ///konstruktor
+    VisitedQuest(questtype type, size_t ID, std::string desc, std::string optA, size_t jmpA, std::string optB, size_t jmpB,
+    size_t jmpauto, std::string alternatedesc);
 
     ///másoló konstruktor
     VisitedQuest(const SimpleQuest &);
@@ -144,8 +148,12 @@ public:
     Quest *clone() const;
 
     //------------------------>
-    ///konstruktor
+    ///paraméter nélkül hívható konstruktor
     RandomQuest();
+
+    ///konstruktor
+    RandomQuest(questtype type, size_t ID, std::string desc, std::string optA, size_t jmpA, std::string optB, size_t jmpB,
+    size_t jmpauto);
 
     ///másoló konstruktor
     RandomQuest(const SimpleQuest &);

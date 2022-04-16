@@ -96,7 +96,9 @@ SimpleQuest::~SimpleQuest()
 ///----------------- ------------///
 
 void VisitedQuest::read(size_t) const
-{}
+{
+    ;
+}
 
 const std::string &VisitedQuest::getdesc() const
 {
@@ -120,4 +122,47 @@ void VisitedQuest::change()
     gettype() == Visited ? settype(Visitable) : settype(Visited);
 }
 
+VisitedQuest::VisitedQuest() : Quest(), alternatedesc("N/A")
+{}
+
+VisitedQuest::VisitedQuest(questtype type, size_t ID, std::string desc, std::string optA, size_t jmpA, std::string optB,
+                           size_t jmpB, size_t jmpauto, std::string alternatedesc) : Quest(type, ID, desc, optA, jmpA,
+                                                                                           optB, jmpB, jmpauto),
+                                                                                     alternatedesc(alternatedesc)
+{}
+
+VisitedQuest::VisitedQuest(const SimpleQuest &cp) : Quest(cp.gettype(), cp.getID(), cp.getdesc(), cp.getoptA(),
+                                                          cp.getjmpA(), cp.getoptB(), cp.getjmpB(), cp.getautojmp()),
+                                                    alternatedesc(cp.getdesc())
+{}
+
+VisitedQuest::~VisitedQuest()
+{}
+
+///--------------------------------///
+///a véletlenszerű küldetés osztály///
+///--------------------------------///
+void RandomQuest::read(size_t) const
+{
+    ;
+}
+
+Quest *RandomQuest::clone() const
+{
+    return new RandomQuest(*this);
+}
+
+RandomQuest::RandomQuest() : Quest()
+{}
+
+RandomQuest::RandomQuest(questtype type, size_t ID, std::string desc, std::string optA, size_t jmpA, std::string optB,
+                         size_t jmpB, size_t jmpauto) : Quest(type, ID, desc, optA, jmpA, optB, jmpB, jmpauto)
+{}
+
+RandomQuest::RandomQuest(const SimpleQuest &cp) : Quest(cp.gettype(), cp.getID(), cp.getdesc(), cp.getoptA(),
+                                                        cp.getjmpA(), cp.getoptB(), cp.getjmpB(), cp.getautojmp())
+{}
+
+RandomQuest::~RandomQuest()
+{}
 

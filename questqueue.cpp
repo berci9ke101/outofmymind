@@ -52,6 +52,15 @@ QuestQueue::QuestQueue(const QuestQueue &cp) : queue(), current_state(cp.current
 {
     for (size_t i = 0; i < cp.queue.size(); i++)
     {
-        ///queue.push_back(*cp.queue[i]->clone());
+        queue.push_back(cp.queue[i]->clone());
     }
+}
+
+QuestQueue::~QuestQueue()
+{
+    for (size_t i = 0; i < queue.size(); i++)
+    {
+        delete queue[i];
+    }
+    current_state = -1;
 }
