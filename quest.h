@@ -24,8 +24,8 @@ private:
     const size_t ID;
     const std::string desc;
     const std::string optA;
-    const std::string optB;
     const size_t jmpA;
+    const std::string optB;
     const size_t jmpB;
     const size_t jmpauto;
 public:
@@ -61,7 +61,8 @@ public:
 
     //------------------------>
     ///konstruktor
-    Quest();
+    Quest(size_t ID = -1, std::string desc = "N/A", std::string optA = "N/A", size_t jmpA = -1,
+          std::string optB = "N/A", size_t jmpB = -1, size_t jmpauto = -1);
 
     ///másoló konstruktor
     Quest(const Quest &);
@@ -106,14 +107,11 @@ public:
     ///visszaadja a küldetés leírását
     const std::string &getdesc() const;
 
-    ///visszaadja, hogy az automatikus ugrás melyik másik küldetésre ugrik
-    const size_t getautojmp() const;
+    ///létrehoz egy dinamikus másolatot a példányból
+    Quest *clone() const;
 
     ///megváltoztatja a küldetés típusát "Visitable"-ről "Visited"-re és fordítva
     void change();
-
-    ///létrehoz egy dinamikus másolatot a példányból
-    Quest *clone() const;
 
     //------------------------>
     ///konstruktor

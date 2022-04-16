@@ -1,6 +1,9 @@
 #include "questqueue.h"
 #include <algorithm>
 
+///-----------------------///
+///a küldetéseket tárolója///
+///------------------ ----///
 void QuestQueue::add(Quest *quest)
 {
     queue.push_back(quest);
@@ -49,6 +52,6 @@ QuestQueue::QuestQueue(const QuestQueue &cp) : queue(), current_state(cp.current
 {
     for (size_t i = 0; i < cp.queue.size(); i++)
     {
-        queue.push_back(*cp.queue[i]->clone());
+        ///queue.push_back(*cp.queue[i]->clone());
     }
 }
