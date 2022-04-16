@@ -28,7 +28,7 @@ public:
     void autojmp();
 
     ///a jelenlegi állapot ID-jét adja vissza
-    const size_t getcurrent_state();
+    const size_t getcurrent_state() const;
 
     ///egy adott indexű elemet ad vissza a tárolóból
     Quest* operator[](size_t);

@@ -34,7 +34,7 @@ void QuestQueue::autojmp()
     current_state = queue[current_state]->getautojmp();
 }
 
-const size_t QuestQueue::getcurrent_state()
+const size_t QuestQueue::getcurrent_state() const
 {
     return current_state;
 }
