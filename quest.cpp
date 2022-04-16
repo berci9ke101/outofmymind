@@ -72,4 +72,22 @@ void SimpleQuest::read(size_t) const
     ;
 }
 
+Quest *SimpleQuest::clone() const
+{
+    return new SimpleQuest(*this);
+}
+
+SimpleQuest::SimpleQuest() : Quest()
+{}
+
+SimpleQuest::SimpleQuest(questtype type, size_t ID, std::string desc, std::string optA, size_t jmpA, std::string optB,
+                         size_t jmpB, size_t jmpauto) : Quest(type, ID, desc, optA, jmpA, optB, jmpB, jmpauto)
+{}
+
+SimpleQuest::SimpleQuest(const SimpleQuest &cp) : Quest(cp.gettype(), cp.getID(), cp.getdesc(), cp.getoptA(),
+                                                        cp.getjmpA(), cp.getoptB(), cp.getjmpB(), cp.getautojmp())
+{}
+
+SimpleQuest::~SimpleQuest()
+{}
 

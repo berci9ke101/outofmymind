@@ -87,8 +87,12 @@ public:
     Quest *clone() const;
 
     //------------------------>
-    ///konstruktor
+    ///paramétter nélkül hívható konstruktor
     SimpleQuest();
+
+    ///konstruktor
+    SimpleQuest(questtype type, size_t ID, std::string desc, std::string optA, size_t jmpA, std::string optB, size_t jmpB,
+    size_t jmpauto);
 
     ///másoló konstruktor
     SimpleQuest(const SimpleQuest &);
