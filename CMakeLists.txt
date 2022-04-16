@@ -3,4 +3,4 @@ project(NAGYHF)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(oomm outofmymind.cpp econio.h econio.cpp quest.h quest.cpp)
+add_executable(oomm outofmymind.cpp econio.h econio.cpp quest.h quest.cpp fileio.cpp fileio.h)
