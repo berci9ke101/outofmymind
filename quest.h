@@ -29,10 +29,10 @@ private:
     size_t jmpB;
 public:
     ///beolvassa a küldetést a szövegtömbből
-    virtual void read(size_t linenum) = 0;
+    virtual void read(size_t) = 0;
 
     ///visszaadja a küldetésst ID-jét
-    size_t getID();
+    const size_t getID() const;
 
     ///visszaadja, hogy a küldetés melyik másik küldetésre ugrik A válaszlehetőség választása esetén
     size_t getjmpA();
@@ -70,7 +70,7 @@ class SimpleQuest : public Quest
 {
 public:
     ///beolvassa a küldetést a szövegtömbből
-    void read(size_t linenum);
+    void read(size_t);
 
     ///visszaadja a küldetés leírását
     const std::string &getdesc();
@@ -92,7 +92,7 @@ class VisitedQuest : public Quest
     size_t jmpauto;
 public:
     ///beolvassa a küldetést a szövegtömbből
-    void read(size_t linenum);
+    void read(size_t);
 
     ///visszaadja a küldetés leírását
     const std::string &getdesc();
@@ -121,7 +121,7 @@ class RandomQuest : public Quest
 {
 public:
     ///beolvassa a küldetést a szövegtömbből
-    void read(size_t linenum);
+    void read(size_t);
 
     ///visszaadja a küldetés leírását
     const std::string &getdesc();

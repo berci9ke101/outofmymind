@@ -9,7 +9,7 @@ void Quest::settype(questtype type)
     this->type = type;
 }
 
-size_t Quest::getID()
+const size_t Quest::getID() const
 {
     return ID;
 }
