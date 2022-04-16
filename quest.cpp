@@ -14,27 +14,32 @@ const size_t Quest::getID() const
     return ID;
 }
 
-size_t Quest::getjmpA()
+const size_t Quest::getjmpA() const
 {
     return jmpA;
 }
 
-size_t Quest::getjmpB()
+const size_t Quest::getjmpB() const
 {
     return jmpB;
 }
 
-const std::string &Quest::getoptA()
+const size_t Quest::getautojmp() const
+{
+    return jmpauto;
+}
+
+const std::string &Quest::getoptA() const
 {
     return optA;
 }
 
-const std::string &Quest::getoptB()
+const std::string &Quest::getoptB() const
 {
     return optB;
 }
 
-const questtype Quest::gettype()
+const questtype Quest::gettype() const
 {
     return type;
 }

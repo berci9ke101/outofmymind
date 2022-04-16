@@ -21,36 +21,43 @@ protected:
 
 private:
     questtype type;
-    size_t ID;
-    std::string desc;
-    std::string optA;
-    std::string optB;
-    size_t jmpA;
-    size_t jmpB;
+    const size_t ID;
+    const std::string desc;
+    const std::string optA;
+    const std::string optB;
+    const size_t jmpA;
+    const size_t jmpB;
+    const size_t jmpauto;
 public:
     ///beolvassa a küldetést a szövegtömbből
-    virtual void read(size_t) = 0;
+    virtual void read(size_t) const = 0;
 
     ///visszaadja a küldetésst ID-jét
     const size_t getID() const;
 
     ///visszaadja, hogy a küldetés melyik másik küldetésre ugrik A válaszlehetőség választása esetén
-    size_t getjmpA();
+    const size_t getjmpA() const;
 
     ///visszaadja, hogy a küldetés melyik másik küldetésre ugrik B válaszlehetőség választása esetén
-    size_t getjmpB();
+    const size_t getjmpB() const;
+
+    ///visszaadja az automatikus ugrás értékét
+    virtual const size_t getautojmp() const;
 
     ///visszaadja A válaszlehetőség szövegét
-    const std::string &getoptA();
+    const std::string &getoptA() const;
 
     ///visszaadja B válaszlehetőség szövegét
-    const std::string &getoptB();
+    const std::string &getoptB() const;
 
     ///visszaadja a küldetés leírását
-    virtual const std::string &getdesc() = 0;
+    virtual const std::string &getdesc() const = 0;
 
     ///visszaadja a küüldetés típusát
-    const questtype gettype();
+    const questtype gettype() const;
+
+    ///létrehoz egy dinamikus másolatot a példányból
+    virtual Quest *clone() const = 0;
 
     //------------------------>
     ///konstruktor
@@ -70,10 +77,13 @@ class SimpleQuest : public Quest
 {
 public:
     ///beolvassa a küldetést a szövegtömbből
-    void read(size_t);
+    void read(size_t) const;
 
     ///visszaadja a küldetés leírását
-    const std::string &getdesc();
+    const std::string &getdesc() const;
+
+    ///létrehoz egy dinamikus másolatot a példányból
+    Quest *clone() const;
 
     //------------------------>
     ///konstruktor
@@ -89,19 +99,21 @@ public:
 class VisitedQuest : public Quest
 {
     std::string alternatedesc;
-    size_t jmpauto;
 public:
     ///beolvassa a küldetést a szövegtömbből
-    void read(size_t);
+    void read(size_t) const;
 
     ///visszaadja a küldetés leírását
-    const std::string &getdesc();
+    const std::string &getdesc() const;
+
+    ///visszaadja, hogy az automatikus ugrás melyik másik küldetésre ugrik
+    const size_t getautojmp() const;
 
     ///megváltoztatja a küldetés típusát "Visitable"-ről "Visited"-re és fordítva
     void change();
 
-    ///visszaadja, hogy az automatikus ugrás melyik másik küldetésre ugrik
-    size_t getautojmp();
+    ///létrehoz egy dinamikus másolatot a példányból
+    Quest *clone() const;
 
     //------------------------>
     ///konstruktor
@@ -121,10 +133,13 @@ class RandomQuest : public Quest
 {
 public:
     ///beolvassa a küldetést a szövegtömbből
-    void read(size_t);
+    void read(size_t) const;
 
     ///visszaadja a küldetés leírását
-    const std::string &getdesc();
+    const std::string &getdesc() const;
+
+    ///létrehoz egy dinamikus másolatot a példányból
+    Quest *clone() const;
 
     //------------------------>
     ///konstruktor

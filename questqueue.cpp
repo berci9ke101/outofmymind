@@ -13,5 +13,42 @@ bool compare(const Quest &a, const Quest &b)
 
 void QuestQueue::sort()
 {
-    std::sort(queue.begin(), queue.end(),)
+    std::sort(queue.begin(), queue.end(), compare);
+}
+
+void QuestQueue::chooseA()
+{
+    current_state = queue[current_state]->getjmpA();
+}
+
+void QuestQueue::chooseB()
+{
+    current_state = queue[current_state]->getjmpB();
+}
+
+void QuestQueue::autojmp()
+{
+    current_state = queue[current_state]->getautojmp();
+}
+
+const size_t QuestQueue::getcurrent_state()
+{
+    return current_state;
+}
+
+Quest *QuestQueue::operator[](size_t idx)
+{
+    ///nem foglalkozunk a hibakezeléssel, mert az std::vector::at() megvéd bennünket a túlindexeléstől
+    return queue.at(idx);
+}
+
+QuestQueue::QuestQueue() : current_state(0)
+{}
+
+QuestQueue::QuestQueue(const QuestQueue &cp) : queue(), current_state(cp.current_state)
+{
+    for (size_t i = 0; i < cp.queue.size(); i++)
+    {
+        queue.push_back(*cp.queue[i]->clone());
+    }
 }
