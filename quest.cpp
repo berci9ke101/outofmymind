@@ -91,3 +91,33 @@ SimpleQuest::SimpleQuest(const SimpleQuest &cp) : Quest(cp.gettype(), cp.getID()
 SimpleQuest::~SimpleQuest()
 {}
 
+///------------------------------///
+///a látogatható küldetés osztály///
+///----------------- ------------///
+
+void VisitedQuest::read(size_t) const
+{}
+
+const std::string &VisitedQuest::getdesc() const
+{
+    if (gettype() == Visitable)
+    {
+        return Quest::getdesc();
+    }
+    else if (gettype() == Visited)
+    {
+        return alternatedesc;
+    }
+}
+
+Quest *VisitedQuest::clone() const
+{
+    return new VisitedQuest(*this);
+}
+
+void VisitedQuest::change()
+{
+    gettype() == Visited ? settype(Visitable) : settype(Visited);
+}
+
+

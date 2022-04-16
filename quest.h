@@ -101,6 +101,9 @@ public:
     ~SimpleQuest();
 };
 
+///------------------------------///
+///a látogatható küldetés osztály///
+///----------------- ------------///
 class VisitedQuest : public Quest
 {
     std::string alternatedesc;
