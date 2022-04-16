@@ -33,5 +33,15 @@ void Game::init()
 
 int Game::keypress()
 {
+    int key = -1;
+    if (econio_kbhit())
+    {
+        key = econio_getch();
+    }
+    return key;
+}
 
+void Game::writequest(const Quest &)
+{
+///NEM AKAROM MEGCSINÁLNI
 }
