@@ -144,6 +144,9 @@ Game::FileIO::read(const std::string &gamefile, const std::string &savefile, Que
     getline(LOAD, line);
     std::stringstream(line) >> queue.getcurrent_state();
 
+    ///a fájl bezárása
+    LOAD.close();
+
     ///tömb visszaadása
     return *sVector;
 }
@@ -266,4 +269,26 @@ void Game::FileIO::load(const std::vector<std::string> &sVector, QuestQueue &que
             throw std::logic_error("No such questtype!");
         }
     }
+}
+
+void Game::FileIO::save(const std::string &savegame, QuestQueue &queue) const
+{
+    ///mentés kiírása
+    std::ofstream SAVE;
+    std::string line;
+    SAVE.open(savegame, std::ios::out);
+
+    ///ha nem lehet megnyitni a fájlt...
+    if (not(SAVE.is_open()))
+    {
+        ///kivételt dobunk
+        SAVE.close();
+        throw std::ios_base::failure("Could not open file!");
+    }
+
+    ///kiírás, ha nincs hiba
+    SAVE << queue.getcurrent_state() << "\n";
+
+    ///a fájl bezárása
+    SAVE.close();
 }

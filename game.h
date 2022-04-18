@@ -53,7 +53,7 @@ public:
         void load(const std::vector<std::string> &sVector, QuestQueue &queue) const;
 
         ///elmenti a játékállást a paraméterül kapott szöveg néven
-        void save(const std::string &) const;
+        void save(const std::string &savegame, QuestQueue &queue) const;
 
         //------------------------>
         ///konstruktor
