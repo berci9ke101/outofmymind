@@ -132,7 +132,7 @@ const std::vector<std::string> &Game::FileIO::read(const std::string &gamefile) 
     return *sVector;
 }
 
-void Game::FileIO::load(const std::vector<std::string> &sVector, const QuestQueue &queue) const
+void Game::FileIO::load(const std::vector<std::string> &sVector, QuestQueue &queue) const
 {
     ///temporális változók
     questtype TMP_type;
@@ -142,8 +142,9 @@ void Game::FileIO::load(const std::vector<std::string> &sVector, const QuestQueu
     size_t TMP_jmpA;
     std::string TMP_optB;
     size_t TMP_jmpB;
-    size_t TMP_jmpauto;
 
+    ///a visitable quest tempoláris változói
+    size_t TMP_jmpauto;
     std::string TMP_alternatedesc;
 
     ///ha üres a fájl...
@@ -171,21 +172,10 @@ void Game::FileIO::load(const std::vector<std::string> &sVector, const QuestQueu
         std::stringstream(variable_arr[0]) >> TMP_ID;
 
         ///küldetés típusának kitalálása
-        std::string id = variable_arr[1];
-        if (id == std::string("S") or id == std::string("R"))
+        std::string type = variable_arr[1];
+        ///Simple vagy Random quest esetén
+        if (type == std::string("S") or type == std::string("R"))
         {
-            ///küldetéstípus tesztelése
-            if (id == std::string("S"))
-            {
-                ///küldetéstípus konvertálása
-                TMP_type = Simple;
-            }
-            else if (id == std::string("R"))
-            {
-                ///küldetéstípus konvertálása
-                TMP_type = Random;
-            }
-
             ///küldetésleírás konvertálása
             TMP_desc = variable_arr[2];
 
@@ -201,10 +191,57 @@ void Game::FileIO::load(const std::vector<std::string> &sVector, const QuestQueu
             ///B opcióra való ugrás konvertálása
             std::stringstream(variable_arr[4]) >> TMP_jmpB;
 
+            ///küldetéstípus tesztelése
+            if (type == std::string("S"))
+            {
+                ///küldetéstípus konvertálása
+                TMP_type = Simple;
+                queue.add(new SimpleQuest(TMP_type, TMP_ID, TMP_desc, TMP_optA, TMP_jmpA, TMP_optB, TMP_jmpB));
+            }
+            else if (type == std::string("R"))
+            {
+                ///küldetéstípus konvertálása
+                TMP_type = Random;
+                queue.add(new RandomQuest(TMP_type, TMP_ID, TMP_desc, TMP_optA, TMP_jmpA, TMP_optB, TMP_jmpB));
+            }
         }
-        else if (id == std::string("V") or id == std::string("v"))
+
+        ///Visited vagy Visitable
+        else if (type == std::string("V") or type == std::string("v"))
         {
-            TMP_type = Visited;
+            ///küldetésleírás konvertálása
+            TMP_desc = variable_arr[2];
+
+            ///a másodlagos leírás konvertálása
+            TMP_alternatedesc = variable_arr[3];
+
+            ///az automatikus ugrás konvertálása
+            std::stringstream(variable_arr[4]) >> TMP_jmpauto;
+
+            ///A opció szövegének konvertálása
+            TMP_optA = variable_arr[5];
+
+            ///A opcióra való ugrás konvertálása
+            std::stringstream(variable_arr[6]) >> TMP_jmpA;
+
+            ///B opció szövegének konvertálása
+            TMP_optA = variable_arr[7];
+
+            ///B opcióra való ugrás konvertálása
+            std::stringstream(variable_arr[8]) >> TMP_jmpB;
+
+            ///küldetéstípus tesztelése
+            if (type == std::string("v"))
+            {
+                ///küldetéstípus konvertálása
+                TMP_type = Visitable;
+            }
+            else if (type == std::string("V"))
+            {
+                ///küldetéstípus konvertálása
+                TMP_type = Visited;
+            }
+            queue.add(new VisitedQuest(TMP_type, TMP_ID, TMP_desc, TMP_optA, TMP_jmpA, TMP_optB, TMP_jmpB, TMP_jmpauto, TMP_alternatedesc));
         }
         else
         {

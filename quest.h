@@ -93,7 +93,7 @@ public:
 
     ///konstruktor
     SimpleQuest(questtype type, size_t ID, std::string desc, std::string optA, size_t jmpA, std::string optB,
-                size_t jmpB, size_t jmpauto);
+                size_t jmpB, size_t jmpauto = -1);
 
     ///másoló konstruktor
     SimpleQuest(const SimpleQuest &);
@@ -157,7 +157,7 @@ public:
 
     ///konstruktor
     RandomQuest(questtype type, size_t ID, std::string desc, std::string optA, size_t jmpA, std::string optB,
-                size_t jmpB, size_t jmpauto);
+                size_t jmpB, size_t jmpauto = -1);
 
     ///másoló konstruktor
     RandomQuest(const SimpleQuest &);

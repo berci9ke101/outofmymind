@@ -50,7 +50,7 @@ public:
         const std::vector<std::string> &read(const std::string &) const;
 
         ///betölti a paraméterként kapott játékfájlt
-        load(const std::vector<std::string> &sVector, const QuestQueue &queue) const;
+        void load(const std::vector<std::string> &sVector, QuestQueue &queue) const;
 
         ///elmenti a játékállást
         void save() const;
