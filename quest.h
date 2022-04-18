@@ -81,7 +81,7 @@ class SimpleQuest : public Quest
 {
 public:
     ///beolvassa a küldetést a szövegtömbből
-    void read(size_t) const;
+    void read(std::string) const;
 
     ///létrehoz egy dinamikus másolatot a példányból
     Quest *clone() const;
@@ -109,7 +109,7 @@ class VisitedQuest : public Quest
     std::string alternatedesc;
 public:
     ///beolvassa a küldetést a szövegtömbből
-    void read(size_t) const;
+    void read(std::string) const;
 
     ///visszaadja a küldetés leírását
     const std::string &getdesc() const;
@@ -142,7 +142,10 @@ class RandomQuest : public Quest
 {
 public:
     ///beolvassa a küldetést a szövegtömbből
-    void read(size_t) const;
+    void read(std::string) const;
+
+    ///visszaadja a küldetés leírását, FONTOS: a használónak kell felszabdítani a dinamikusan foglalt részt
+    const std::string &getdesc() const;
 
     ///létrehoz egy dinamikus másolatot a példányból
     Quest *clone() const;

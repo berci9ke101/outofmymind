@@ -10,8 +10,8 @@
 ///--------------------------///
 class Game
 {
-    unsigned const int height;
     unsigned const int width;
+    unsigned const int height;
     const bool iswin;
 public:
     ///inicializálja a játékablakot
@@ -24,8 +24,11 @@ public:
     void writequest(const Quest &);
 
     //------------------------>
-    ///konstruktor
+    ///paraméter nélkül hívható konstruktor
     Game();
+
+    ///konstruktor
+    Game(int width, int height);
 
     ///másoló konstruktor
     Game(const Game &);

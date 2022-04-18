@@ -1,4 +1,7 @@
 #include "quest.h"
+#include <vector>
+#include <iostream>
+#include <sstream>
 
 ///-------------------------------///
 ///az absztrakt küldetés ősosztály///
@@ -57,8 +60,8 @@ Quest::Quest(questtype type, size_t ID, std::string desc, std::string optA, size
                                jmpauto(jmpauto)
 {}
 
-Quest::Quest(const Quest &cp) : type(cp.type), ID(cp.ID), desc(cp.desc), optA(cp.optA), jmpA(cp.jmpA), optB(cp.optB),
-                                jmpB(cp.jmpB), jmpauto(cp.jmpauto)
+Quest::Quest(const Quest &rhs) : type(rhs.type), ID(rhs.ID), desc(rhs.desc), optA(rhs.optA), jmpA(rhs.jmpA),
+                                 optB(rhs.optB), jmpB(rhs.jmpB), jmpauto(rhs.jmpauto)
 {}
 
 Quest::~Quest()
@@ -84,8 +87,8 @@ SimpleQuest::SimpleQuest(questtype type, size_t ID, std::string desc, std::strin
                          size_t jmpB, size_t jmpauto) : Quest(type, ID, desc, optA, jmpA, optB, jmpB, jmpauto)
 {}
 
-SimpleQuest::SimpleQuest(const SimpleQuest &cp) : Quest(cp.gettype(), cp.getID(), cp.getdesc(), cp.getoptA(),
-                                                        cp.getjmpA(), cp.getoptB(), cp.getjmpB(), cp.getautojmp())
+SimpleQuest::SimpleQuest(const SimpleQuest &rhs) : Quest(rhs.gettype(), rhs.getID(), rhs.getdesc(), rhs.getoptA(),
+                                                         rhs.getjmpA(), rhs.getoptB(), rhs.getjmpB(), rhs.getautojmp())
 {}
 
 SimpleQuest::~SimpleQuest()
@@ -131,9 +134,9 @@ VisitedQuest::VisitedQuest(questtype type, size_t ID, std::string desc, std::str
                                                                                      alternatedesc(alternatedesc)
 {}
 
-VisitedQuest::VisitedQuest(const SimpleQuest &cp) : Quest(cp.gettype(), cp.getID(), cp.getdesc(), cp.getoptA(),
-                                                          cp.getjmpA(), cp.getoptB(), cp.getjmpB(), cp.getautojmp()),
-                                                    alternatedesc(cp.getdesc())
+VisitedQuest::VisitedQuest(const SimpleQuest &rhs) : Quest(rhs.gettype(), rhs.getID(), rhs.getdesc(), rhs.getoptA(),
+                                                           rhs.getjmpA(), rhs.getoptB(), rhs.getjmpB(),
+                                                           rhs.getautojmp()), alternatedesc(rhs.getdesc())
 {}
 
 VisitedQuest::~VisitedQuest()
@@ -145,6 +148,28 @@ VisitedQuest::~VisitedQuest()
 void RandomQuest::read(size_t) const
 {
     ;
+}
+
+const std::string &RandomQuest::getdesc() const
+{
+    ///a '#' szimbólummal tagolt szöveg szétszedése és belerakása egy dinamikus tömbbe
+    std::vector<std::string> stringarr;
+    std::istringstream strings(Quest::getdesc());
+    std::string s;
+
+    while (getline(strings, s, '#'))
+    {
+        std::cout << s << std::endl;
+        stringarr.push_back(s);
+    }
+
+    ///véletlen sorszámú kiválasztása
+    srand(14);
+
+    ///ennek dinamikus foglalása és visszaadása
+    std::string *ret = new std::string;
+    *ret = stringarr[rand() % stringarr.size()];
+    return *ret;
 }
 
 Quest *RandomQuest::clone() const
@@ -159,8 +184,8 @@ RandomQuest::RandomQuest(questtype type, size_t ID, std::string desc, std::strin
                          size_t jmpB, size_t jmpauto) : Quest(type, ID, desc, optA, jmpA, optB, jmpB, jmpauto)
 {}
 
-RandomQuest::RandomQuest(const SimpleQuest &cp) : Quest(cp.gettype(), cp.getID(), cp.getdesc(), cp.getoptA(),
-                                                        cp.getjmpA(), cp.getoptB(), cp.getjmpB(), cp.getautojmp())
+RandomQuest::RandomQuest(const SimpleQuest &rhs) : Quest(rhs.gettype(), rhs.getID(), rhs.getdesc(), rhs.getoptA(),
+                                                         rhs.getjmpA(), rhs.getoptB(), rhs.getjmpB(), rhs.getautojmp())
 {}
 
 RandomQuest::~RandomQuest()

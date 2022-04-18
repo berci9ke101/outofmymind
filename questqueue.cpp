@@ -48,11 +48,11 @@ Quest *QuestQueue::operator[](size_t idx)
 QuestQueue::QuestQueue() : current_state(0)
 {}
 
-QuestQueue::QuestQueue(const QuestQueue &cp) : queue(), current_state(cp.current_state)
+QuestQueue::QuestQueue(const QuestQueue &rhs) : queue(), current_state(rhs.current_state)
 {
-    for (size_t i = 0; i < cp.queue.size(); i++)
+    for (size_t i = 0; i < rhs.queue.size(); i++)
     {
-        queue.push_back(cp.queue[i]->clone());
+        queue.push_back(rhs.queue[i]->clone());
     }
 }
 
