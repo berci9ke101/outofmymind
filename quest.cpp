@@ -70,11 +70,6 @@ Quest::~Quest()
 ///----------------------------///
 ///az egyszerű küldetés osztály///
 ///----------------------------///
-void SimpleQuest::read(size_t) const
-{
-    ;
-}
-
 Quest *SimpleQuest::clone() const
 {
     return new SimpleQuest(*this);
@@ -97,12 +92,6 @@ SimpleQuest::~SimpleQuest()
 ///------------------------------///
 ///a látogatható küldetés osztály///
 ///----------------- ------------///
-
-void VisitedQuest::read(size_t) const
-{
-    ;
-}
-
 const std::string &VisitedQuest::getdesc() const
 {
     if (gettype() == Visitable)
@@ -145,11 +134,6 @@ VisitedQuest::~VisitedQuest()
 ///--------------------------------///
 ///a véletlenszerű küldetés osztály///
 ///--------------------------------///
-void RandomQuest::read(size_t) const
-{
-    ;
-}
-
 const std::string &RandomQuest::getdesc() const
 {
     ///a '#' szimbólummal tagolt szöveg szétszedése és belerakása egy dinamikus tömbbe
