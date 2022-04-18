@@ -9,9 +9,9 @@ void QuestQueue::add(Quest *quest)
     queue.push_back(quest);
 }
 
-bool compare(const Quest &a, const Quest &b)
+bool compare(const Quest *a, const Quest *b)
 {
-    return a.getID() > b.getID();
+    return a->getID() > b->getID();
 }
 
 void QuestQueue::sort()

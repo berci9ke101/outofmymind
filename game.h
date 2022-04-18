@@ -52,8 +52,8 @@ public:
         ///betölti a paraméterként kapott szövegtömbből a küldetéstömbbe a küldetéseket
         void load(const std::vector<std::string> &sVector, QuestQueue &queue) const;
 
-        ///elmenti a játékállást
-        void save() const;
+        ///elmenti a játékállást a paraméterül kapott szöveg néven
+        void save(const std::string &) const;
 
         //------------------------>
         ///konstruktor

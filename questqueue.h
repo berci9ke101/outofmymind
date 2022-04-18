@@ -27,7 +27,7 @@ public:
     ///az automatikus ugrást bonyolítja le
     void autojmp();
 
-    ///a jelenlegi állapot ID-jét adja vissza
+    ///a jelenlegi állapot ID referenciáját adja vissza
     size_t &getcurrent_state();
 
     ///egy adott indexű elemet ad vissza a tárolóból
