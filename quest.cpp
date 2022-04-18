@@ -159,7 +159,6 @@ const std::string &RandomQuest::getdesc() const
 
     while (getline(strings, s, '#'))
     {
-        std::cout << s << std::endl;
         stringarr.push_back(s);
     }
 
@@ -168,7 +167,7 @@ const std::string &RandomQuest::getdesc() const
 
     ///ennek dinamikus foglalása és visszaadása
     std::string *ret = new std::string;
-    *ret = stringarr[rand() % stringarr.size()];
+    ret = &stringarr[rand() % stringarr.size()];
     return *ret;
 }
 

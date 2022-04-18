@@ -3,6 +3,7 @@
 
 #include <cstdio>
 #include <string>
+#include <vector>
 
 ///a küldetéstípusok felsorolása
 enum questtype
@@ -30,7 +31,7 @@ private:
     size_t jmpauto;
 public:
     ///beolvassa a küldetést a szövegtömbből
-    virtual void read(size_t) const = 0;
+    virtual void read(const std::string &) const = 0;
 
     ///visszaadja a küldetésst ID-jét
     const size_t getID() const;
@@ -81,7 +82,7 @@ class SimpleQuest : public Quest
 {
 public:
     ///beolvassa a küldetést a szövegtömbből
-    void read(std::string) const;
+    void read(const std::string &) const;
 
     ///létrehoz egy dinamikus másolatot a példányból
     Quest *clone() const;
@@ -91,8 +92,8 @@ public:
     SimpleQuest();
 
     ///konstruktor
-    SimpleQuest(questtype type, size_t ID, std::string desc, std::string optA, size_t jmpA, std::string optB, size_t jmpB,
-    size_t jmpauto);
+    SimpleQuest(questtype type, size_t ID, std::string desc, std::string optA, size_t jmpA, std::string optB,
+                size_t jmpB, size_t jmpauto);
 
     ///másoló konstruktor
     SimpleQuest(const SimpleQuest &);
@@ -109,7 +110,7 @@ class VisitedQuest : public Quest
     std::string alternatedesc;
 public:
     ///beolvassa a küldetést a szövegtömbből
-    void read(std::string) const;
+    void read(const std::string &) const;
 
     ///visszaadja a küldetés leírását
     const std::string &getdesc() const;
@@ -125,8 +126,8 @@ public:
     VisitedQuest();
 
     ///konstruktor
-    VisitedQuest(questtype type, size_t ID, std::string desc, std::string optA, size_t jmpA, std::string optB, size_t jmpB,
-    size_t jmpauto, std::string alternatedesc);
+    VisitedQuest(questtype type, size_t ID, std::string desc, std::string optA, size_t jmpA, std::string optB,
+                 size_t jmpB, size_t jmpauto, std::string alternatedesc);
 
     ///másoló konstruktor
     VisitedQuest(const SimpleQuest &);
@@ -142,7 +143,7 @@ class RandomQuest : public Quest
 {
 public:
     ///beolvassa a küldetést a szövegtömbből
-    void read(std::string) const;
+    void read(const std::string &) const;
 
     ///visszaadja a küldetés leírását, FONTOS: a használónak kell felszabdítani a dinamikusan foglalt részt
     const std::string &getdesc() const;
@@ -155,8 +156,8 @@ public:
     RandomQuest();
 
     ///konstruktor
-    RandomQuest(questtype type, size_t ID, std::string desc, std::string optA, size_t jmpA, std::string optB, size_t jmpB,
-    size_t jmpauto);
+    RandomQuest(questtype type, size_t ID, std::string desc, std::string optA, size_t jmpA, std::string optB,
+                size_t jmpB, size_t jmpauto);
 
     ///másoló konstruktor
     RandomQuest(const SimpleQuest &);

@@ -3,7 +3,10 @@
 
 #include <cstdio>
 #include <string>
+#include <vector>
+
 #include "quest.h"
+#include "questqueue.h"
 
 ///--------------------------///
 ///a játékért felelős osztály///
@@ -44,13 +47,13 @@ public:
         std::string filename;
     public:
         ///beolvassa a paraméterként kapott játékfájlt
-        void read(const std::string &);
-
-        ///elmenti a játékállást
-        void save();
+        const std::vector<std::string> &read(const std::string &) const;
 
         ///betölti a paraméterként kapott játékfájlt
-        void load(const std::string &);
+        load(const std::vector<std::string> &sVector, const QuestQueue &queue) const;
+
+        ///elmenti a játékállást
+        void save() const;
 
         //------------------------>
         ///konstruktor
