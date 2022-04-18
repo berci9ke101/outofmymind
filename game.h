@@ -46,10 +46,10 @@ public:
     {
         std::string filename;
     public:
-        ///beolvassa a paraméterként kapott játékfájlt
-        const std::vector<std::string> &read(const std::string &) const;
+        ///beolvassa a paraméterként kapott játékfájlt, illetve mentésfájlt
+        const std::vector<std::string> &read(const std::string &, const std::string &, QuestQueue &queue);
 
-        ///betölti a paraméterként kapott játékfájlt
+        ///betölti a paraméterként kapott szövegtömbből a küldetéstömbbe a küldetéseket
         void load(const std::vector<std::string> &sVector, QuestQueue &queue) const;
 
         ///elmenti a játékállást

@@ -87,7 +87,8 @@ Game::~Game()
 ///-------------------------------///
 ///a fájkezelésért felelős osztály///
 ///-------------------------------///
-const std::vector<std::string> &Game::FileIO::read(const std::string &gamefile) const
+const std::vector<std::string> &
+Game::FileIO::read(const std::string &gamefile, const std::string &savefile, QuestQueue &queue)
 {
 //    ///megkérdezzük a felhasználót, hogy mi a játékfájl neve
 //    std::cout << "What's the name of the gamefile that you would like to load?: ";
@@ -108,7 +109,6 @@ const std::vector<std::string> &Game::FileIO::read(const std::string &gamefile) 
     }
 
     ///beolvasás, ha nincs hiba
-    size_t ciclecount = 0;
     std::string line;
     std::vector<std::string> *sVector = new std::vector<std::string>;
     while (getline(GAME, line))
@@ -127,6 +127,22 @@ const std::vector<std::string> &Game::FileIO::read(const std::string &gamefile) 
 
     ///a fájl bezárása
     GAME.close();
+
+    ///mentés betöltése
+    std::ifstream LOAD;
+    LOAD.open(savefile, std::ios::in);
+
+    ///ha nem lehet megnyitni a fájlt...
+    if (not(LOAD.is_open()))
+    {
+        ///kivételt dobunk
+        LOAD.close();
+        throw std::ios_base::failure("Could not open file!");
+    }
+
+    ///beolvasás, ha nincs hiba
+    getline(LOAD, line);
+    std::stringstream(line) >> queue.getcurrent_state();
 
     ///tömb visszaadása
     return *sVector;
@@ -206,7 +222,7 @@ void Game::FileIO::load(const std::vector<std::string> &sVector, QuestQueue &que
             }
         }
 
-        ///Visited vagy Visitable
+            ///Visited vagy Visitable
         else if (type == std::string("V") or type == std::string("v"))
         {
             ///küldetésleírás konvertálása
@@ -241,7 +257,8 @@ void Game::FileIO::load(const std::vector<std::string> &sVector, QuestQueue &que
                 ///küldetéstípus konvertálása
                 TMP_type = Visited;
             }
-            queue.add(new VisitedQuest(TMP_type, TMP_ID, TMP_desc, TMP_optA, TMP_jmpA, TMP_optB, TMP_jmpB, TMP_jmpauto, TMP_alternatedesc));
+            queue.add(new VisitedQuest(TMP_type, TMP_ID, TMP_desc, TMP_optA, TMP_jmpA, TMP_optB, TMP_jmpB, TMP_jmpauto,
+                                       TMP_alternatedesc));
         }
         else
         {
@@ -249,9 +266,4 @@ void Game::FileIO::load(const std::vector<std::string> &sVector, QuestQueue &que
             throw std::logic_error("No such questtype!");
         }
     }
-}
-
-void Game::FileIO::save() const
-{
-    ///NOT YET
 }

@@ -28,10 +28,10 @@ public:
     void autojmp();
 
     ///a jelenlegi állapot ID-jét adja vissza
-    const size_t getcurrent_state() const;
+    size_t &getcurrent_state();
 
     ///egy adott indexű elemet ad vissza a tárolóból
-    Quest* operator[](size_t);
+    Quest *operator[](size_t);
 
     //------------------------>
     ///konstruktor
@@ -44,6 +44,6 @@ public:
     ~QuestQueue();
 };
 
-bool compare(const Quest& a, const Quest&b);
+bool compare(const Quest &a, const Quest &b);
 
 #endif //NAGYHF_QUESTQUEUE_H
