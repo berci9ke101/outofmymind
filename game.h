@@ -58,7 +58,7 @@ public:
     int keypress();
 
     ///kiírja a paraméterként kapott küldetést
-    void writequest(const Quest &);
+    void writequest(Quest *);
 
     //------------------------>
     ///paraméter nélkül hívható konstruktor
@@ -73,4 +73,5 @@ public:
     ///destruktor
     ~Game();
 };
+
 #endif //NAGYHF_GAME_H

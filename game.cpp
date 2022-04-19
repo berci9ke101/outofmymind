@@ -58,18 +58,18 @@ int Game::keypress()
     return key;
 }
 
-void Game::writequest(const Quest &rhs)
+void Game::writequest(Quest* rhs)
 {
     econio_clrscr();
 
     econio_gotoxy(0, 0);
-    std::cout << rhs.getdesc();
+    std::cout << rhs->getdesc();
 
     econio_gotoxy(14, 0);
-    std::cout << "A: " << rhs.getoptA();
+    std::cout << "A: " << rhs->getoptA();
 
     econio_gotoxy(17, 0);
-    std::cout << "B: " << rhs.getoptB();
+    std::cout << "B: " << rhs->getoptB();
 }
 
 Game::Game() : width(25), height(119), iswin(detect())

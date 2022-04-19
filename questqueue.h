@@ -31,7 +31,7 @@ public:
     size_t &getcurrent_state();
 
     ///egy adott indexű elemet ad vissza a tárolóból
-    Quest *operator[](size_t);
+    Quest *operator[](size_t) const;
 
     //------------------------>
     ///konstruktor

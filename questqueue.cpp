@@ -52,7 +52,7 @@ size_t &QuestQueue::getcurrent_state()
     return current_state;
 }
 
-Quest *QuestQueue::operator[](size_t idx)
+Quest *QuestQueue::operator[](size_t idx) const
 {
     ///nem foglalkozunk a hibakezeléssel, mert az std::vector::at() megvéd bennünket a túlindexeléstől
     return queue.at(idx);
