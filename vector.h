@@ -8,7 +8,7 @@ namespace notstd
     template<typename T>
     class vector
     {
-        T **pVec;
+        T *pVec;
         size_t curr_size;
     public:
         ///visszaadja a vektor hosszát
@@ -48,6 +48,9 @@ namespace notstd
         ///---------->
         ///paraméter nélkül hívható konstruktor
         vector();
+
+        ///konstruktor
+        vector(size_t);
 
         ///másolókonstruktor
         vector(const vector &);
@@ -132,6 +135,29 @@ namespace notstd
 
         delete[] pVec;
         pVec = temp;
+    }
+
+    template<typename T>
+    vector<T>::vector(): pVec(nullptr), curr_size(0)
+    {}
+
+    template<typename T>
+    vector<T>::vector(size_t size): pVec(new T[size]), curr_size(size)
+    {}
+
+    template<typename T>
+    vector<T>::vector(const vector &rhs): pVec(new T[rhs.curr_size]), curr_size(rhs.curr_size)
+    {
+        for (size_t i = 0; i < curr_size; i++)
+        {
+            pVec[i] = new T(*(rhs.pVec[i]));
+        }
+    }
+
+    template<typename T>
+    vector<T>::~vector()
+    {
+        delete[] pVec;
     }
 
 
