@@ -40,7 +40,7 @@ public:
     const size_t getjmpB() const;
 
     ///visszaadja az automatikus ugrás értékét
-    virtual const size_t getautojmp() const;
+    const size_t getautojmp() const;
 
     ///visszaadja A válaszlehetőség szövegét
     const std::string &getoptA() const;

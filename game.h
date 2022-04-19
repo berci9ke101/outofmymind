@@ -47,13 +47,13 @@ public:
         std::string filename;
     public:
         ///beolvassa a paraméterként kapott játékfájlt, illetve mentésfájlt
-        const std::vector<std::string> &read(const std::string &, const std::string &, QuestQueue &queue);
+        const std::vector<std::string> &read(const std::string &, const std::string &, QuestQueue &);
 
         ///betölti a paraméterként kapott szövegtömbből a küldetéstömbbe a küldetéseket
         void load(const std::vector<std::string> &sVector, QuestQueue &queue) const;
 
         ///elmenti a játékállást a paraméterül kapott szöveg néven
-        void save(const std::string &savegame, QuestQueue &queue) const;
+        void save(const std::string &, QuestQueue &) const;
 
         //------------------------>
         ///paraméter nékül hívható konstruktor
