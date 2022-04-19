@@ -9,8 +9,9 @@ int main()
     std::cin >> gamefile;
 
     ///létrehozunk egy játékfájlt
-    Game playgame();
+    Game playgame(gamefile);
 
-    playgame().
+
+
     return 0;
 }

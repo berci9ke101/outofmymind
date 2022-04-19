@@ -75,7 +75,7 @@ void Game::writequest(const Quest &rhs)
 Game::Game() : width(25), height(119), iswin(detect())
 {}
 
-Game::Game(int width, int height, std::string filename) : width(width), height(height), iswin(detect()), file(filename)
+Game::Game(std::string filename, int width, int height) : width(width), height(height), iswin(detect()), file(filename)
 {}
 
 Game::Game(const Game &rhs) : width(rhs.width), height(rhs.height), iswin(rhs.iswin)

@@ -47,8 +47,10 @@ class Game
     unsigned const int width;
     unsigned const int height;
     const bool iswin;
-    FileIO file;
 public:
+    ///fájlkezelésért felelős objektum
+    FileIO file;
+
     ///inicializálja a játékablakot
     void init();
 
@@ -63,7 +65,7 @@ public:
     Game();
 
     ///konstruktor
-    Game(int width, int height, std::string filename);
+    Game(std::string filename, int width = 25, int height = 119);
 
     ///másoló konstruktor
     Game(const Game &);
