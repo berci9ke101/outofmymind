@@ -75,7 +75,7 @@ void Game::writequest(const Quest &rhs)
 Game::Game() : width(25), height(119), iswin(detect())
 {}
 
-Game::Game(int width, int height) : width(width), height(height), iswin(detect())
+Game::Game(int width, int height, std::string filename) : width(width), height(height), iswin(detect()), file(filename)
 {}
 
 Game::Game(const Game &rhs) : width(rhs.width), height(rhs.height), iswin(rhs.iswin)
@@ -88,14 +88,8 @@ Game::~Game()
 ///a fájkezelésért felelős osztály///
 ///-------------------------------///
 const std::vector<std::string> &
-Game::FileIO::read(const std::string &gamefile, const std::string &savefile, QuestQueue &queue)
+FileIO::read(const std::string &gamefile, const std::string &savefile, QuestQueue &queue)
 {
-//    ///megkérdezzük a felhasználót, hogy mi a játékfájl neve
-//    std::cout << "What's the name of the gamefile that you would like to load?: ";
-//    std::string gamefile;
-//    std::cin >> gamefile;
-//
-//
     ///fájl megnyitása
     std::ifstream GAME;
     GAME.open(gamefile, std::ios::in);
@@ -151,7 +145,7 @@ Game::FileIO::read(const std::string &gamefile, const std::string &savefile, Que
     return *sVector;
 }
 
-void Game::FileIO::load(const std::vector<std::string> &sVector, QuestQueue &queue) const
+void FileIO::load(const std::vector<std::string> &sVector, QuestQueue &queue) const
 {
     ///temporális változók
     questtype TMP_type;
@@ -263,7 +257,7 @@ void Game::FileIO::load(const std::vector<std::string> &sVector, QuestQueue &que
     }
 }
 
-void Game::FileIO::save(const std::string &savegame, QuestQueue &queue) const
+void FileIO::save(const std::string &savegame, QuestQueue &queue) const
 {
     ///mentés kiírása
     std::ofstream SAVE;
@@ -285,16 +279,16 @@ void Game::FileIO::save(const std::string &savegame, QuestQueue &queue) const
     SAVE.close();
 }
 
-Game::FileIO::FileIO() : filename("N/A")
+FileIO::FileIO() : filename("N/A")
 {}
 
-Game::FileIO::FileIO(const std::string &filename) : filename(filename)
+FileIO::FileIO(const std::string &filename) : filename(filename)
 {}
 
-Game::FileIO::FileIO(const Game::FileIO &rhs) : filename(rhs.filename)
+FileIO::FileIO(const FileIO &rhs) : filename(rhs.filename)
 {}
 
-Game::FileIO::~FileIO()
+FileIO::~FileIO()
 {}
 
 

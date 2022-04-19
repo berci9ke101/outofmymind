@@ -8,6 +8,37 @@
 #include "quest.h"
 #include "questqueue.h"
 
+///-------------------------------///
+///a fájkezelésért felelős osztály///
+///-------------------------------///
+class FileIO
+{
+    std::string filename;
+public:
+    ///beolvassa a paraméterként kapott játékfájlt, illetve mentésfájlt
+    const std::vector<std::string> &read(const std::string &, const std::string &, QuestQueue &);
+
+    ///betölti a paraméterként kapott szövegtömbből a küldetéstömbbe a küldetéseket
+    void load(const std::vector<std::string> &sVector, QuestQueue &queue) const;
+
+    ///elmenti a játékállást a paraméterül kapott szöveg néven
+    void save(const std::string &, QuestQueue &) const;
+
+    //------------------------>
+    ///paraméter nékül hívható konstruktor
+    FileIO();
+
+    ///konstruktor
+    FileIO(const std::string &);
+
+    ///másoló konstruktor
+    FileIO(const FileIO &);
+
+    ///destruktor
+    ~FileIO();
+};
+
+
 ///--------------------------///
 ///a játékért felelős osztály///
 ///--------------------------///
@@ -16,6 +47,7 @@ class Game
     unsigned const int width;
     unsigned const int height;
     const bool iswin;
+    FileIO file;
 public:
     ///inicializálja a játékablakot
     void init();
@@ -31,43 +63,12 @@ public:
     Game();
 
     ///konstruktor
-    Game(int width, int height);
+    Game(int width, int height, std::string filename);
 
     ///másoló konstruktor
     Game(const Game &);
 
     ///destruktor
     ~Game();
-
-    ///-------------------------------///
-    ///a fájkezelésért felelős osztály///
-    ///-------------------------------///
-    class FileIO
-    {
-        std::string filename;
-    public:
-        ///beolvassa a paraméterként kapott játékfájlt, illetve mentésfájlt
-        const std::vector<std::string> &read(const std::string &, const std::string &, QuestQueue &);
-
-        ///betölti a paraméterként kapott szövegtömbből a küldetéstömbbe a küldetéseket
-        void load(const std::vector<std::string> &sVector, QuestQueue &queue) const;
-
-        ///elmenti a játékállást a paraméterül kapott szöveg néven
-        void save(const std::string &, QuestQueue &) const;
-
-        //------------------------>
-        ///paraméter nékül hívható konstruktor
-        FileIO();
-
-        ///konstruktor
-        FileIO(const std::string &);
-
-        ///másoló konstruktor
-        FileIO(const FileIO &);
-
-        ///destruktor
-        ~FileIO();
-    };
 };
-
 #endif //NAGYHF_GAME_H
