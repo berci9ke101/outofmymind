@@ -43,7 +43,10 @@ int main()
     ///maga a játékloop
     while (qq.getcurrent_state() != -1)
     {
+        ///a jelenlegi küldetés szövegét kiírjuk
         playgame.writequest(qq[qq.getcurrent_state()]);
+
+        ///várakozunk gomnyomásra
         int keyboardinput = playgame.keypress();
         switch (keyboardinput)
         {
@@ -54,6 +57,8 @@ int main()
                 qq.chooseB();
                 break;
         }
+        ///miután megtörtént a gombnyomás, ha esetleg a küldetés már látogatott, autougrunk
+        qq.autojmp();
     }
 
     return 0;

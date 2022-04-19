@@ -49,7 +49,7 @@ public:
     const std::string &getoptB() const;
 
     ///visszaadja a küldetés leírását
-    virtual const std::string &getdesc() const;
+    virtual std::string *getdesc() const;
 
     ///visszaadja a küüldetés típusát
     const questtype gettype() const;
@@ -90,7 +90,7 @@ public:
                 size_t jmpB, size_t jmpauto = -1);
 
     ///másoló konstruktor
-    SimpleQuest(const SimpleQuest &);
+    ///SimpleQuest(const SimpleQuest &);
 
     ///destruktor
     ~SimpleQuest();
@@ -104,7 +104,7 @@ class VisitedQuest : public Quest
     std::string alternatedesc;
 public:
     ///visszaadja a küldetés leírását
-    const std::string &getdesc() const;
+    std::string *getdesc() const;
 
     ///létrehoz egy dinamikus másolatot a példányból
     Quest *clone() const;
@@ -121,7 +121,7 @@ public:
                  size_t jmpB, size_t jmpauto, std::string alternatedesc);
 
     ///másoló konstruktor
-    VisitedQuest(const SimpleQuest &);
+    ///VisitedQuest(const SimpleQuest &);
 
     ///destruktor
     ~VisitedQuest();
@@ -134,7 +134,7 @@ class RandomQuest : public Quest
 {
 public:
     ///visszaadja a küldetés leírását, FONTOS: a használónak kell felszabdítani a dinamikusan foglalt részt
-    const std::string &getdesc() const;
+    std::string *getdesc() const;
 
     ///létrehoz egy dinamikus másolatot a példányból
     Quest *clone() const;
@@ -148,7 +148,7 @@ public:
                 size_t jmpB, size_t jmpauto = -1);
 
     ///másoló konstruktor
-    RandomQuest(const SimpleQuest &);
+    ///RandomQuest(const SimpleQuest &);
 
     ///destruktor
     ~RandomQuest();

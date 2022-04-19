@@ -44,7 +44,10 @@ void QuestQueue::chooseB()
 
 void QuestQueue::autojmp()
 {
-    current_state = queue[current_state]->getautojmp();
+    if (queue[current_state]->gettype() == Visited)
+    {
+        current_state = queue[current_state]->getautojmp();
+    }
 }
 
 size_t &QuestQueue::getcurrent_state()

@@ -42,9 +42,9 @@ const std::string &Quest::getoptB() const
     return optB;
 }
 
-const std::string &Quest::getdesc() const
+std::string *Quest::getdesc() const
 {
-    return desc;
+    return new std::string(desc);
 }
 
 const questtype Quest::gettype() const
@@ -82,9 +82,7 @@ SimpleQuest::SimpleQuest(questtype type, size_t ID, std::string desc, std::strin
                          size_t jmpB, size_t jmpauto) : Quest(type, ID, desc, optA, jmpA, optB, jmpB, jmpauto)
 {}
 
-SimpleQuest::SimpleQuest(const SimpleQuest &rhs) : Quest(rhs.gettype(), rhs.getID(), rhs.getdesc(), rhs.getoptA(),
-                                                         rhs.getjmpA(), rhs.getoptB(), rhs.getjmpB(), rhs.getautojmp())
-{}
+///SimpleQuest::SimpleQuest(const SimpleQuest &rhs) : Quest(rhs.gettype(), rhs.getID(), rhs.getdesc(), rhs.getoptA(), rhs.getjmpA(), rhs.getoptB(), rhs.getjmpB(), rhs.getautojmp()){}
 
 SimpleQuest::~SimpleQuest()
 {}
@@ -92,13 +90,13 @@ SimpleQuest::~SimpleQuest()
 ///------------------------------///
 ///a látogatható küldetés osztály///
 ///----------------- ------------///
-const std::string &VisitedQuest::getdesc() const
+std::string *VisitedQuest::getdesc() const
 {
     if (gettype() == Visitable)
     {
         return Quest::getdesc();
     }
-    return alternatedesc;
+    return new std::string(alternatedesc);
 }
 
 Quest *VisitedQuest::clone() const
@@ -120,10 +118,7 @@ VisitedQuest::VisitedQuest(questtype type, size_t ID, std::string desc, std::str
                                                                                      alternatedesc(alternatedesc)
 {}
 
-VisitedQuest::VisitedQuest(const SimpleQuest &rhs) : Quest(rhs.gettype(), rhs.getID(), rhs.getdesc(), rhs.getoptA(),
-                                                           rhs.getjmpA(), rhs.getoptB(), rhs.getjmpB(),
-                                                           rhs.getautojmp()), alternatedesc(rhs.getdesc())
-{}
+///VisitedQuest::VisitedQuest(const SimpleQuest &rhs) : Quest(rhs.gettype(), rhs.getID(), rhs.getdesc(), rhs.getoptA(), rhs.getjmpA(), rhs.getoptB(), rhs.getjmpB(), rhs.getautojmp()), alternatedesc(rhs.getdesc()){}
 
 VisitedQuest::~VisitedQuest()
 {}
@@ -131,11 +126,12 @@ VisitedQuest::~VisitedQuest()
 ///--------------------------------///
 ///a véletlenszerű küldetés osztály///
 ///--------------------------------///
-const std::string &RandomQuest::getdesc() const
+std::string *RandomQuest::getdesc() const
 {
     ///a '#' szimbólummal tagolt szöveg szétszedése és belerakása egy dinamikus tömbbe
     std::vector<std::string> stringarr;
-    std::istringstream strings(Quest::getdesc());
+    std::string *sp = Quest::getdesc();
+    std::istringstream strings(*sp);
     std::string s;
 
     while (getline(strings, s, '#'))
@@ -143,13 +139,16 @@ const std::string &RandomQuest::getdesc() const
         stringarr.push_back(s);
     }
 
+    ///kitöröljük a dinamikusan foglalt string részt
+    delete sp;
+
     ///véletlen sorszámú kiválasztása
     srand(14);
 
     ///ennek dinamikus foglalása és visszaadása
     std::string *ret = new std::string;
     ret = &stringarr[rand() % stringarr.size()];
-    return *ret;
+    return ret;
 }
 
 Quest *RandomQuest::clone() const
@@ -164,9 +163,7 @@ RandomQuest::RandomQuest(questtype type, size_t ID, std::string desc, std::strin
                          size_t jmpB, size_t jmpauto) : Quest(type, ID, desc, optA, jmpA, optB, jmpB, jmpauto)
 {}
 
-RandomQuest::RandomQuest(const SimpleQuest &rhs) : Quest(rhs.gettype(), rhs.getID(), rhs.getdesc(), rhs.getoptA(),
-                                                         rhs.getjmpA(), rhs.getoptB(), rhs.getjmpB(), rhs.getautojmp())
-{}
+///RandomQuest::RandomQuest(const SimpleQuest &rhs) : Quest(rhs.gettype(), rhs.getID(), rhs.getdesc(), rhs.getoptA(), rhs.getjmpA(), rhs.getoptB(), rhs.getjmpB(), rhs.getautojmp()){}
 
 RandomQuest::~RandomQuest()
 {}
