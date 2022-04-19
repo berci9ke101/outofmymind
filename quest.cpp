@@ -98,10 +98,7 @@ const std::string &VisitedQuest::getdesc() const
     {
         return Quest::getdesc();
     }
-    else if (gettype() == Visited)
-    {
-        return alternatedesc;
-    }
+    return alternatedesc;
 }
 
 Quest *VisitedQuest::clone() const
