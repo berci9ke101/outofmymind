@@ -9,14 +9,27 @@ void QuestQueue::add(Quest *quest)
     queue.push_back(quest);
 }
 
-bool compare(const Quest *a, const Quest *b)
+void swap(Quest *a, Quest *b)
 {
-    return a->getID() > b->getID();
+    Quest *temp = a;
+    a = b;
+    b = temp;
 }
 
 void QuestQueue::sort()
 {
-    std::sort(queue.begin(), queue.end(), compare);
+    size_t i, j;
+    size_t n = queue.size();
+    for (i = 0; i < n - 1; i++)
+    {
+        for (j = 0; j < n - i - 1; j++)
+        {
+            if (queue[j]->getID() > queue[j + 1]->getID())
+            {
+                swap(queue[j], queue[j + 1]);
+            }
+        }
+    }
 }
 
 void QuestQueue::chooseA()
