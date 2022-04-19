@@ -8,8 +8,8 @@ namespace notstd
     template<typename T>
     class vector
     {
-        T *pVec;
-        size_t curr_size;
+        T *data;
+        size_t siz;
     public:
         ///visszaadja a vektor hosszát
         const size_t size() const;
@@ -63,13 +63,13 @@ namespace notstd
     template<typename T>
     const size_t vector<T>::size() const
     {
-        return curr_size;
+        return siz;
     }
 
     template<typename T>
     T &vector<T>::at(size_t n)
     {
-        if (n >= curr_size or n < 0)
+        if (n >= siz)
         {
             throw std::out_of_range("");
         }
@@ -79,7 +79,7 @@ namespace notstd
     template<typename T>
     const T &vector<T>::at(size_t n) const
     {
-        if (n >= curr_size or n < 0)
+        if (n >= siz or n < 0)
         {
             throw std::out_of_range("");
         }
@@ -89,57 +89,57 @@ namespace notstd
     template<typename T>
     bool vector<T>::empty() const
     {
-        return curr_size == 0;
+        return siz == 0;
     }
 
     template<typename T>
     T &vector<T>::operator[](size_t n)
     {
-        return (*this).pVec[n];
+        return (*this).data[n];
     }
 
     template<typename T>
     const T &vector<T>::operator[](size_t n) const
     {
-        return (*this).pVec[n];
+        return (*this).data[n];
     }
 
     template<typename T>
     void vector<T>::push_back(const T &x)
     {
-        T *temp = new T[curr_size + 1];
-        for (size_t i = 0; i < curr_size; i++)
+        T *temp = new T[siz + 1];
+        for (size_t i = 0; i < siz; i++)
         {
-            temp[i] = pVec[i];
+            temp[i] = data[i];
         }
 
-        temp[curr_size++] = x;
+        temp[siz++] = x;
 
-        delete[] pVec;
-        pVec = temp;
+        delete[] data;
+        data = temp;
     }
 
     template<typename T>
-    vector<T>::vector(): pVec(nullptr), curr_size(0)
+    vector<T>::vector(): data(nullptr), siz(0)
     {}
 
     template<typename T>
-    vector<T>::vector(size_t size): pVec(new T[size]), curr_size(size)
+    vector<T>::vector(size_t size): data(new T[size]), siz(size)
     {}
 
     template<typename T>
-    vector<T>::vector(const vector &rhs): pVec(new T[rhs.curr_size]), curr_size(rhs.curr_size)
+    vector<T>::vector(const vector &rhs): data(new T[rhs.siz]), siz(rhs.siz)
     {
-        for (size_t i = 0; i < curr_size; i++)
+        for (size_t i = 0; i < siz; i++)
         {
-            pVec[i] = rhs.pVec[i];
+            data[i] = rhs.data[i];
         }
     }
 
     template<typename T>
     vector<T>::~vector()
     {
-        delete[] pVec;
+        delete[] data;
     }
 
 
