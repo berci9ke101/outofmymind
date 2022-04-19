@@ -3,7 +3,7 @@
 
 #include <cstdio>
 #include <string>
-#include <vector>
+#include "vector.h"
 
 ///a küldetéstípusok felsorolása
 enum questtype

@@ -3,7 +3,7 @@
 
 #include <cstdio>
 #include <string>
-#include <vector>
+#include "vector.h"
 
 #include "quest.h"
 #include "questqueue.h"
@@ -16,10 +16,10 @@ class FileIO
     std::string filename;
 public:
     ///beolvassa a paraméterként kapott játékfájlt, illetve mentésfájlt
-    const std::vector<std::string> &read(const std::string &, const std::string &, QuestQueue &);
+    const notstd::vector<std::string> &read(const std::string &, const std::string &, QuestQueue &);
 
     ///betölti a paraméterként kapott szövegtömbből a küldetéstömbbe a küldetéseket
-    void load(const std::vector<std::string> &sVector, QuestQueue &queue) const;
+    void load(const notstd::vector<std::string> &sVector, QuestQueue &queue) const;
 
     ///elmenti a játékállást a paraméterül kapott szöveg néven
     void save(const std::string &, QuestQueue &) const;

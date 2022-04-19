@@ -94,7 +94,7 @@ Game::~Game()
 ///-------------------------------///
 ///a fájkezelésért felelős osztály///
 ///-------------------------------///
-const std::vector<std::string> &
+const notstd::vector<std::string> &
 FileIO::read(const std::string &gamefile, const std::string &savefile, QuestQueue &queue)
 {
     ///fájl megnyitása
@@ -111,7 +111,7 @@ FileIO::read(const std::string &gamefile, const std::string &savefile, QuestQueu
 
     ///beolvasás, ha nincs hiba
     std::string line;
-    std::vector<std::string> *sVector = new std::vector<std::string>;
+    notstd::vector<std::string> *sVector = new notstd::vector<std::string>;
     while (getline(GAME, line))
     {
         sVector->push_back(line);
@@ -152,7 +152,7 @@ FileIO::read(const std::string &gamefile, const std::string &savefile, QuestQueu
     return *sVector;
 }
 
-void FileIO::load(const std::vector<std::string> &sVector, QuestQueue &queue) const
+void FileIO::load(const notstd::vector<std::string> &sVector, QuestQueue &queue) const
 {
     ///temporális változók
     questtype TMP_type;
@@ -179,7 +179,7 @@ void FileIO::load(const std::vector<std::string> &sVector, QuestQueue &queue) co
     {
         std::string TEMP = sVector[i];
 
-        std::vector<std::string> variable_arr;
+        notstd::vector<std::string> variable_arr;
         std::istringstream strings(sVector[i]);
         std::string s;
 
@@ -206,7 +206,7 @@ void FileIO::load(const std::vector<std::string> &sVector, QuestQueue &queue) co
             std::stringstream(variable_arr[4]) >> TMP_jmpA;
 
             ///B opció szövegének konvertálása
-            TMP_optA = variable_arr[5];
+            TMP_optB = variable_arr[5];
 
             ///B opcióra való ugrás konvertálása
             std::stringstream(variable_arr[4]) >> TMP_jmpB;
@@ -248,7 +248,7 @@ void FileIO::load(const std::vector<std::string> &sVector, QuestQueue &queue) co
             std::stringstream(variable_arr[6]) >> TMP_jmpA;
 
             ///B opció szövegének konvertálása
-            TMP_optA = variable_arr[7];
+            TMP_optB = variable_arr[7];
 
             ///B opcióra való ugrás konvertálása
             std::stringstream(variable_arr[8]) >> TMP_jmpB;

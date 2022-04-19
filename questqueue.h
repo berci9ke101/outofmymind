@@ -2,14 +2,14 @@
 #define NAGYHF_QUESTQUEUE_H
 
 #include "quest.h"
-#include <vector>
+#include "vector.h"
 
 ///-----------------------///
 ///a küldetéseket tárolója///
 ///------------------ ----///
 class QuestQueue
 {
-    std::vector<Quest *> queue;
+    notstd::vector<Quest *> queue;
     size_t current_state;
 public:
     ///hozzáad egy újabb elemet a tárolóhoz

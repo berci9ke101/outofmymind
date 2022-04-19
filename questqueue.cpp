@@ -9,11 +9,13 @@ void QuestQueue::add(Quest *quest)
     queue.push_back(quest);
 }
 
-void swap(Quest *a, Quest *b)
+template<class T>
+void swap(T &x, T &y)
 {
-    Quest *temp = a;
-    a = b;
-    b = temp;
+    T temp;
+    temp = x;
+    x = y;
+    y = temp;
 }
 
 void QuestQueue::sort()
@@ -57,7 +59,7 @@ size_t &QuestQueue::getcurrent_state()
 
 Quest *QuestQueue::operator[](size_t idx) const
 {
-    ///nem foglalkozunk a hibakezeléssel, mert az std::vector::at() megvéd bennünket a túlindexeléstől
+    ///nem foglalkozunk a hibakezeléssel, mert az notstd::vector::at() megvéd bennünket a túlindexeléstől
     return queue.at(idx);
 }
 

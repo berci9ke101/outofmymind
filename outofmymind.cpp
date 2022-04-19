@@ -50,16 +50,18 @@ int main()
         int keyboardinput = playgame.keypress();
         switch (keyboardinput)
         {
-            case 1:
+            case -1:
                 qq.chooseA();
                 break;
-            case 2:
+            case -2:
                 qq.chooseB();
                 break;
         }
         ///miután megtörtént a gombnyomás, ha esetleg a küldetés már látogatott, autougrunk
         qq.autojmp();
     }
+
+    ///save hiányzik...
 
     return 0;
 }

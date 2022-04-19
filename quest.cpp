@@ -1,5 +1,5 @@
 #include "quest.h"
-#include <vector>
+#include "vector.h"
 #include <iostream>
 #include <sstream>
 
@@ -129,7 +129,7 @@ VisitedQuest::~VisitedQuest()
 std::string *RandomQuest::getdesc() const
 {
     ///a '#' szimbólummal tagolt szöveg szétszedése és belerakása egy dinamikus tömbbe
-    std::vector<std::string> stringarr;
+    notstd::vector<std::string> stringarr;
     std::string *sp = Quest::getdesc();
     std::istringstream strings(*sp);
     std::string s;
