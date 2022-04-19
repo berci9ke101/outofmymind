@@ -56,8 +56,11 @@ public:
         void save(const std::string &savegame, QuestQueue &queue) const;
 
         //------------------------>
-        ///konstruktor
+        ///paraméter nékül hívható konstruktor
         FileIO();
+
+        ///konstruktor
+        FileIO(const std::string &);
 
         ///másoló konstruktor
         FileIO(const FileIO &);

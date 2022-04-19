@@ -284,3 +284,17 @@ void Game::FileIO::save(const std::string &savegame, QuestQueue &queue) const
     ///a fájl bezárása
     SAVE.close();
 }
+
+Game::FileIO::FileIO() : filename("N/A")
+{}
+
+Game::FileIO::FileIO(const std::string &filename) : filename(filename)
+{}
+
+Game::FileIO::FileIO(const Game::FileIO &rhs) : filename(rhs.filename)
+{}
+
+Game::FileIO::~FileIO()
+{}
+
+
