@@ -43,7 +43,7 @@ namespace notstd
         void push_back(const T &x);
 
         ///a vektor hátuljára beerakja az adattagot (nem konstans adattagra is működik)
-        void push_back(T &x);
+        void push_back(T *x);
 
         ///---------->
         ///paraméter nélkül hívható konstruktor
@@ -123,7 +123,7 @@ namespace notstd
     }
 
     template<typename T>
-    void vector<T>::push_back(T &x)
+    void vector<T>::push_back(T *x)
     {
         T **temp = new T *[curr_size + 1];
         for (size_t i = 0; i < curr_size; i++)
