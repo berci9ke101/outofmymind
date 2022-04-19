@@ -225,9 +225,12 @@ void Game::FileIO::load(const std::vector<std::string> &sVector, QuestQueue &que
             }
         }
 
-            ///Visited vagy Visitable
-        else if (type == std::string("V") or type == std::string("v"))
+            ///Visitable
+        else if (type == std::string("V"))
         {
+            ///küldetéstípus konvertálása
+            TMP_type = Visited;
+
             ///küldetésleírás konvertálása
             TMP_desc = variable_arr[2];
 
@@ -249,17 +252,6 @@ void Game::FileIO::load(const std::vector<std::string> &sVector, QuestQueue &que
             ///B opcióra való ugrás konvertálása
             std::stringstream(variable_arr[8]) >> TMP_jmpB;
 
-            ///küldetéstípus tesztelése
-            if (type == std::string("v"))
-            {
-                ///küldetéstípus konvertálása
-                TMP_type = Visitable;
-            }
-            else if (type == std::string("V"))
-            {
-                ///küldetéstípus konvertálása
-                TMP_type = Visited;
-            }
             queue.add(new VisitedQuest(TMP_type, TMP_ID, TMP_desc, TMP_optA, TMP_jmpA, TMP_optB, TMP_jmpB, TMP_jmpauto,
                                        TMP_alternatedesc));
         }
