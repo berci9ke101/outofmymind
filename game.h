@@ -19,10 +19,10 @@ public:
     static const notstd::vector<std::string> &read(const std::string &, const std::string &, QuestQueue &);
 
     ///betölti a paraméterként kapott szövegtömbből a küldetéstömbbe a küldetéseket
-    static void load(const notstd::vector<std::string> &sVector, QuestQueue &queue) ;
+    static void load(const notstd::vector<std::string> &sVector, QuestQueue &queue);
 
     ///elmenti a játékállást a paraméterül kapott szöveg néven
-    static void save(const std::string &, QuestQueue &) ;
+    static void save(const std::string &, QuestQueue &);
 
     //------------------------>
     ///paraméter nékül hívható konstruktor
@@ -65,7 +65,7 @@ public:
     Game();
 
     ///konstruktor
-    Game(const std::string& filename, int width = 25, int height = 119);
+    Game(const std::string &filename, int width = 25, int height = 119);
 
     ///másoló konstruktor
     Game(const Game &);
@@ -73,5 +73,8 @@ public:
     ///destruktor
     ~Game();
 };
+
+///játék elmentése
+void savegame(int argc, char **argv, Game& game, QuestQueue& queue);
 
 #endif //NAGYHF_GAME_H

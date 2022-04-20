@@ -44,6 +44,4 @@ public:
     ~QuestQueue();
 };
 
-bool compare(const Quest &a, const Quest &b);
-
 #endif //NAGYHF_QUESTQUEUE_H

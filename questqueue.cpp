@@ -36,24 +36,28 @@ void QuestQueue::sort()
 
 void QuestQueue::chooseA()
 {
-    ///ha most látogatjuk elsőre, akkor jelöljük látogatottnak
-    if (queue[current_state]->gettype() == Visitable)
-    {
-        queue[current_state]->change();
-    }
-
+    ///ez a varázslás elengedhetetlen az elvárt működéshez
+    size_t temp_state = current_state;
     current_state = queue[current_state]->getjmpA();
+
+    ///ha most látogatjuk elsőre, akkor jelöljük látogatottnak
+    if (queue[temp_state]->gettype() == Visitable)
+    {
+        queue[temp_state]->change();
+    }
 }
 
 void QuestQueue::chooseB()
 {
-    ///ha most látogatjuk elsőre, akkor jelöljük látogatottnak
-    if (queue[current_state]->gettype() == Visitable)
-    {
-        queue[current_state]->change();
-    }
-
+    ///ez a varázslás elengedhetetlen az elvárt működéshez
+    size_t temp_state = current_state;
     current_state = queue[current_state]->getjmpB();
+
+    ///ha most látogatjuk elsőre, akkor jelöljük látogatottnak
+    if (queue[temp_state]->gettype() == Visitable)
+    {
+        queue[temp_state]->change();
+    }
 }
 
 void QuestQueue::autojmp()

@@ -1,16 +1,16 @@
 #include <iostream>
 #include "game.h"
+#include "econio.h"
 
 ///MI AZ AMI NEM MEGY?
 /*
  *
- * autojump
  * random quest leírás
  * mentés
  *
  * */
 
-int main()
+int main(int argc, char **argv)
 {
     ///megkérdezzük a felhasználót, hogy mi a játékfájl neve
     std::cout << "What's the name of the gamefile that you would like to load?: ";
@@ -58,11 +58,11 @@ int main()
         ///a jelenlegi küldetés szövegét kiírjuk
         playgame.writequest(qq[qq.getcurrent_state()]);
 
-        ///várakozunk gomnyomásra
-        int keyboardinput = playgame.keypress();
-
         ///miután megtörtént a gombnyomás, ha esetleg a küldetés már látogatott, autougrunk
         qq.autojmp();
+
+        ///várakozunk gomnyomásra
+        int keyboardinput = playgame.keypress();
 
         switch (keyboardinput)
         {
@@ -71,6 +71,9 @@ int main()
                 break;
             case 'b':
                 qq.chooseB();
+                break;
+            case KEY_ESCAPE:
+                savegame(argc, argv, playgame, qq);
                 break;
         }
     }
