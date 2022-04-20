@@ -36,7 +36,7 @@ void QuestQueue::sort()
 
 void QuestQueue::chooseA()
 {
-    ///ez a varázslás elengedhetetlen az elvárt működéshez
+    ///ez a varázslás elengedhetetlen az elvárt működéshez (elmentjük a jelenlegi állapotot és megváltoztatjuk a következőre, majd a tároló elmentett állapotindexén található küldetés típusát átállítjuk, ha át kell)
     size_t temp_state = current_state;
     current_state = queue[current_state]->getjmpA();
 
@@ -49,7 +49,7 @@ void QuestQueue::chooseA()
 
 void QuestQueue::chooseB()
 {
-    ///ez a varázslás elengedhetetlen az elvárt működéshez
+    ///ez a varázslás elengedhetetlen az elvárt működéshez (elmentjük a jelenlegi állapotot és megváltoztatjuk a következőre, majd a tároló elmentett állapotindexén található küldetés típusát átállítjuk, ha át kell)
     size_t temp_state = current_state;
     current_state = queue[current_state]->getjmpB();
 

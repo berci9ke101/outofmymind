@@ -6,7 +6,6 @@
 /*
  *
  * random quest leírás
- * mentés
  *
  * */
 
@@ -73,12 +72,17 @@ int main(int argc, char **argv)
                 qq.chooseB();
                 break;
             case KEY_ESCAPE:
-                savegame(argc, argv, playgame, qq);
+                ///megpróbáljuk elmenteni az állást
+                try
+                {
+                    savegame(argc, argv, playgame, qq);
+                } catch (std::ios_base::failure &failure)
+                {
+
+                }
                 break;
         }
     }
-
-    ///save hiányzik...
 
     return 0;
 }

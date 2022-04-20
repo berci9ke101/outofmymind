@@ -73,6 +73,14 @@ void Game::writequest(Quest *rhs)
         econio_gotoxy(0, 17);
         std::cout << "B: " << rhs->getoptB();
     }
+
+    ///"help menu"
+    econio_gotoxy(0, 22);
+    std::cout << "A billentyű      - kiválasztja az 'A' opciót";
+    econio_gotoxy(0, 23);
+    std::cout << "B billentyű      - kiválasztja az 'B' opciót";
+    econio_gotoxy(0, 24);
+    std::cout << "ESCAPE billentyű - mentés és kilépés";
 }
 
 Game::Game() : width(25), height(119), iswin(detect())
