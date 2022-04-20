@@ -77,7 +77,7 @@ void Game::writequest(Quest *rhs)
     ///ha most látogatjuk elsőre, akkor jelöljük látogatottnak
     if (rhs->gettype() == Visitable)
     {
-        ((VisitedQuest &) rhs).change();
+        rhs->change();
     }
 }
 
