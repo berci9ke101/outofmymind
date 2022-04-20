@@ -33,14 +33,14 @@ public:
     ///visszaadja a küldetésst ID-jét
     const size_t getID() const;
 
-    ///visszaadja, hogy a küldetés melyik másik küldetésre ugrik A válaszlehetőség választása esetén
-    const size_t getjmpA() const;
+    ///visszaadja, hogy a küldetés melyik másik küldetésre ugrik A válaszlehetőség választása esetén, az érték változtatható is
+    size_t& getjmpA();
 
-    ///visszaadja, hogy a küldetés melyik másik küldetésre ugrik B válaszlehetőség választása esetén
-    const size_t getjmpB() const;
+    ///visszaadja, hogy a küldetés melyik másik küldetésre ugrik B válaszlehetőség választása esetén, az érték változtatható is
+    size_t& getjmpB();
 
     ///visszaadja az automatikus ugrás értékét
-    const size_t getautojmp() const;
+    size_t getautojmp();
 
     ///visszaadja A válaszlehetőség szövegét
     const std::string &getoptA() const;
@@ -55,7 +55,7 @@ public:
     const questtype gettype() const;
 
     ///megváltoztatja a küldetés típusát "Visitable"-ről "Visited"-re
-    void change();
+    virtual void change();
 
     ///létrehoz egy dinamikus másolatot a példányból
     virtual Quest *clone() const = 0;
@@ -111,6 +111,9 @@ public:
 
     ///létrehoz egy dinamikus másolatot a példányból
     Quest *clone() const;
+
+    ///megváltoztatja a küldetés típusát "Visitable"-ről "Visited"-re
+    void change();
 
     //------------------------>
     ///paraméter nélkül hívható konstruktor

@@ -73,12 +73,6 @@ void Game::writequest(Quest *rhs)
         econio_gotoxy(0, 17);
         std::cout << "B: " << rhs->getoptB();
     }
-
-    ///ha most látogatjuk elsőre, akkor jelöljük látogatottnak
-    if (rhs->gettype() == Visitable)
-    {
-        rhs->change();
-    }
 }
 
 Game::Game() : width(25), height(119), iswin(detect())

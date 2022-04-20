@@ -13,26 +13,24 @@ void Quest::settype(questtype type)
 }
 
 void Quest::change()
-{
-    (*this).settype(Visited);
-}
+{}
 
 const size_t Quest::getID() const
 {
     return ID;
 }
 
-const size_t Quest::getjmpA() const
+size_t &Quest::getjmpA()
 {
     return jmpA;
 }
 
-const size_t Quest::getjmpB() const
+size_t &Quest::getjmpB()
 {
     return jmpB;
 }
 
-const size_t Quest::getautojmp() const
+size_t Quest::getautojmp()
 {
     return jmpauto;
 }
@@ -108,6 +106,13 @@ std::string *VisitedQuest::getdesc() const
 Quest *VisitedQuest::clone() const
 {
     return new VisitedQuest(*this);
+}
+
+void VisitedQuest::change()
+{
+    (*this).getjmpB() = (*this).getautojmp();
+    (*this).getjmpA() = (*this).getautojmp();
+    (*this).settype(Visited);
 }
 
 VisitedQuest::VisitedQuest() : Quest(), alternatedesc("N/A")

@@ -1,6 +1,15 @@
 #include <iostream>
 #include "game.h"
 
+///MI AZ AMI NEM MEGY?
+/*
+ *
+ * autojump
+ * random quest leírás
+ * mentés
+ *
+ * */
+
 int main()
 {
     ///megkérdezzük a felhasználót, hogy mi a játékfájl neve
@@ -51,6 +60,10 @@ int main()
 
         ///várakozunk gomnyomásra
         int keyboardinput = playgame.keypress();
+
+        ///miután megtörtént a gombnyomás, ha esetleg a küldetés már látogatott, autougrunk
+        qq.autojmp();
+
         switch (keyboardinput)
         {
             case 'a':
@@ -59,13 +72,6 @@ int main()
             case 'b':
                 qq.chooseB();
                 break;
-            default:
-                break;
-        }
-        ///miután megtörtént a gombnyomás, ha esetleg a küldetés már látogatott, autougrunk és nem a kilépésállapotban vagyunk
-        if (qq.getcurrent_state() != exit_state)
-        {
-            qq.autojmp();
         }
     }
 
