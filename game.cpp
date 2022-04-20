@@ -23,7 +23,7 @@ bool detect()
 ///--------------------------///
 ///a játékért felelős osztály///
 ///--------------------------///
-void Game::init()
+void Game::init() const
 {
     if (iswin)
     {
@@ -50,11 +50,7 @@ void Game::init()
 
 int Game::keypress()
 {
-    int key = -1;
-    ///if (econio_kbhit())
-    ///{
-    key = econio_getch();
-    /// }
+    int key = econio_getch();
     return key;
 }
 
@@ -71,18 +67,25 @@ void Game::writequest(Quest *rhs)
     ///ha nem látogatott a küldetés csak akkor írjuk ki a szöveget
     if (rhs->gettype() != Visited)
     {
-        econio_gotoxy(14, 0);
+        econio_gotoxy(0, 14);
         std::cout << "A: " << rhs->getoptA();
 
-        econio_gotoxy(17, 0);
+        econio_gotoxy(0, 17);
         std::cout << "B: " << rhs->getoptB();
+    }
+
+    ///ha most látogatjuk elsőre, akkor jelöljük látogatottnak
+    if (rhs->gettype() == Visitable)
+    {
+        ((VisitedQuest &) rhs).change();
     }
 }
 
 Game::Game() : width(25), height(119), iswin(detect())
 {}
 
-Game::Game(std::string filename, int width, int height) : width(width), height(height), iswin(detect()), file(filename)
+Game::Game(const std::string &filename, int width, int height) : width(width), height(height), iswin(detect()),
+                                                                 file(filename)
 {}
 
 Game::Game(const Game &rhs) : width(rhs.width), height(rhs.height), iswin(rhs.iswin)
@@ -151,7 +154,7 @@ FileIO::read(const std::string &gamefile, const std::string &savefile, QuestQueu
     return *sVector;
 }
 
-void FileIO::load(const notstd::vector<std::string> &sVector, QuestQueue &queue) const
+void FileIO::load(const notstd::vector<std::string> &sVector, QuestQueue &queue)
 {
     ///temporális változók
     questtype TMP_type;
@@ -176,8 +179,7 @@ void FileIO::load(const notstd::vector<std::string> &sVector, QuestQueue &queue)
     ///beolvasáso ciklus
     for (size_t i = 0; i < sVector.size(); i++)
     {
-        std::string TEMP = sVector[i];
-
+        ///szétszedjük a szöveget a ';' karakterek mentén és belerakjuk egy dinamikus tömbbe
         notstd::vector<std::string> variable_arr;
         std::istringstream strings(sVector[i]);
         std::string s;
@@ -192,6 +194,8 @@ void FileIO::load(const notstd::vector<std::string> &sVector, QuestQueue &queue)
 
         ///küldetés típusának kitalálása
         std::string type = variable_arr[1];
+
+
         ///Simple vagy Random quest esetén
         if (type == std::string("S") or type == std::string("R"))
         {
@@ -208,7 +212,7 @@ void FileIO::load(const notstd::vector<std::string> &sVector, QuestQueue &queue)
             TMP_optB = variable_arr[5];
 
             ///B opcióra való ugrás konvertálása
-            std::stringstream(variable_arr[4]) >> TMP_jmpB;
+            std::stringstream(variable_arr[6]) >> TMP_jmpB;
 
             ///küldetéstípus tesztelése
             if (type == std::string("S"))
@@ -229,7 +233,7 @@ void FileIO::load(const notstd::vector<std::string> &sVector, QuestQueue &queue)
         else if (type == std::string("V"))
         {
             ///küldetéstípus konvertálása
-            TMP_type = Visited;
+            TMP_type = Visitable;
 
             ///küldetésleírás konvertálása
             TMP_desc = variable_arr[2];
@@ -263,7 +267,7 @@ void FileIO::load(const notstd::vector<std::string> &sVector, QuestQueue &queue)
     }
 }
 
-void FileIO::save(const std::string &savegame, QuestQueue &queue) const
+void FileIO::save(const std::string &savegame, QuestQueue &queue)
 {
     ///mentés kiírása
     std::ofstream SAVE;

@@ -69,6 +69,7 @@ namespace notstd
     template<typename T>
     T &vector<T>::at(size_t n)
     {
+        ///túlindexeléskor kivételt dobunk
         if (n >= siz)
         {
             throw std::out_of_range("");

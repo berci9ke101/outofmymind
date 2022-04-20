@@ -9,7 +9,12 @@
 
 void Quest::settype(questtype type)
 {
-    this->type = type;
+    (*this).type = type;
+}
+
+void Quest::change()
+{
+    (*this).settype(Visited);
 }
 
 const size_t Quest::getID() const
@@ -82,7 +87,8 @@ SimpleQuest::SimpleQuest(questtype type, size_t ID, std::string desc, std::strin
                          size_t jmpB, size_t jmpauto) : Quest(type, ID, desc, optA, jmpA, optB, jmpB, jmpauto)
 {}
 
-///SimpleQuest::SimpleQuest(const SimpleQuest &rhs) : Quest(rhs.gettype(), rhs.getID(), rhs.getdesc(), rhs.getoptA(), rhs.getjmpA(), rhs.getoptB(), rhs.getjmpB(), rhs.getautojmp()){}
+SimpleQuest::SimpleQuest(const SimpleQuest &rhs) : Quest(rhs)
+{}
 
 SimpleQuest::~SimpleQuest()
 {}
@@ -104,11 +110,6 @@ Quest *VisitedQuest::clone() const
     return new VisitedQuest(*this);
 }
 
-void VisitedQuest::change()
-{
-    gettype() == Visited ? settype(Visitable) : settype(Visited);
-}
-
 VisitedQuest::VisitedQuest() : Quest(), alternatedesc("N/A")
 {}
 
@@ -118,7 +119,8 @@ VisitedQuest::VisitedQuest(questtype type, size_t ID, std::string desc, std::str
                                                                                      alternatedesc(alternatedesc)
 {}
 
-///VisitedQuest::VisitedQuest(const SimpleQuest &rhs) : Quest(rhs.gettype(), rhs.getID(), rhs.getdesc(), rhs.getoptA(), rhs.getjmpA(), rhs.getoptB(), rhs.getjmpB(), rhs.getautojmp()), alternatedesc(rhs.getdesc()){}
+VisitedQuest::VisitedQuest(const VisitedQuest &rhs) : Quest(rhs), alternatedesc(rhs.alternatedesc)
+{}
 
 VisitedQuest::~VisitedQuest()
 {}
@@ -131,7 +133,8 @@ std::string *RandomQuest::getdesc() const
     ///a '#' szimbólummal tagolt szöveg szétszedése és belerakása egy dinamikus tömbbe
     notstd::vector<std::string> stringarr;
     std::string *sp = Quest::getdesc();
-    std::istringstream strings(*sp);
+    std::string tmp = *sp;
+    std::istringstream strings(tmp);
     std::string s;
 
     while (getline(strings, s, '#'))
@@ -146,9 +149,11 @@ std::string *RandomQuest::getdesc() const
     srand(14);
 
     ///ennek dinamikus foglalása és visszaadása
-    std::string *ret = new std::string;
-    ret = &stringarr[rand() % stringarr.size()];
-    return ret;
+    std::string ret = stringarr[rand() % stringarr.size()];
+    std::string *ret_ptr = new std::string;
+    *ret_ptr = ret;
+
+    return ret_ptr;
 }
 
 Quest *RandomQuest::clone() const
@@ -163,7 +168,8 @@ RandomQuest::RandomQuest(questtype type, size_t ID, std::string desc, std::strin
                          size_t jmpB, size_t jmpauto) : Quest(type, ID, desc, optA, jmpA, optB, jmpB, jmpauto)
 {}
 
-///RandomQuest::RandomQuest(const SimpleQuest &rhs) : Quest(rhs.gettype(), rhs.getID(), rhs.getdesc(), rhs.getoptA(), rhs.getjmpA(), rhs.getoptB(), rhs.getjmpB(), rhs.getautojmp()){}
+RandomQuest::RandomQuest(const RandomQuest &rhs) : Quest(rhs)
+{}
 
 RandomQuest::~RandomQuest()
 {}

@@ -1,6 +1,5 @@
 #include <iostream>
 #include "game.h"
-#include "econio.h"
 
 int main()
 {
@@ -23,7 +22,7 @@ int main()
     ///inicializáljuk a játékablakot
     playgame.init();
 
-    ///beolvassuk
+    ///beolvassuk a játékot
     try
     {
         ///pontosabban megpróbáljuk beolvasni
@@ -38,11 +37,14 @@ int main()
         exit(-2);
     }
 
+
     ///rendezzük a tárolót
     qq.sort();
 
-    ///maga a játékloop
-    while (qq.getcurrent_state() != -1)
+
+    ///maga a játékloop, a -1 állapot a kilépési feltételünk
+    size_t exit_state = -1;
+    while (qq.getcurrent_state() != exit_state)
     {
         ///a jelenlegi küldetés szövegét kiírjuk
         playgame.writequest(qq[qq.getcurrent_state()]);
@@ -51,15 +53,20 @@ int main()
         int keyboardinput = playgame.keypress();
         switch (keyboardinput)
         {
-            case -22:
+            case 'a':
                 qq.chooseA();
                 break;
-            case -23:
+            case 'b':
                 qq.chooseB();
                 break;
+            default:
+                break;
         }
-        ///miután megtörtént a gombnyomás, ha esetleg a küldetés már látogatott, autougrunk
-        qq.autojmp();
+        ///miután megtörtént a gombnyomás, ha esetleg a küldetés már látogatott, autougrunk és nem a kilépésállapotban vagyunk
+        if (qq.getcurrent_state() != exit_state)
+        {
+            qq.autojmp();
+        }
     }
 
     ///save hiányzik...

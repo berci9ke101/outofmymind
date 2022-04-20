@@ -80,5 +80,4 @@ QuestQueue::~QuestQueue()
     {
         delete queue[i];
     }
-    current_state = -1;
 }

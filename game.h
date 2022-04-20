@@ -16,13 +16,13 @@ class FileIO
     std::string filename;
 public:
     ///beolvassa a paraméterként kapott játékfájlt, illetve mentésfájlt
-    const notstd::vector<std::string> &read(const std::string &, const std::string &, QuestQueue &);
+    static const notstd::vector<std::string> &read(const std::string &, const std::string &, QuestQueue &);
 
     ///betölti a paraméterként kapott szövegtömbből a küldetéstömbbe a küldetéseket
-    void load(const notstd::vector<std::string> &sVector, QuestQueue &queue) const;
+    static void load(const notstd::vector<std::string> &sVector, QuestQueue &queue) ;
 
     ///elmenti a játékállást a paraméterül kapott szöveg néven
-    void save(const std::string &, QuestQueue &) const;
+    static void save(const std::string &, QuestQueue &) ;
 
     //------------------------>
     ///paraméter nékül hívható konstruktor
@@ -52,20 +52,20 @@ public:
     FileIO file;
 
     ///inicializálja a játékablakot
-    void init();
+    void init() const;
 
     ///a gombnyomás érzékelésére lett kitalálva
-    int keypress();
+    static int keypress();
 
     ///kiírja a paraméterként kapott küldetést
-    void writequest(Quest *);
+    static void writequest(Quest *);
 
     //------------------------>
     ///paraméter nélkül hívható konstruktor
     Game();
 
     ///konstruktor
-    Game(std::string filename, int width = 25, int height = 119);
+    Game(const std::string& filename, int width = 25, int height = 119);
 
     ///másoló konstruktor
     Game(const Game &);

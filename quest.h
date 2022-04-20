@@ -54,6 +54,9 @@ public:
     ///visszaadja a küüldetés típusát
     const questtype gettype() const;
 
+    ///megváltoztatja a küldetés típusát "Visitable"-ről "Visited"-re
+    void change();
+
     ///létrehoz egy dinamikus másolatot a példányból
     virtual Quest *clone() const = 0;
 
@@ -90,7 +93,7 @@ public:
                 size_t jmpB, size_t jmpauto = -1);
 
     ///másoló konstruktor
-    ///SimpleQuest(const SimpleQuest &);
+    SimpleQuest(const SimpleQuest &);
 
     ///destruktor
     ~SimpleQuest();
@@ -109,9 +112,6 @@ public:
     ///létrehoz egy dinamikus másolatot a példányból
     Quest *clone() const;
 
-    ///megváltoztatja a küldetés típusát "Visitable"-ről "Visited"-re és fordítva
-    void change();
-
     //------------------------>
     ///paraméter nélkül hívható konstruktor
     VisitedQuest();
@@ -121,7 +121,7 @@ public:
                  size_t jmpB, size_t jmpauto, std::string alternatedesc);
 
     ///másoló konstruktor
-    ///VisitedQuest(const SimpleQuest &);
+    VisitedQuest(const VisitedQuest &);
 
     ///destruktor
     ~VisitedQuest();
@@ -148,7 +148,7 @@ public:
                 size_t jmpB, size_t jmpauto = -1);
 
     ///másoló konstruktor
-    ///RandomQuest(const SimpleQuest &);
+    RandomQuest(const RandomQuest &);
 
     ///destruktor
     ~RandomQuest();
