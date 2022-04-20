@@ -2,7 +2,7 @@
 #define NAGYHF_QUESTQUEUE_H
 
 #include "quest.h"
-#include "vector.h"
+#include "vector.hpp"
 
 ///-----------------------///
 ///a küldetéseket tárolója///

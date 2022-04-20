@@ -1,5 +1,5 @@
-#ifndef NAGYHF_VECTOR_H
-#define NAGYHF_VECTOR_H
+#ifndef NAGYHF_VECTOR_HPP
+#define NAGYHF_VECTOR_HPP
 
 #include <iostream>
 
@@ -144,4 +144,4 @@ namespace notstd
 
 
 }
-#endif //NAGYHF_VECTOR_H
+#endif //NAGYHF_VECTOR_HPP

@@ -1,5 +1,6 @@
 #include <iostream>
 #include "game.h"
+#include "econio.h"
 
 int main()
 {
@@ -50,10 +51,10 @@ int main()
         int keyboardinput = playgame.keypress();
         switch (keyboardinput)
         {
-            case -1:
+            case -22:
                 qq.chooseA();
                 break;
-            case -2:
+            case -23:
                 qq.chooseB();
                 break;
         }

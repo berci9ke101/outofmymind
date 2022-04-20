@@ -133,17 +133,16 @@ FileIO::read(const std::string &gamefile, const std::string &savefile, QuestQueu
     std::ifstream LOAD;
     LOAD.open(savefile, std::ios::in);
 
-    ///ha nem lehet megnyitni a fájlt...
-    if (not(LOAD.is_open()))
-    {
-        ///kivételt dobunk
-        LOAD.close();
-        throw std::ios_base::failure("Could not open file!");
-    }
+    ///ha nem lehetne megnyitni a fájlt, akkor az alapértelmezett 0 állásból indul a játék
+    queue.getcurrent_state() = 0;
 
-    ///beolvasás, ha nincs hiba
-    getline(LOAD, line);
-    std::stringstream(line) >> queue.getcurrent_state();
+    ///ha meg lehet nyitni a fájlt...
+    if (LOAD.is_open())
+    {
+        ///betöltjük a játékállást
+        getline(LOAD, line);
+        std::stringstream(line) >> queue.getcurrent_state();
+    }
 
     ///a fájl bezárása
     LOAD.close();
