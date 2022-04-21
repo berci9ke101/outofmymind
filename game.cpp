@@ -25,10 +25,12 @@ bool detect()
 ///--------------------------///
 void Game::init() const
 {
-    if (iswin)
+    if (true)
     {
         ///ablak méretének beállítása
         std::string sys = "mode con:cols=" + std::to_string(width) + " lines=" + std::to_string(height);
+        const char *sss = sys.data();
+        system(sss);
         //system("mode con:cols=119 lines=25");
 
         ///ablak átnevezése
@@ -74,13 +76,13 @@ void Game::writequest(Quest *rhs)
         std::cout << "B: " << rhs->getoptB();
     }
 
-    ///"help menu"
-    econio_gotoxy(0, 22);
-    std::cout << "A billentyű      - kiválasztja az 'A' opciót";
-    econio_gotoxy(0, 23);
-    std::cout << "B billentyű      - kiválasztja az 'B' opciót";
-    econio_gotoxy(0, 24);
-    std::cout << "ESCAPE billentyű - mentés és kilépés";
+    ///"help menu" --45--
+    econio_gotoxy(38, 22);
+    std::cout << "A billentyű       - kiválasztja az 'A' opciót";
+    econio_gotoxy(38, 23);
+    std::cout << "B billentyű       - kiválasztja az 'B' opciót";
+    econio_gotoxy(38, 24);
+    std::cout << "ESCAPE billentyű  - mentés és kilépés";
 }
 
 Game::Game() : width(25), height(119), iswin(detect())

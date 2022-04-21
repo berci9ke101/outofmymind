@@ -78,7 +78,8 @@ int main(int argc, char **argv)
                     savegame(argc, argv, playgame, qq);
                 } catch (std::ios_base::failure &failure)
                 {
-
+                    ///ha nem sikerül, akkor kilépünk -3 hibakóddal
+                    exit(-3);
                 }
                 break;
         }

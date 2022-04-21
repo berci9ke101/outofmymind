@@ -65,7 +65,7 @@ public:
     Game();
 
     ///konstruktor
-    Game(const std::string &filename, int width = 25, int height = 119);
+    Game(const std::string &filename, int width = 119, int height = 25);
 
     ///másoló konstruktor
     Game(const Game &);

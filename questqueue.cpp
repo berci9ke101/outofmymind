@@ -41,10 +41,8 @@ void QuestQueue::chooseA()
     current_state = queue[current_state]->getjmpA();
 
     ///ha most látogatjuk elsőre, akkor jelöljük látogatottnak
-    if (queue[temp_state]->gettype() == Visitable)
-    {
-        queue[temp_state]->change();
-    }
+    queue[temp_state]->change();
+
 }
 
 void QuestQueue::chooseB()
@@ -54,10 +52,7 @@ void QuestQueue::chooseB()
     current_state = queue[current_state]->getjmpB();
 
     ///ha most látogatjuk elsőre, akkor jelöljük látogatottnak
-    if (queue[temp_state]->gettype() == Visitable)
-    {
-        queue[temp_state]->change();
-    }
+    queue[temp_state]->change();
 }
 
 void QuestQueue::autojmp()
