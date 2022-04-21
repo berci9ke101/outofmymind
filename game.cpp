@@ -14,7 +14,7 @@
 
 bool detect()
 {
-#ifdef _WIN32
+#ifdef _WIN32 || _WIN64
     return true;
 #endif
     return false;
@@ -86,14 +86,14 @@ void Game::writequest(Quest *rhs)
     std::cout << "ESCAPE billentyű  - mentés és kilépés";
 }
 
-Game::Game() : width(25), height(119), iswin(detect())
+Game::Game() : width(25), height(119), iswin(detect()), file()
 {}
 
 Game::Game(const std::string &filename, int width, int height) : width(width), height(height), iswin(detect()),
                                                                  file(filename)
 {}
 
-Game::Game(const Game &rhs) : width(rhs.width), height(rhs.height), iswin(rhs.iswin)
+Game::Game(const Game &rhs) : width(rhs.width), height(rhs.height), iswin(rhs.iswin), file(rhs.file)
 {}
 
 Game::~Game()
