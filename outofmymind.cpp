@@ -2,13 +2,6 @@
 #include "game.h"
 #include "econio.h"
 
-///MI AZ AMI NEM MEGY?
-/*
- *
- * random quest leírás
- *
- * */
-
 int main(int argc, char **argv)
 {
     ///megkérdezzük a felhasználót, hogy mi a játékfájl neve
@@ -37,7 +30,7 @@ int main(int argc, char **argv)
     try
     {
         ///pontosabban megpróbáljuk beolvasni
-        playgame.file.load(playgame.file.read(gamefile, savefile, qq), qq);
+        playgame.getfile().load(playgame.getfile().read(gamefile, savefile, qq), qq);
     } catch (std::ios_base::failure &failure)
     {
         ///ha nem lehetett a fájlt megnyitni kilépünk a -1 hibakóddal

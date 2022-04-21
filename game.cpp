@@ -25,7 +25,7 @@ bool detect()
 ///--------------------------///
 void Game::init() const
 {
-    if (true)
+    if (iswin)
     {
         ///ablak méretének beállítása
         std::string sys = "mode con:cols=" + std::to_string(width) + " lines=" + std::to_string(height);
@@ -98,6 +98,11 @@ Game::Game(const Game &rhs) : width(rhs.width), height(rhs.height), iswin(rhs.is
 
 Game::~Game()
 {}
+
+const FileIO &Game::getfile()
+{
+    return file;
+}
 
 ///-------------------------------///
 ///a fájkezelésért felelős osztály///
@@ -329,6 +334,6 @@ void savegame(int argc, char **argv, Game &game, QuestQueue &queue)
     a.close();
 
     ///a mentés meghívása és a kilépés állapotba állás
-    game.file.save(savefile, queue);
+    game.getfile().save(savefile, queue);
     queue.getcurrent_state() = -1;
 }

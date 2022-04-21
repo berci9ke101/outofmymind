@@ -47,10 +47,9 @@ class Game
     unsigned const int width;
     unsigned const int height;
     const bool iswin;
-public:
     ///fájlkezelésért felelős objektum
     FileIO file;
-
+public:
     ///inicializálja a játékablakot
     void init() const;
 
@@ -59,6 +58,9 @@ public:
 
     ///kiírja a paraméterként kapott küldetést
     static void writequest(Quest *);
+
+    ///visszaadja a fájkezelésért felelős objektumot
+    const FileIO &getfile();
 
     //------------------------>
     ///paraméter nélkül hívható konstruktor
@@ -75,6 +77,6 @@ public:
 };
 
 ///játék elmentése
-void savegame(int argc, char **argv, Game& game, QuestQueue& queue);
+void savegame(int argc, char **argv, Game &game, QuestQueue &queue);
 
 #endif //NAGYHF_GAME_H
