@@ -150,9 +150,6 @@ std::string *RandomQuest::getdesc() const
     ///kitöröljük a dinamikusan foglalt string részt
     delete sp;
 
-    ///véletlen sorszámú kiválasztása
-    srand(14);
-
     ///ennek dinamikus foglalása és visszaadása
     std::string ret = stringarr[rand() % stringarr.size()];
     std::string *ret_ptr = new std::string;

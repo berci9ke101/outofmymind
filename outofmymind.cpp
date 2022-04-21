@@ -24,6 +24,9 @@ int main(int argc, char **argv)
     ///létrehozunk egy heterogén kollekciót a küldetéseknek
     QuestQueue qq;
 
+    ///random "magzása"
+    srand(time(0));
+
     ///létrehozunk egy játékfájlt
     Game playgame(gamefile);
 

@@ -61,10 +61,11 @@ void Game::writequest(Quest *rhs)
     econio_clrscr();
 
     econio_gotoxy(0, 0);
-    std::cout << *(rhs->getdesc());
+    std::string *str_ptr = rhs->getdesc();
+    std::cout << *(str_ptr);
 
     ///felszbadítjuk a dinamikusan foglalt leírást
-    delete rhs->getdesc();
+    delete str_ptr;
 
     ///ha nem látogatott a küldetés csak akkor írjuk ki a szöveget
     if (rhs->gettype() != Visited)
