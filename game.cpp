@@ -2,6 +2,7 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <utility>
 
 #include "econio.h"
 #include "game.h"
@@ -85,8 +86,10 @@ void Game::writequest(Quest *rhs)
 Game::Game() : width(25), height(119), iswin(detect()), file()
 {}
 
-Game::Game(const std::string &filename, int width, int height) : width(width), height(height), iswin(detect()),
-                                                                 file(filename)
+Game::Game(const std::string &gamefile, const std::string &savefile, int width, int height) : width(width),
+                                                                                              height(height),
+                                                                                              iswin(detect()),
+                                                                                              file(gamefile, savefile)
 {}
 
 Game::Game(const Game &rhs) : width(rhs.width), height(rhs.height), iswin(rhs.iswin), file(rhs.file)
@@ -95,7 +98,7 @@ Game::Game(const Game &rhs) : width(rhs.width), height(rhs.height), iswin(rhs.is
 Game::~Game()
 {}
 
-const FileIO &Game::getfile()
+FileIO Game::getfile()
 {
     return file;
 }
@@ -103,8 +106,7 @@ const FileIO &Game::getfile()
 ///-------------------------------///
 ///a fájkezelésért felelős osztály///
 ///-------------------------------///
-const notstd::vector<std::string> &
-FileIO::read(const std::string &gamefile, const std::string &savefile, QuestQueue &queue)
+const notstd::vector<std::string> &FileIO::read(QuestQueue &queue)
 {
     ///fájl megnyitása
     std::ifstream GAME;
@@ -295,13 +297,14 @@ void FileIO::save(const std::string &savegame, QuestQueue &queue)
     SAVE.close();
 }
 
-FileIO::FileIO() : filename("N/A")
+FileIO::FileIO() : gamefile("N/A"), savefile("N/A")
 {}
 
-FileIO::FileIO(const std::string &filename) : filename(filename)
+FileIO::FileIO(std::string gamefile, std::string savefile) : gamefile(std::move(gamefile)),
+                                                             savefile(std::move(savefile))
 {}
 
-FileIO::FileIO(const FileIO &rhs) : filename(rhs.filename)
+FileIO::FileIO(const FileIO &rhs) : gamefile(rhs.gamefile), savefile(rhs.savefile)
 {}
 
 FileIO::~FileIO()

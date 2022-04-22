@@ -18,10 +18,10 @@ int main(int argc, char **argv)
     QuestQueue qq;
 
     ///random "magzása"
-    srand(time(0));
+    srand(time(nullptr));
 
     ///létrehozunk egy játékfájlt
-    Game playgame(gamefile);
+    Game playgame(gamefile, savefile);
 
     ///inicializáljuk a játékablakot
     playgame.init();
@@ -30,7 +30,7 @@ int main(int argc, char **argv)
     try
     {
         ///pontosabban megpróbáljuk beolvasni
-        playgame.getfile().load(playgame.getfile().read(gamefile, savefile, qq), qq);
+        playgame.getfile().load(playgame.getfile().read(qq), qq);
     } catch (std::ios_base::failure &failure)
     {
         ///ha nem lehetett a fájlt megnyitni kilépünk a -1 hibakóddal

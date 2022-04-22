@@ -8,28 +8,29 @@
 #include "quest.h"
 #include "questqueue.h"
 
-///-------------------------------///
-///a fájkezelésért felelős osztály///
-///-------------------------------///
+/**
+ * Fájlkezelésért felelős osztály
+ */
 class FileIO
 {
-    std::string filename;
+    std::string gamefile;            ///A játékfájl neve
+    std::string savefile;            ///A betöltendő mentésfájl neve
 public:
     ///beolvassa a paraméterként kapott játékfájlt, illetve mentésfájlt
-    static const notstd::vector<std::string> &read(const std::string &, const std::string &, QuestQueue &);
+    const notstd::vector<std::string> &read(QuestQueue &queue);
 
     ///betölti a paraméterként kapott szövegtömbből a küldetéstömbbe a küldetéseket
-    static void load(const notstd::vector<std::string> &sVector, QuestQueue &queue);
+    void load(const notstd::vector<std::string> &sVector, QuestQueue &queue);
 
     ///elmenti a játékállást a paraméterül kapott szöveg néven
-    static void save(const std::string &, QuestQueue &);
+    void save(const std::string &savegame, QuestQueue &queue);
 
     //------------------------>
     ///paraméter nékül hívható konstruktor
     FileIO();
 
     ///konstruktor
-    FileIO(const std::string &);
+    FileIO(std::string gamefile, std::string savefile);
 
     ///másoló konstruktor
     FileIO(const FileIO &);
@@ -60,14 +61,14 @@ public:
     static void writequest(Quest *);
 
     ///visszaadja a fájkezelésért felelős objektumot
-    const FileIO &getfile();
+    FileIO getfile();
 
     //------------------------>
     ///paraméter nélkül hívható konstruktor
     Game();
 
     ///konstruktor
-    Game(const std::string &filename, int width = 119, int height = 25);
+    Game(const std::string &gamefile, const std::string &savefile, int width = 119, int height = 25);
 
     ///másoló konstruktor
     Game(const Game &);

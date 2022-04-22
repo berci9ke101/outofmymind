@@ -13,8 +13,8 @@ namespace notstd
     template<typename T>
     class vector
     {
-        T *data;
-        size_t siz;
+        T *data;             ///A vektor tömbjének pointere
+        size_t siz;          ///A jelenlegi maximális méret értéke
     public:
         /**
          * Visszaadja az elemek tényleges számát
@@ -99,7 +99,7 @@ namespace notstd
     template<typename T>
     T &vector<T>::at(size_t n)
     {
-        ///túlindexeléskor kivételt dobunk
+        ///túlindexeléskor std::out_of_range kivételt dobunk
         if (n >= siz)
         {
             throw std::out_of_range("");
