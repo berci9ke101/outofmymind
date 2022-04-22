@@ -24,7 +24,7 @@ namespace notstd
 
 
         /**
-         * Visszaadja a vektor n-edik indexén lévő elemet
+         * Visszaadja a vektor n-edik indexén lévő elemet,
          * std::out_of_range kivételt dob alúl vagy túlindexeléskor
          * @param n - az index
          * @return - referencia az n-edik indexű elemre
@@ -33,7 +33,7 @@ namespace notstd
 
 
         /**
-         * Visszaadja a konstans vektor n-edik indexén lévő elemet
+         * Visszaadja a konstans vektor n-edik indexén lévő elemet,
          * std::out_of_range kivételt dob alúl vagy túlindexeléskor
          * @param n - az index
          * @return - konstans referencia az n-edik indexű elemre

@@ -21,6 +21,33 @@ bool detect()
     return false;
 }
 
+void savegame(char **argv, Game &savename, QuestQueue &queue)
+{
+    ///"táblatörlés"
+    econio_clrscr();
+
+    ///megkérdezzük a felhasználót, hogy mi legyen a mentésfájl neve
+    std::cout << "What's the name of the savefile that you would like to save to?: ";
+    std::string savefile;
+    std::cin >> savefile;;
+
+    ///forrás: http://www.cplusplus.com/forum/beginner/10862/#msg50953
+    std::string directory = argv[0];//program full path + name of binary file
+    directory.erase(directory.find_last_of('\\') + 1);//remove name of binary file
+    ///forrás: http://www.cplusplus.com/forum/beginner/10862/#msg50953
+
+    ///fájlnév hozzáfűzése az elérési úthoz
+    directory += savefile;
+
+    ///üres fájl létrehozása
+    std::ofstream a(directory);
+    a.close();
+
+    ///a mentés meghívása és a kilépés állapotba állás
+    savename.getfile().save(savefile, queue);
+    queue.getcurrent_state() = -1;
+}
+
 ///--------------------------///
 ///a játékért felelős osztály///
 ///--------------------------///
@@ -309,30 +336,3 @@ FileIO::FileIO(const FileIO &rhs) : gamefile(rhs.gamefile), savefile(rhs.savefil
 
 FileIO::~FileIO()
 {}
-
-void savegame(char **argv, Game &savename, QuestQueue &queue)
-{
-    ///"táblatörlés"
-    econio_clrscr();
-
-    ///megkérdezzük a felhasználót, hogy mi legyen a mentésfájl neve
-    std::cout << "What's the name of the savefile that you would like to save to?: ";
-    std::string savefile;
-    std::cin >> savefile;;
-
-    ///forrás: http://www.cplusplus.com/forum/beginner/10862/#msg50953
-    std::string directory = argv[0];//program full path + name of binary file
-    directory.erase(directory.find_last_of('\\') + 1);//remove name of binary file
-    ///forrás: http://www.cplusplus.com/forum/beginner/10862/#msg50953
-
-    ///fájlnév hozzáfűzése az elérési úthoz
-    directory += savefile;
-
-    ///üres fájl létrehozása
-    std::ofstream a(directory);
-    a.close();
-
-    ///a mentés meghívása és a kilépés állapotba állás
-    savename.getfile().save(savefile, queue);
-    queue.getcurrent_state() = -1;
-}

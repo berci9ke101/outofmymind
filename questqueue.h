@@ -4,34 +4,48 @@
 #include "quest.h"
 #include "vector.hpp"
 
-///-----------------------///
-///a küldetéseket tárolója///
-///------------------ ----///
+/**
+ * A küldetések tárolásáért és az állapotátmenetekért felelős osztályű
+ * (Quest heterogén kollekciója)
+ */
 class QuestQueue
 {
-    notstd::vector<Quest *> queue;
-    size_t current_state;
+    notstd::vector<Quest *> queue;              ///Maga a heterogén kollekció tömbje
+    size_t current_state;                       ///Tárolja a jelenlegi állapotot
 public:
-    ///hozzáad egy újabb elemet a tárolóhoz
-    void add(Quest *);
+    /**
+     * Hozzáad egy újabb elemet a tárolóhoz
+     * @param quest - Valamilyen Quest-re mutató pointer
+     * */
+    void add(Quest *quest);
 
-    ///rendezi a tárolót küldetés ID szerinti növekvő sorrendbe
+
+    /**
+     * Rendezi a tárolót küldetés ID szerinti növekvő sorrendbe
+     * */
     void sort();
 
-    ///az A opciót választja ki
+
+    /**
+     * Kiválasztja az A opciót és a jelenlegi állapotot arra állítja (next state logika)
+     * */
     void chooseA();
 
-    ///a B opciót választja ki
+
+    /**
+     * Kiválasztja a B opciót és a jelenlegi állapotot arra állítja (next state logika)
+     * */
     void chooseB();
 
-    ///az automatikus ugrást bonyolítja le
+
+    ---???
     void autojmp();
 
     ///a jelenlegi állapot ID referenciáját adja vissza
     size_t &getcurrent_state();
 
     ///egy adott indexű elemet ad vissza a tárolóból
-    Quest *operator[](size_t) const;
+    Quest *operator[](size_t);
 
     //------------------------>
     ///konstruktor
@@ -43,5 +57,8 @@ public:
     ///destruktor
     ~QuestQueue();
 };
+
+template<class T>
+void swap(T &x, T &y);
 
 #endif //NAGYHF_QUESTQUEUE_H

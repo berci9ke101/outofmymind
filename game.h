@@ -101,7 +101,7 @@ public:
      * Visszaad a fájkezelésért felelős objektumra egy referanciát
      *  @return - referencia a fájlkezelésért felelős objektumra
      * */
-    FileIO& getfile();
+    FileIO &getfile();
 
 
     /**
@@ -140,5 +140,10 @@ public:
  * @param queue - Quest* tárolására alkalmas heterogén kollekció
  * */
 void savegame(char **argv, Game &savename, QuestQueue &queue);
+
+/**
+ * Érzékeli, hogy az operációs rendszer Windows-e
+ * */
+bool detect();
 
 #endif //NAGYHF_GAME_H

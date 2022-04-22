@@ -1,13 +1,4 @@
 #include "questqueue.h"
-#include <algorithm>
-
-///-----------------------///
-///a küldetéseket tárolója///
-///------------------ ----///
-void QuestQueue::add(Quest *quest)
-{
-    queue.push_back(quest);
-}
 
 template<class T>
 void swap(T &x, T &y)
@@ -16,6 +7,14 @@ void swap(T &x, T &y)
     temp = x;
     x = y;
     y = temp;
+}
+
+///-----------------------///
+///a küldetéseket tárolója///
+///------------------ ----///
+void QuestQueue::add(Quest *quest)
+{
+    queue.push_back(quest);
 }
 
 void QuestQueue::sort()
@@ -68,7 +67,7 @@ size_t &QuestQueue::getcurrent_state()
     return current_state;
 }
 
-Quest *QuestQueue::operator[](size_t idx) const
+Quest *QuestQueue::operator[](size_t idx)
 {
     ///nem foglalkozunk a hibakezeléssel, mert az notstd::vector::at() megvéd bennünket a túlindexeléstől
     return queue.at(idx);

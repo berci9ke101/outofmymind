@@ -2,6 +2,12 @@
 #include "game.h"
 #include "econio.h"
 
+/*
+ *
+ * RENDEZÉS !!!
+ *
+ * */
+
 int main(int argc, char **argv)
 {
     ///megkérdezzük a felhasználót, hogy mi a játékfájl neve
