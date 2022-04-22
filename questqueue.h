@@ -38,26 +38,52 @@ public:
     void chooseB();
 
 
-    ---???
+    /**
+     * Kiválasztja az automatikus ugrás opciót és a jelenlegi állapotot arra állítja (next state logika)
+     * */
     void autojmp();
 
-    ///a jelenlegi állapot ID referenciáját adja vissza
+
+    /**
+     * Visszaadja a jelenlegi állapotot
+     * @return - referencia a jelenlegi állapotra, hogy változtatható legyen
+     * */
     size_t &getcurrent_state();
 
-    ///egy adott indexű elemet ad vissza a tárolóból
-    Quest *operator[](size_t);
 
-    //------------------------>
-    ///konstruktor
+    /**
+     * Egy adott indexű elemet ad vissza a tárolóból
+     * @param n - az index
+     * @return - egy küldetésre mutató pointer
+     * */
+    Quest *operator[](size_t n);
+
+
+    /**
+     * Paraméter nélkül hívható konstruktor
+     * */
     QuestQueue();
 
-    ///másoló konstruktor
-    QuestQueue(const QuestQueue &);
 
-    ///destruktor
+    /**
+     * Másolókonstruktor
+     * @param rhs - jobbérték
+     * */
+    QuestQueue(const QuestQueue &rhs);
+
+
+    /**
+     * Destruktor
+     * */
     ~QuestQueue();
 };
 
+/**
+ * Felcseréli a két adattagot
+ * @param T - felcserélendő adattípus
+ * @param x - egyik bemenet
+ * @param y - másik bemenet
+ * */
 template<class T>
 void swap(T &x, T &y);
 

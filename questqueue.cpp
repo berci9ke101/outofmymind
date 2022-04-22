@@ -67,10 +67,10 @@ size_t &QuestQueue::getcurrent_state()
     return current_state;
 }
 
-Quest *QuestQueue::operator[](size_t idx)
+Quest *QuestQueue::operator[](size_t n)
 {
     ///nem foglalkozunk a hibakezeléssel, mert az notstd::vector::at() megvéd bennünket a túlindexeléstől
-    return queue.at(idx);
+    return queue.at(n);
 }
 
 QuestQueue::QuestQueue() : current_state(0)
