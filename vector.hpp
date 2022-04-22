@@ -16,57 +16,79 @@ namespace notstd
         T *data;
         size_t siz;
     public:
-        /// Elemek tényleges száma
-        /// @return - ténylegesen tárolt elemek száma
+        /**
+         * Visszaadja az elemek tényleges számát
+         * @return - ténylegesen tárolt elemek száma
+         */
         const size_t size() const;
 
-        ///Visszaadja a tömb n-edik indexén lévő elemet
-        ///std::out_of_range kivételt dob alúl vagy túlindexeléskor
-        ///@param n - az index
-        ///@return - referencia az n-edik indexű elemre
+
+        /**
+         * Visszaadja a vektor n-edik indexén lévő elemet
+         * std::out_of_range kivételt dob alúl vagy túlindexeléskor
+         * @param n - az index
+         * @return - referencia az n-edik indexű elemre
+         * */
         T &at(size_t n);
 
-        ///Visszaadja a konstans tömb n-edik indexén lévő elemet
-        ///std::out_of_range kivételt dob alúl vagy túlindexeléskor
-        ///@param n - az index
-        ///@return - konstans referencia az n-edik indexű elemre
+
+        /**
+         * Visszaadja a konstans vektor n-edik indexén lévő elemet
+         * std::out_of_range kivételt dob alúl vagy túlindexeléskor
+         * @param n - az index
+         * @return - konstans referencia az n-edik indexű elemre
+         * */
         const T &at(size_t n) const;
-        ///------------
 
 
-        ///visszaadja, hogy üres-e a vektor vagy nem
+        /**
+         * Visszaadja, hogy üres-e a vektor vagy nem
+         * @return - logikai változó az ürességre
+         * */
         bool empty() const;
 
 
-        ///visszaadja a vektor i-edik indezén lévő adattagot
-        ///-----------
-        ///nem konstans objektumnál nem konstans referencia
+        /**
+         * Visszaadja a vektor n-edik indexén lévő elemet
+         * @param n - az index
+         * @return - referencia az n-edik indexű elemre
+         * */
         T &operator[](size_t n);
 
-        ///konstans objektumnál konstans referencia
-        const T &operator[](size_t n) const;
-        ///-----------
 
-        ///a vektor hátuljára beerakja az adattagot
+        /**
+         * Visszaadja a konstans vektor n-edik indexén lévő elemet
+         * @param n - az index
+         * @return - konstans referencia az n-edik indexű elemre
+         * */
+        const T &operator[](size_t n) const;
+
+
+        /**
+         * A vektor hátuljára beerakja az adattagot
+         * @param x - berakandó adattag
+         * */
         void push_back(const T &x);
 
-        ///---------->
-        ///paraméter nélkül hívható konstruktor
+
+        /**
+         * Paraméter nélkül hívható konstruktor
+         * */
         vector();
 
-        ///konstruktor
-        vector(size_t);
 
-        ///másolókonstruktor
-        vector(const vector &);
+        /**
+         * Másolókonstruktor
+         * @param rhs - jobbérték
+         * */
+        vector(const vector &rhs);
 
-        ///destruktor
+
+        /**
+         * Destruktor
+         * */
         ~vector();
     };
-
-    ////////////////////
-    ///---implementáció----///
-    ///////////////////
 
     template<typename T>
     const size_t vector<T>::size() const
@@ -130,10 +152,6 @@ namespace notstd
 
     template<typename T>
     vector<T>::vector(): data(nullptr), siz(0)
-    {}
-
-    template<typename T>
-    vector<T>::vector(size_t size): data(new T[size]), siz(size)
     {}
 
     template<typename T>
