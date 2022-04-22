@@ -14,7 +14,7 @@
 
 bool detect()
 {
-#ifdef _WIN32 || _WIN64
+#ifdef _WIN32
     return true;
 #endif
     return false;
@@ -61,11 +61,7 @@ void Game::writequest(Quest *rhs)
     econio_clrscr();
 
     econio_gotoxy(0, 0);
-    std::string *str_ptr = rhs->getdesc();
-    std::cout << *(str_ptr);
-
-    ///felszbadítjuk a dinamikusan foglalt leírást
-    delete str_ptr;
+    std::cout << rhs->getdesc();
 
     ///ha nem látogatott a küldetés csak akkor írjuk ki a szöveget
     if (rhs->gettype() != Visited)

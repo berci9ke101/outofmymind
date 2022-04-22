@@ -5,22 +5,31 @@
 
 namespace notstd
 {
+/**
+ * Dinamikus méretű generikus tömb.
+ * @param T - tárolt adattípus
+ */
+
     template<typename T>
     class vector
     {
         T *data;
         size_t siz;
     public:
-        ///visszaadja a vektor hosszát
+        /// Elemek tényleges száma
+        /// @return - ténylegesen tárolt elemek száma
         const size_t size() const;
 
-
-        ///visszaadja az adott indexén lévő elemet, std::out_of_range hibát dob, alúl vagy túlindexeléskor
-        ///------------
-        ///nem konstans objektumnál nem konstans referencia
+        ///Visszaadja a tömb n-edik indexén lévő elemet
+        ///std::out_of_range kivételt dob alúl vagy túlindexeléskor
+        ///@param n - az index
+        ///@return - referencia az n-edik indexű elemre
         T &at(size_t n);
 
-        ///konstans objektumnál konstans referencia
+        ///Visszaadja a konstans tömb n-edik indexén lévő elemet
+        ///std::out_of_range kivételt dob alúl vagy túlindexeléskor
+        ///@param n - az index
+        ///@return - konstans referencia az n-edik indexű elemre
         const T &at(size_t n) const;
         ///------------
 
@@ -37,7 +46,6 @@ namespace notstd
         ///konstans objektumnál konstans referencia
         const T &operator[](size_t n) const;
         ///-----------
-
 
         ///a vektor hátuljára beerakja az adattagot
         void push_back(const T &x);

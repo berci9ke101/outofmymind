@@ -18,7 +18,7 @@ class Quest
 {
 protected:
     ///a küldetés típusát állítja át
-    void settype(questtype type);
+    void settype(questtype qtype);
 
 private:
     questtype type;
@@ -40,7 +40,7 @@ public:
     size_t& getjmpB();
 
     ///visszaadja az automatikus ugrás értékét
-    size_t getautojmp();
+    size_t& getautojmp();
 
     ///visszaadja A válaszlehetőség szövegét
     const std::string &getoptA() const;
@@ -49,7 +49,7 @@ public:
     const std::string &getoptB() const;
 
     ///visszaadja a küldetés leírását
-    virtual std::string *getdesc() const;
+    virtual const std::string getdesc() const;
 
     ///visszaadja a küüldetés típusát
     const questtype gettype() const;
@@ -107,7 +107,7 @@ class VisitedQuest : public Quest
     std::string alternatedesc;
 public:
     ///visszaadja a küldetés leírását
-    std::string *getdesc() const;
+    const std::string getdesc() const;
 
     ///létrehoz egy dinamikus másolatot a példányból
     Quest *clone() const;
@@ -137,7 +137,7 @@ class RandomQuest : public Quest
 {
 public:
     ///visszaadja a küldetés leírását, FONTOS: a használónak kell felszabdítani a dinamikusan foglalt részt
-    std::string *getdesc() const;
+    const std::string getdesc() const;
 
     ///létrehoz egy dinamikus másolatot a példányból
     Quest *clone() const;
