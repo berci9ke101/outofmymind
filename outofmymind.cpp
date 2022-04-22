@@ -71,7 +71,7 @@ int main(int argc, char **argv)
                 ///megpróbáljuk elmenteni az állást
                 try
                 {
-                    savegame(argc, argv, playgame, qq);
+                    savegame(argv, playgame, qq);
                 } catch (std::ios_base::failure &failure)
                 {
                     ///ha nem sikerül, akkor kilépünk -3 hibakóddal

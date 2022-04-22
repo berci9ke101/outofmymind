@@ -16,68 +16,129 @@ class FileIO
     std::string gamefile;            ///A játékfájl neve
     std::string savefile;            ///A betöltendő mentésfájl neve
 public:
-    ///beolvassa a paraméterként kapott játékfájlt, illetve mentésfájlt
+    /**
+     * Beolvassa a paraméterként kapott játékfájlt, illetve mentésfájlt
+     * @param queue - Quest* tárolására alkalmas heterogén kollekció
+     * @return - a beolvasott fájl sorai egy 2D-s dinamikus tömbben
+     * */
     const notstd::vector<std::string> &read(QuestQueue &queue);
 
-    ///betölti a paraméterként kapott szövegtömbből a küldetéstömbbe a küldetéseket
+
+    /**
+     * Betölti a paraméterként kapott szövegtömbből a küldetéstömbbe a küldetéseket
+     * @param sVector - a beolvasott fájl sorai egy 2D-s dinamikus tömbben
+     * @param queue - Quest* tárolására alkalmas heterogén kollekció
+     * */
     void load(const notstd::vector<std::string> &sVector, QuestQueue &queue);
 
-    ///elmenti a játékállást a paraméterül kapott szöveg néven
+
+    ///
+    /**
+     * Elmenti a játékállást a paraméterül kapott szöveg néven
+     * @param savegame - a mentendő fájl neve
+     * @param queue - Quest* tárolására alkalmas heterogén kollekció
+     * */
     void save(const std::string &savegame, QuestQueue &queue);
 
-    //------------------------>
-    ///paraméter nékül hívható konstruktor
+
+    /**
+     * Paraméter nélkül hívható konstruktor
+     * */
     FileIO();
 
-    ///konstruktor
+
+    /**
+     * Konstruktor
+     * @param gamefile - a játékfájl neve
+     * @param savefile - a betöltendő mentésfájl neve
+     * */
     FileIO(std::string gamefile, std::string savefile);
 
-    ///másoló konstruktor
-    FileIO(const FileIO &);
 
-    ///destruktor
+    /**
+     * Másolóonstruktor
+     * @param rhs - jobbérték
+     * */
+    FileIO(const FileIO &rhs);
+
+
+    /**
+     * Destruktor
+     * */
     ~FileIO();
 };
 
-
-///--------------------------///
-///a játékért felelős osztály///
-///--------------------------///
+/**
+ * Játékért felelős osztály
+ */
 class Game
 {
-    unsigned const int width;
-    unsigned const int height;
-    const bool iswin;
-    ///fájlkezelésért felelős objektum
-    FileIO file;
+    unsigned const int width;       ///A konzolablak szélessége
+    unsigned const int height;      ///A konzolablak magassága
+    const bool iswin;               ///Ha az operációs rendszer Windows, alapértelmezetten igaz értéket vesz fel
+    FileIO file;                    ///Fájlkezelésért felelős objektum
 public:
-    ///inicializálja a játékablakot
+    /**
+     * Inicializálja a játékablakot
+     * */
     void init() const;
 
-    ///a gombnyomás érzékelésére lett kitalálva
+
+    /**
+     * Érzékeli, ha megnyomtak egy gombot a billentyűzeten
+     * @return - a lenyomott karakter kódja
+     * */
     static int keypress();
 
-    ///kiírja a paraméterként kapott küldetést
+
+    /**
+     * Kiírja a paraméterként kapott küldetést a konzolra
+     * */
     static void writequest(Quest *);
 
-    ///visszaadja a fájkezelésért felelős objektumot
-    FileIO getfile();
 
-    //------------------------>
-    ///paraméter nélkül hívható konstruktor
+    /**
+     * Visszaad a fájkezelésért felelős objektumra egy referanciát
+     *  @return - referencia a fájlkezelésért felelős objektumra
+     * */
+    FileIO& getfile();
+
+
+    /**
+     * Paraméter nélkül hívható konstruktor
+     * */
     Game();
 
-    ///konstruktor
+
+    /**
+     * Konstruktor
+     * @param gamefile - a játékfájl neve
+     * @param savefile - a betöltendő mentésfájl neve
+     * @param width - a konzolablak szélessége, alapértelmezetten 119
+     * @param height - a konzolablak magassága, alapértelmezetten 25
+     * */
     Game(const std::string &gamefile, const std::string &savefile, int width = 119, int height = 25);
 
-    ///másoló konstruktor
+
+    /**
+     * Másolóonstruktor
+     * @param rhs - jobbérték
+     * */
     Game(const Game &);
 
-    ///destruktor
+
+    /**
+     * Destruktor
+     * */
     ~Game();
 };
 
-///játék elmentése
-void savegame(int argc, char **argv, Game &game, QuestQueue &queue);
+/**
+ * Játékmentés
+ * @param argv - az argumentum vektor
+ * @param savename - milyen néven mentse el a játékállást
+ * @param queue - Quest* tárolására alkalmas heterogén kollekció
+ * */
+void savegame(char **argv, Game &savename, QuestQueue &queue);
 
 #endif //NAGYHF_GAME_H

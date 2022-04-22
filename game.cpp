@@ -98,7 +98,7 @@ Game::Game(const Game &rhs) : width(rhs.width), height(rhs.height), iswin(rhs.is
 Game::~Game()
 {}
 
-FileIO Game::getfile()
+FileIO& Game::getfile()
 {
     return file;
 }
@@ -310,7 +310,7 @@ FileIO::FileIO(const FileIO &rhs) : gamefile(rhs.gamefile), savefile(rhs.savefil
 FileIO::~FileIO()
 {}
 
-void savegame(int argc, char **argv, Game &game, QuestQueue &queue)
+void savegame(char **argv, Game &savename, QuestQueue &queue)
 {
     ///"táblatörlés"
     econio_clrscr();
@@ -333,6 +333,6 @@ void savegame(int argc, char **argv, Game &game, QuestQueue &queue)
     a.close();
 
     ///a mentés meghívása és a kilépés állapotba állás
-    game.getfile().save(savefile, queue);
+    savename.getfile().save(savefile, queue);
     queue.getcurrent_state() = -1;
 }

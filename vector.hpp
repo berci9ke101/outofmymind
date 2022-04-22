@@ -19,7 +19,7 @@ namespace notstd
         /**
          * Visszaadja az elemek tényleges számát
          * @return - ténylegesen tárolt elemek száma
-         */
+         * */
         const size_t size() const;
 
 
