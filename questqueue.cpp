@@ -1,4 +1,5 @@
 #include "questqueue.h"
+#include <algorithm>
 
 template<class T>
 void swap(T &x, T &y)

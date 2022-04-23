@@ -3,6 +3,7 @@
 
 #include "quest.h"
 #include "vector.hpp"
+#include <vector>
 
 /**
  * A küldetések tárolásáért és az állapotátmenetekért felelős osztályű
