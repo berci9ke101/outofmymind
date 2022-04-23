@@ -81,7 +81,7 @@ public:
 
 /**
  * Felcseréli a két adattagot
- * @param T - felcserélendő adattípus
+ * @tparam T - felcserélendő adattípus
  * @param x - egyik bemenet
  * @param y - másik bemenet
  * */

@@ -98,7 +98,7 @@ public:
 
 
     /**
-     * Létrehoz egy dinamikus másolatot a példányból (csak a leszármazottaknál működik)
+     * Létrehoz egy dinamikus másolatot a példányból, egy tisztán virtuális tagfüggvény
      * @return - mutató a dinamikusan másolt objektumra
      * */
     virtual Quest *clone() const = 0;
@@ -118,7 +118,7 @@ public:
      * @param optA - az 'A' válaszlehetőség szövege
      * @param jmpA - az 'A' válaszlehetőség választása esetén, melyik küldetésre ugorjon
      * @param optB - a 'B' válaszlehetőség szövege
-     * @param jmpB  - a 'B' válaszlehetőség választása esetén, melyik küldetésre ugorjon
+     * @param jmpB - a 'B' válaszlehetőség választása esetén, melyik küldetésre ugorjon
      * @param jmpauto - automatikus ugrás esetén, melyik küldetésre ugorjon
      * */
     Quest(questtype type, size_t ID, std::string desc, std::string optA, size_t jmpA, std::string optB, size_t jmpB,
@@ -129,7 +129,7 @@ public:
      * Másolókonstruktor
      * @param rhs - jobbérték
      * */
-    Quest(const Quest &);
+    Quest(const Quest &rhs);
 
 
     /**
@@ -138,85 +138,166 @@ public:
     virtual ~Quest();
 };
 
-///----------------------------///
-///az egyszerű küldetés osztály///
-///----------------------------///
+/**
+ * Az egyszerű küldetés osztálya
+ * */
 class SimpleQuest : public Quest
 {
 public:
-    ///létrehoz egy dinamikus másolatot a példányból
+    /**
+     * Létrehoz egy dinamikus másolatot a példányból
+     * @return - mutató a dinamikusan másolt objektumra
+     * */
     Quest *clone() const;
 
-    //------------------------>
-    ///paraméter nélkül hívható konstruktor
+
+    /**
+     * Paraméter nélkül hívható konstruktor
+     * */
     SimpleQuest();
 
-    ///konstruktor
+
+    /**
+     * Konstruktor
+     * @param type - a küldetés típusa
+     * @param ID - a küldetés azonosítója
+     * @param desc - a küldetés leírása
+     * @param optA - az 'A' válaszlehetőség szövege
+     * @param jmpA - az 'A' válaszlehetőség választása esetén, melyik küldetésre ugorjon
+     * @param optB - a 'B' válaszlehetőség szövege
+     * @param jmpB  - a 'B' válaszlehetőség választása esetén, melyik küldetésre ugorjon
+     * @param jmpauto - automatikus ugrás esetén, melyik küldetésre ugorjon, ALAPÉRTELMEZETT ÉRTÉK: -1
+     * */
     SimpleQuest(questtype type, size_t ID, std::string desc, std::string optA, size_t jmpA, std::string optB,
                 size_t jmpB, size_t jmpauto = -1);
 
-    ///másoló konstruktor
-    SimpleQuest(const SimpleQuest &);
 
-    ///destruktor
+    /**
+     * Másolókonstruktor
+     * @param rhs - jobbérték
+     * */
+    SimpleQuest(const SimpleQuest &rhs);
+
+
+    /**
+     * Destruktor
+     * */
     ~SimpleQuest();
 };
 
-///------------------------------///
-///a látogatható küldetés osztály///
-///----------------- ------------///
+/**
+ * A látogatott küldetés osztálya
+ * */
 class VisitedQuest : public Quest
 {
-    std::string alternatedesc;
+    std::string alternatedesc;              ///A küldetés leírása, ha már látogatva volt
 public:
-    ///visszaadja a küldetés leírását
+    /**
+     * Visszaadja a küldetés leírását
+     * @return - a kuldetés leírása
+     * */
     const std::string getdesc() const;
 
-    ///létrehoz egy dinamikus másolatot a példányból
+
+    /**
+     * Létrehoz egy dinamikus másolatot a példányból
+     * @return - mutató a dinamikusan másolt objektumra
+     * */
     Quest *clone() const;
 
-    ///megváltoztatja a küldetés típusát "Visitable"-ről "Visited"-re
+
+    /**
+     * Megváltoztatja a küldetés típusát 'Visitable'-ről 'Visited'-re
+     * */
     void change();
 
-    //------------------------>
-    ///paraméter nélkül hívható konstruktor
+
+    /**
+     * Paraméter nélkül hívható konstruktor
+     * */
     VisitedQuest();
 
-    ///konstruktor
+
+    /**
+     * Konstruktor
+     * @param type - a küldetés típusa
+     * @param ID - a küldetés azonosítója
+     * @param desc - a küldetés leírása
+     * @param optA - az 'A' válaszlehetőség szövege
+     * @param jmpA - az 'A' válaszlehetőség választása esetén, melyik küldetésre ugorjon
+     * @param optB - a 'B' válaszlehetőség szövege
+     * @param jmpB  - a 'B' válaszlehetőség választása esetén, melyik küldetésre ugorjon
+     * @param jmpauto - automatikus ugrás esetén, melyik küldetésre ugorjon
+     * @param alternatedesc - a küldetés leírása, ha már látogatva volt
+     * */
     VisitedQuest(questtype type, size_t ID, std::string desc, std::string optA, size_t jmpA, std::string optB,
                  size_t jmpB, size_t jmpauto, std::string alternatedesc);
 
-    ///másoló konstruktor
-    VisitedQuest(const VisitedQuest &);
 
-    ///destruktor
+    /**
+     * Másolókonstruktor
+     * @param rhs - jobbérték
+     * */
+    VisitedQuest(const VisitedQuest &rhs);
+
+
+    /**
+     * Destruktor
+     * */
     ~VisitedQuest();
 };
 
-///--------------------------------///
-///a véletlenszerű küldetés osztály///
-///--------------------------------///
+/**
+ * A véletlen leírású küldetés osztálya
+ * */
 class RandomQuest : public Quest
 {
 public:
-    ///visszaadja a küldetés leírását, FONTOS: a használónak kell felszabdítani a dinamikusan foglalt részt
+    /**
+     * Visszaadja a küldetés leírását
+     * @return - a kuldetés leírása
+     * */
     const std::string getdesc() const;
 
-    ///létrehoz egy dinamikus másolatot a példányból
+
+    /**
+     * Létrehoz egy dinamikus másolatot a példányból
+     * @return - mutató a dinamikusan másolt objektumra
+     * */
     Quest *clone() const;
 
-    //------------------------>
-    ///paraméter nélkül hívható konstruktor
+
+    /**
+     * Paraméter nélkül hívható konstruktor
+     * */
     RandomQuest();
 
-    ///konstruktor
+
+    /**
+     * Konstruktor
+     * @param type - a küldetés típusa
+     * @param ID - a küldetés azonosítója
+     * @param desc - a küldetés leírása
+     * @param optA - az 'A' válaszlehetőség szövege
+     * @param jmpA - az 'A' válaszlehetőség választása esetén, melyik küldetésre ugorjon
+     * @param optB - a 'B' válaszlehetőség szövege
+     * @param jmpB  - a 'B' válaszlehetőség választása esetén, melyik küldetésre ugorjon
+     * @param jmpauto - automatikus ugrás esetén, melyik küldetésre ugorjon, ALAPÉRTELMEZETT ÉRTÉK: -1
+     * */
     RandomQuest(questtype type, size_t ID, std::string desc, std::string optA, size_t jmpA, std::string optB,
                 size_t jmpB, size_t jmpauto = -1);
 
-    ///másoló konstruktor
+
+    /**
+     * Másolókonstruktor
+     * @param rhs - jobbérték
+     * */
     RandomQuest(const RandomQuest &);
 
-    ///destruktor
+
+    /**
+     * Destruktor
+     * */
     ~RandomQuest();
 };
 

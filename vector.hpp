@@ -5,7 +5,7 @@ namespace notstd
 {
 /**
  * Dinamikus méretű generikus tömb.
- * @param T - tárolt adattípus
+ * @tparam T - tárolt adattípus
  */
 
     template<typename T>
