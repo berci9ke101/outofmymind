@@ -32,7 +32,6 @@ public:
     void load(const notstd::vector<std::string> &sVector, QuestQueue &queue);
 
 
-    ///
     /**
      * Elmenti a játékállást a paraméterül kapott szöveg néven
      * @param savegame - a mentendő fájl neve

@@ -5,6 +5,7 @@
 #include <string>
 #include "vector.hpp"
 
+
 /**
  * A lehetséges küldetéstípusok enumerációja
  * */
@@ -12,6 +13,7 @@ enum questtype
 {
     Simple, Visitable, Visited, Random
 };
+
 
 /**
  * Az absztrakt küldetés ősosztály
