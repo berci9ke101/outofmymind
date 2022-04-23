@@ -98,7 +98,7 @@ public:
 
 
     /**
-     * Létrehoz egy dinamikus másolatot a példányból ('Quest' osztály leszármazottjainál működik)
+     * Létrehoz egy dinamikus másolatot a példányból (csak a leszármazottaknál működik)
      * @return - mutató a dinamikusan másolt objektumra
      * */
     virtual Quest *clone() const = 0;
@@ -109,14 +109,32 @@ public:
      * */
     Quest();
 
-    ///konstruktor
+
+    /**
+     * Konstruktor
+     * @param type - a küldetés típusa
+     * @param ID - a küldetés azonosítója
+     * @param desc - a küldetés leírása
+     * @param optA - az 'A' válaszlehetőség szövege
+     * @param jmpA - az 'A' válaszlehetőség választása esetén, melyik küldetésre ugorjon
+     * @param optB - a 'B' válaszlehetőség szövege
+     * @param jmpB  - a 'B' válaszlehetőség választása esetén, melyik küldetésre ugorjon
+     * @param jmpauto - automatikus ugrás esetén, melyik küldetésre ugorjon
+     * */
     Quest(questtype type, size_t ID, std::string desc, std::string optA, size_t jmpA, std::string optB, size_t jmpB,
           size_t jmpauto);
 
-    ///másoló konstruktor
+
+    /**
+     * Másolókonstruktor
+     * @param rhs - jobbérték
+     * */
     Quest(const Quest &);
 
-    ///destruktor
+
+    /**
+     * Destruktor
+     * */
     virtual ~Quest();
 };
 
