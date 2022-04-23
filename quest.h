@@ -5,63 +5,108 @@
 #include <string>
 #include "vector.hpp"
 
-///a küldetéstípusok felsorolása
+/**
+ * A lehetséges küldetéstípusok enumerációja
+ * */
 enum questtype
 {
     Simple, Visitable, Visited, Random
 };
 
-///-------------------------------///
-///az absztrakt küldetés ősosztály///
-///-------------------------------///
+/**
+ * Az absztrakt küldetés ősosztály
+ * */
 class Quest
 {
 protected:
-    ///a küldetés típusát állítja át
+    /**
+     * Átállítja  a küldetés típusát
+     * @param qtype - lehetséges küldetéstípus
+     * */
     void settype(questtype qtype);
 
 private:
-    questtype type;
-    size_t ID;
-    std::string desc;
-    std::string optA;
-    size_t jmpA;
-    std::string optB;
-    size_t jmpB;
-    size_t jmpauto;
+    questtype type;                 ///A küldetés típusa
+    size_t ID;                      ///A küldetés azonosítója (ID-je)
+    std::string desc;               ///A küldetés leírása
+    std::string optA;               ///Az 'A' válaszlehetőség szövege
+    size_t jmpA;                    ///Az 'A' válaszlehetőség választása esetén, melyik küldetésre ugorjon
+    std::string optB;               ///A 'B' válaszlehetőség szövege
+    size_t jmpB;                    ///A 'B' válaszlehetőség választása esetén, melyik küldetésre ugorjon
+    size_t jmpauto;                 ///Automatikus ugrás esetén, melyik küldetésre ugorjon
 public:
-    ///visszaadja a küldetésst ID-jét
+    /**
+     * Visszaadja a küldetés azonosítóját (ID-jét)
+     * @return - Az adott küldetés azonosítója
+     * */
     const size_t getID() const;
 
-    ///visszaadja, hogy a küldetés melyik másik küldetésre ugrik A válaszlehetőség választása esetén, az érték változtatható is
-    size_t& getjmpA();
 
-    ///visszaadja, hogy a küldetés melyik másik küldetésre ugrik B válaszlehetőség választása esetén, az érték változtatható is
-    size_t& getjmpB();
+    /**
+     * Visszaadja, hogy a küldetés melyik másik küldetésre ugrik A válaszlehetőség választása esetén, az érték változtatható is
+     * @return - Referencia az 'A' ugrásra
+     * */
+    size_t &getjmpA();
 
-    ///visszaadja az automatikus ugrás értékét
-    size_t& getautojmp();
 
-    ///visszaadja A válaszlehetőség szövegét
+    /**
+     * Visszaadja, hogy a küldetés melyik másik küldetésre ugrik B válaszlehetőség választása esetén, az érték változtatható is
+     * @return - Referencia a 'B' ugrásra
+     * */
+    size_t &getjmpB();
+
+
+    /**
+     * Visszaadja, hogy a küldetés melyik másik küldetésre ugrik automatikus ugrás esetén, az érték változtatható is
+     * @return - Referencia az automatikus ugrásra
+     * */
+    size_t &getautojmp();
+
+
+    /**
+     * Visszaadja az 'A' válaszlehetőség szövegét
+     * @return - konstans referencia az 'A' válaszlehetőség szövegére
+     * */
     const std::string &getoptA() const;
 
-    ///visszaadja B válaszlehetőség szövegét
+
+    /**
+     * Visszaadja a 'B' válaszlehetőség szövegét
+     * @return - konstans referencia a 'B' válaszlehetőség szövegére
+     * */
     const std::string &getoptB() const;
 
-    ///visszaadja a küldetés leírását
+
+    /**
+     * Visszaadja a küldetés leírását (azért nem referencia, mert Random küldetéstípusnál dolgozni kell a szöveggel)
+     * @return - a kuldetés leírása
+     * */
     virtual const std::string getdesc() const;
 
-    ///visszaadja a küüldetés típusát
+
+    /**
+     * Visszaadja a küldetés típusát
+     * @return - a kuldetés típusa
+     * */
     const questtype gettype() const;
 
-    ///megváltoztatja a küldetés típusát "Visitable"-ről "Visited"-re
+
+    /**
+     * Megváltoztatja a küldetés típusát 'Visitable'-ről 'Visited'-re, ha a küldetésobjektum 'VisitedQuest'
+     * */
     virtual void change();
 
-    ///létrehoz egy dinamikus másolatot a példányból
+
+    /**
+     * Létrehoz egy dinamikus másolatot a példányból ('Quest' osztály leszármazottjainál működik)
+     * @return - mutató a dinamikusan másolt objektumra
+     * */
     virtual Quest *clone() const = 0;
 
-    //------------------------>
-    ///paraméter nélkül hívható konstruktor
+
+    /**
+     * Paraméter nélkül hívható konstruktor
+     * */
     Quest();
 
     ///konstruktor
