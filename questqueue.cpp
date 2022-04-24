@@ -3,13 +3,9 @@
 #include "questqueue.h"
 #include <algorithm>
 
-template<class T>
-void swap(T &x, T &y)
+bool compare(Quest *a, Quest *b)
 {
-    T temp;
-    temp = x;
-    x = y;
-    y = temp;
+    return a->getID() <= b->getID();
 }
 
 ///-----------------------///
@@ -22,18 +18,7 @@ void QuestQueue::add(Quest *quest)
 
 void QuestQueue::sort()
 {
-    size_t i, j;
-    size_t n = queue.size();
-    for (i = 0; i < n - 1; i++)
-    {
-        for (j = 0; j < n - i - 1; j++)
-        {
-            if (queue[j]->getID() > queue[j + 1]->getID())
-            {
-                swap(queue[j], queue[j + 1]);
-            }
-        }
-    }
+    std::sort(queue.begin(), queue.end(), compare);
 }
 
 void QuestQueue::chooseA()

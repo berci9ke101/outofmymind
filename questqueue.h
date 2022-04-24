@@ -82,12 +82,11 @@ public:
 };
 
 /**
- * Felcseréli a két adattagot
- * @tparam T - felcserélendő adattípus
- * @param x - egyik bemenet
- * @param y - másik bemenet
+ * Összehasonlítja a két Quest ID-jét és igazat ad vissza, ha b azonosítója nagyobb vagy egyenlő a azonosítójánál
+ * @param a - mutató az egyik küldetésobjektumra
+ * @param b - mutató a másik küldetésobjektumra
+ * @return - igaz, ha b ID-je >= a ID-je, hamis, ha b ID-je <> a ID-je
  * */
-template<class T>
-void swap(T &x, T &y);
+bool compare(Quest *a, Quest *b);
 
 #endif //NAGYHF_QUESTQUEUE_H

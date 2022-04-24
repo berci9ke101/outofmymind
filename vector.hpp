@@ -22,6 +22,8 @@ namespace notstd
          * */
         const size_t size() const;
 
+        T* begin() { return data; }
+        T* end() { return data + siz; }
 
         /**
          * Visszaadja a vektor n-edik indexén lévő elemet,
