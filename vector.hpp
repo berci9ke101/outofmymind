@@ -22,8 +22,20 @@ namespace notstd
          * */
         const size_t size() const;
 
-        T* begin() { return data; }
-        T* end() { return data + siz; }
+
+        /**
+         * Iterátor a vektor elejére
+         * @return - egy iterátor a vektor első elemére
+         */
+        T *begin();
+
+
+        /**
+         * Iterátor a vektor utolsó utáni elemére
+         * @return - egy iterátor a vektor utolsó utáni
+         */
+        T *end();
+
 
         /**
          * Visszaadja a vektor n-edik indexén lévő elemet,
@@ -99,6 +111,18 @@ namespace notstd
     }
 
     template<typename T>
+    T *vector<T>::begin()
+    {
+        return data;
+    }
+
+    template<typename T>
+    T *vector<T>::end()
+    {
+        return data + siz;
+    }
+
+    template<typename T>
     T &vector<T>::at(size_t n)
     {
         ///túlindexeléskor std::out_of_range kivételt dobunk
@@ -170,7 +194,5 @@ namespace notstd
     {
         delete[] data;
     }
-
-
 }
 #endif //NAGYHF_VECTOR_HPP
