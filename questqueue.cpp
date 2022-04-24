@@ -1,3 +1,5 @@
+#include "memtrace.h"
+
 #include "questqueue.h"
 #include <algorithm>
 

@@ -1,6 +1,8 @@
 #ifndef NAGYHF_QUESTQUEUE_H
 #define NAGYHF_QUESTQUEUE_H
 
+#include "memtrace.h"
+
 #include "quest.h"
 #include "vector.hpp"
 #include <vector>

@@ -1,3 +1,5 @@
+#include "memtrace.h"
+
 #include "quest.h"
 #include "vector.hpp"
 #include <utility>

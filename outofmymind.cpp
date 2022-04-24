@@ -1,3 +1,5 @@
+#include "memtrace.h"
+
 #include <iostream>
 #include "game.h"
 #include "econio.h"
@@ -30,7 +32,8 @@ int main(int argc, char **argv)
     Game playgame(gamefile, savefile);
 
     ///inicializáljuk a játékablakot
-    playgame.init();
+    ///playgame.init();
+    econio_rawmode();
 
     ///beolvassuk a játékot
     try

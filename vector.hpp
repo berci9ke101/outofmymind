@@ -1,6 +1,8 @@
 #ifndef NAGYHF_VECTOR_HPP
 #define NAGYHF_VECTOR_HPP
 
+#include "memtrace.h"
+
 namespace notstd
 {
 /**

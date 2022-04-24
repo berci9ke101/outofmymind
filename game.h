@@ -1,6 +1,8 @@
 #ifndef NAGYHF_GAME_H
 #define NAGYHF_GAME_H
 
+#include "memtrace.h"
+
 #include <cstdio>
 #include <string>
 #include "vector.hpp"
@@ -19,17 +21,17 @@ public:
     /**
      * Beolvassa a paraméterként kapott játékfájlt, illetve mentésfájlt
      * @param queue - Quest* tárolására alkalmas heterogén kollekció
-     * @return - a beolvasott fájl sorai egy 2D-s dinamikus tömbben
+     * @return - mutató a beolvasott fájl soraira egy 2D-s dinamikus tömbben
      * */
-    const notstd::vector<std::string> &read(QuestQueue &queue);
+    const notstd::vector<std::string> *read(QuestQueue &queue);
 
 
     /**
      * Betölti a paraméterként kapott szövegtömbből a küldetéstömbbe a küldetéseket
-     * @param sVector - a beolvasott fájl sorai egy 2D-s dinamikus tömbben
+     * @param sVector - mutató a beolvasott fájl soraira egy 2D-s dinamikus tömbben
      * @param queue - Quest* tárolására alkalmas heterogén kollekció
      * */
-    void load(const notstd::vector<std::string> &sVector, QuestQueue &queue);
+    void load(const notstd::vector<std::string> *sVector, QuestQueue &queue);
 
 
     /**

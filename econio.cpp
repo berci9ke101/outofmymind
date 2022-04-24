@@ -9,11 +9,11 @@
 #include <conio.h>
 #include <assert.h>
 
-static WORD bgcolor = COL_BLACK;
-static WORD fgcolor = COL_LIGHTGRAY;
+///static WORD bgcolor = COL_BLACK;
+///static WORD fgcolor = COL_LIGHTGRAY;
 static bool rawmode = false;
 
-static WORD colormap[] = {
+/*static WORD colormap[] = {
         [COL_BLACK]           = 0,
         [COL_BLUE]            = FOREGROUND_BLUE,
         [COL_GREEN]           = FOREGROUND_GREEN,
@@ -30,11 +30,12 @@ static WORD colormap[] = {
         [COL_LIGHTMAGENTA]    = FOREGROUND_RED   | FOREGROUND_BLUE  | FOREGROUND_INTENSITY,
         [COL_YELLOW]          = FOREGROUND_RED   | FOREGROUND_GREEN | FOREGROUND_INTENSITY,
         [COL_WHITE]           = FOREGROUND_RED   | FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY,
-};
+};*/
 
 #define STDOUT GetStdHandle(STD_OUTPUT_HANDLE)
 
-void econio_gotoxy(int x, int y) {
+void econio_gotoxy(int x, int y)
+{
     COORD dwCursorPosition;
     dwCursorPosition.X = (SHORT) x;
     dwCursorPosition.Y = (SHORT) y;
@@ -42,110 +43,134 @@ void econio_gotoxy(int x, int y) {
 }
 
 
-void econio_textbackground(int newcolor) {
+/*void econio_textbackground(int newcolor)
+{
     if (newcolor == COL_RESET)
+    {
         newcolor = COL_BLACK;
+    }
     assert(newcolor >= 0 && newcolor < 16);
     bgcolor = (WORD) (colormap[newcolor] << 4);
     SetConsoleTextAttribute(STDOUT, fgcolor | bgcolor);
-}
+}*/
 
 
-void econio_textcolor(int newcolor) {
+/*void econio_textcolor(int newcolor)
+{
     if (newcolor == COL_RESET)
+    {
         newcolor = COL_LIGHTGRAY;
+    }
     assert(newcolor >= 0 && newcolor < 16);
     fgcolor = (WORD) colormap[newcolor];
     SetConsoleTextAttribute(STDOUT, fgcolor | bgcolor);
-}
+}*/
 
 
-void econio_clrscr(void) {
+void econio_clrscr(void)
+{
     HANDLE hstdout = STDOUT;
     CONSOLE_SCREEN_BUFFER_INFO csbi;
-    if (GetConsoleScreenBufferInfo(hstdout, &csbi)) {
-        COORD coordScreen = { 0, 0 };
+    if (GetConsoleScreenBufferInfo(hstdout, &csbi))
+    {
+        COORD coordScreen = {0, 0};
         DWORD cCharsWritten;
         DWORD dwConSize = csbi.dwSize.X * csbi.dwSize.Y;
-        FillConsoleOutputCharacter (hstdout, ' ', dwConSize, coordScreen, &cCharsWritten);
-        FillConsoleOutputAttribute (hstdout, csbi.wAttributes, dwConSize, coordScreen, &cCharsWritten);
-        SetConsoleCursorPosition   (hstdout, coordScreen);
+        FillConsoleOutputCharacter(hstdout, ' ', dwConSize, coordScreen, &cCharsWritten);
+        FillConsoleOutputAttribute(hstdout, csbi.wAttributes, dwConSize, coordScreen, &cCharsWritten);
+        SetConsoleCursorPosition(hstdout, coordScreen);
     }
 }
 
 
-void econio_flush() {
+void econio_flush()
+{
     fflush(stdout);
 }
 
 
-void econio_set_title(char const *title) {
+void econio_set_title(char const *title)
+{
     SetConsoleTitle(title);
 }
 
 
-void econio_rawmode() {
+void econio_rawmode()
+{
     rawmode = true;
 }
 
 
-void econio_normalmode() {
+void econio_normalmode()
+{
     rawmode = false;
 }
 
 
-bool econio_kbhit() {
+bool econio_kbhit()
+{
     assert(rawmode);
     return _kbhit() != 0;
 }
 
 
-int econio_getch() {
-    static struct {
+int econio_getch()
+{
+    static struct
+    {
         int code;
         EconioKey key;
-    } windowskeycodes[] = {
-            {72, KEY_UP},
-            {80, KEY_DOWN},
-            {75, KEY_LEFT},
-            {77, KEY_RIGHT},
-            {73, KEY_PAGEUP},
-            {81, KEY_PAGEDOWN},
-            {71, KEY_HOME},
-            {79, KEY_END},
-            {82, KEY_INSERT},
-            {83, KEY_DELETE},
-            {141, KEY_CTRLUP},
-            {145, KEY_CTRLDOWN},
-            {115, KEY_CTRLLEFT},
-            {116, KEY_CTRLRIGHT},
-            {134, KEY_CTRLPAGEUP},
-            {118, KEY_CTRLPAGEDOWN},
-            {119, KEY_CTRLHOME},
-            {117, KEY_CTRLEND},
-            {146, KEY_CTRLINSERT},
-            {147, KEY_CTRLDELETE},
-            {-1, KEY_UNKNOWNKEY},
-    };
+    } windowskeycodes[] = {{72,  KEY_UP},
+                           {80,  KEY_DOWN},
+                           {75,  KEY_LEFT},
+                           {77,  KEY_RIGHT},
+                           {73,  KEY_PAGEUP},
+                           {81,  KEY_PAGEDOWN},
+                           {71,  KEY_HOME},
+                           {79,  KEY_END},
+                           {82,  KEY_INSERT},
+                           {83,  KEY_DELETE},
+                           {141, KEY_CTRLUP},
+                           {145, KEY_CTRLDOWN},
+                           {115, KEY_CTRLLEFT},
+                           {116, KEY_CTRLRIGHT},
+                           {134, KEY_CTRLPAGEUP},
+                           {118, KEY_CTRLPAGEDOWN},
+                           {119, KEY_CTRLHOME},
+                           {117, KEY_CTRLEND},
+                           {146, KEY_CTRLINSERT},
+                           {147, KEY_CTRLDELETE},
+                           {-1,  KEY_UNKNOWNKEY},};
 
     assert(rawmode);
     int code = _getch();
     if (code == 0x7F)
+    {
         return KEY_BACKSPACE;
+    }
     if (code == 0x0D)
+    {
         return KEY_ENTER;
+    }
     if (code != 0xE0)
+    {
         return code;
+    }
     code = _getch();
 
     for (int i = 0; windowskeycodes[i].code != -1; ++i)
+    {
         if (code == windowskeycodes[i].code)
+        {
             return windowskeycodes[i].key;
+        }
+    }
     return KEY_UNKNOWNKEY;
 }
 
 
-void econio_sleep(double sec) {
+void econio_sleep(double sec)
+{
     Sleep(sec * 1000);
 }
 

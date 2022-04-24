@@ -1,3 +1,5 @@
+#include "memtrace.h"
+
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -125,7 +127,7 @@ Game::Game(const Game &rhs) : width(rhs.width), height(rhs.height), iswin(rhs.is
 Game::~Game()
 {}
 
-FileIO& Game::getfile()
+FileIO &Game::getfile()
 {
     return file;
 }
@@ -133,7 +135,7 @@ FileIO& Game::getfile()
 ///-------------------------------///
 ///a fájkezelésért felelős osztály///
 ///-------------------------------///
-const notstd::vector<std::string> &FileIO::read(QuestQueue &queue)
+const notstd::vector<std::string> *FileIO::read(QuestQueue &queue)
 {
     ///fájl megnyitása
     std::ifstream GAME;
@@ -186,10 +188,10 @@ const notstd::vector<std::string> &FileIO::read(QuestQueue &queue)
     LOAD.close();
 
     ///tömb visszaadása
-    return *sVector;
+    return sVector;
 }
 
-void FileIO::load(const notstd::vector<std::string> &sVector, QuestQueue &queue)
+void FileIO::load(const notstd::vector<std::string> *sVector, QuestQueue &queue)
 {
     ///temporális változók
     questtype TMP_type;
@@ -205,18 +207,18 @@ void FileIO::load(const notstd::vector<std::string> &sVector, QuestQueue &queue)
     std::string TMP_alternatedesc;
 
     ///ha üres a fájl...
-    if (sVector.empty())
+    if (sVector->empty())
     {
         ///kivételt dobunk
         throw std::logic_error("Empty file!");
     }
 
     ///beolvasáso ciklus
-    for (size_t i = 0; i < sVector.size(); i++)
+    for (size_t i = 0; i < sVector->size(); i++)
     {
         ///szétszedjük a szöveget a ';' karakterek mentén és belerakjuk egy dinamikus tömbbe
         notstd::vector<std::string> variable_arr;
-        std::istringstream strings(sVector[i]);
+        std::istringstream strings((*sVector)[i]);
         std::string s;
 
         while (getline(strings, s, ';'))
@@ -300,6 +302,8 @@ void FileIO::load(const notstd::vector<std::string> &sVector, QuestQueue &queue)
             throw std::logic_error("No such questtype!");
         }
     }
+    ///felszabadítjuk a dinamikusan foglalt részt
+    delete sVector;
 }
 
 void FileIO::save(const std::string &savegame, QuestQueue &queue)

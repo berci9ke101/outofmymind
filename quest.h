@@ -1,6 +1,8 @@
 #ifndef NAGYHF_QUEST_H
 #define NAGYHF_QUEST_H
 
+#include "memtrace.h"
+
 #include <cstdio>
 #include <string>
 #include "vector.hpp"
