@@ -54,11 +54,25 @@ void game(char **argv)
         playgame.getfile().load(playgame.getfile().read(qq), qq);
     } catch (file_failure &failure)
     {
-        ///ha nem lehetett a fájlt megnyitni kilépünk a -1 hibakóddal
+        ///ha nem lehetett a fájlt megnyitni, akkor hibát írunk a felhasználónak
+        std::cout << "\n\nCould not open load or save file!\n\nPress any button to exit!\n\n";
+
+        ///bemeneti módra állítjuk
+        econio_rawmode();
+        econio_getch();
+
+        ///és kilépünk -1 hibakóddal
         exit(-1);
     } catch (std::logic_error &error)
     {
-        ///ha üres a fájl, akkor kilépünk a -2 hibakóddal
+        ///ha üres a fájl akkor hibát írunk a felhasználónak
+        std::cout << "\n\nLoad or save file is empty or corrupted!\n\nPress any button to exit!\n\n";
+
+        //bemeneti módra állítjuk
+        econio_rawmode();
+        econio_getch();
+
+        ///és kilépünk -2 hibakóddal
         exit(-2);
     }
 
@@ -153,31 +167,17 @@ void Game::init() const
     ///Ha az operációs rendszer Windows, akkor annak megfelelően inicializáljuk a konzolt
     if (iswin)
     {
+#ifdef WIN32
         ///A VT100 konzol engedélyezése
         ///forrás: http://salvi.chaosnet.org/texts/vt100.html
-        #ifdef WIN32
-            // Enable VT100 escape control characters on Windows
-            HANDLE hOutput = GetStdHandle(STD_OUTPUT_HANDLE);
-            DWORD dwMode;
-            GetConsoleMode(hOutput, &dwMode);
-            dwMode |= ENABLE_PROCESSED_OUTPUT | ENABLE_VIRTUAL_TERMINAL_PROCESSING;
-            SetConsoleMode(hOutput, dwMode);
-        #endif
+        // Enable VT100 escape control characters on Windows
+        HANDLE hOutput = GetStdHandle(STD_OUTPUT_HANDLE);
+        DWORD dwMode;
+        GetConsoleMode(hOutput, &dwMode);
+        dwMode |= ENABLE_PROCESSED_OUTPUT | ENABLE_VIRTUAL_TERMINAL_PROCESSING;
+        SetConsoleMode(hOutput, dwMode);
         ///forrás: http://salvi.chaosnet.org/texts/vt100.html
 
-        ///ablak méretének beállítása
-        std::cout << '^[[8;80;25t';
-
-        std::string sys = "mode con:cols=" + std::to_string(width) + " lines=" + std::to_string(height);
-        const char *sss = sys.data();
-        system(sss);
-
-        ///ablak átnevezése
-        UINT original_cp = GetConsoleCP();
-        SetConsoleOutputCP(CP_UTF8);
-        SetConsoleCP(CP_UTF8);
-        SetConsoleTitle("Out Of My Mind");
-        SetConsoleCP(original_cp);
 
         ///kurzor eltűntetése
         HANDLE outhandle = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -185,12 +185,22 @@ void Game::init() const
         GetConsoleCursorInfo(outhandle, &cursor);
         cursor.bVisible = FALSE;
         SetConsoleCursorInfo(outhandle, &cursor);
-    }
-    ///Ha más az operációs rendszer...
-    else
-    {
 
+
+        ///ablak kódolásának megváltoztatása és átnevezése
+        UINT original_cp = GetConsoleCP();
+        SetConsoleOutputCP(CP_UTF8);
+        SetConsoleCP(CP_UTF8);
+        SetConsoleTitle("Out Of My Mind");
+        SetConsoleCP(original_cp);
+#endif
     }
+    ///inicializáljuk az ablak méretét
+
+    ///ablak méretének beállítása VT100 escape karakter szekvenciákkal
+    std::cout << "\x1b[8;" << height << ';' << width << 't';
+
+    ///billentyű lenyomás érzékelése miatt kel
     econio_rawmode();
 }
 
