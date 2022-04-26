@@ -169,9 +169,17 @@ public:
  * */
 void savegame(char **argv, Game &savename, QuestQueue &queue);
 
+
 /**
  * Érzékeli, hogy az operációs rendszer Windows-e
  * */
 bool detect();
+
+
+/**
+ * Maga a játék
+ * @param argv az argumentumvektor
+ */
+void game(char **argv);
 
 #endif //NAGYHF_GAME_H
