@@ -26,7 +26,7 @@ int main(int argc, char **argv)
     QuestQueue qq;
 
     ///random "magzása"
-    srand(time(nullptr));
+    srand(time(0));
 
     ///létrehozunk egy játékfájlt
     Game playgame(gamefile, savefile);
