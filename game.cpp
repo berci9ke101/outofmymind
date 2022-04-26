@@ -74,6 +74,17 @@ void game(char **argv)
 
         ///és kilépünk -2 hibakóddal
         exit(-2);
+    } catch (std::exception &e)
+    {
+        ///Imseretlen hiba történt
+        std::cout << "\n\nAn unknown error occured!\n\nPress any button to exit!\n\n";
+
+        ///bemeneti módra állítjuk
+        econio_rawmode();
+        econio_getch();
+
+        ///és kilépünk -3 hibakóddal
+        exit(-3);
     }
 
 
