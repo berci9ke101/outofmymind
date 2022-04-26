@@ -55,7 +55,7 @@ void game(char **argv)
     } catch (file_failure &failure)
     {
         ///ha nem lehetett a fájlt megnyitni, akkor hibát írunk a felhasználónak
-        std::cout << "\n\nCould not open load or save file!\n\nPress any button to exit!\n\n";
+        std::cout << "\n\nCould not open load file!\n\nPress any button to exit!\n\n";
 
         ///bemeneti módra állítjuk
         econio_rawmode();
@@ -66,9 +66,9 @@ void game(char **argv)
     } catch (std::logic_error &error)
     {
         ///ha üres a fájl akkor hibát írunk a felhasználónak
-        std::cout << "\n\nLoad or save file is empty or corrupted!\n\nPress any button to exit!\n\n";
+        std::cout << "\n\nLoad file is empty or corrupted!\n\nPress any button to exit!\n\n";
 
-        //bemeneti módra állítjuk
+        ///bemeneti módra állítjuk
         econio_rawmode();
         econio_getch();
 
