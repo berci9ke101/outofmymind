@@ -1,8 +1,6 @@
 #include "memtrace.h"
 
-#include <iostream>
 #include "game.h"
-#include "econio.h"
 
 /*
  *  VT100

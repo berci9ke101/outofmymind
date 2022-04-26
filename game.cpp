@@ -111,7 +111,7 @@ void savegame(char **argv, Game &savename, QuestQueue &queue)
     ///megkérdezzük a felhasználót, hogy mi legyen a mentésfájl neve
     std::cout << "What's the name of the savefile that you would like to save to?: ";
     std::string savefile;
-    std::cin >> savefile;;
+    std::cin >> savefile;
 
     ///forrás: http://www.cplusplus.com/forum/beginner/10862/#msg50953
     std::string directory = argv[0];//program full path + name of binary file
@@ -150,13 +150,27 @@ file_failure::~file_failure()
 ///--------------------------///
 void Game::init() const
 {
+    ///Ha az operációs rendszer Windows, akkor annak megfelelően inicializáljuk a konzolt
     if (iswin)
     {
+        ///A VT100 konzol engedélyezése
+        ///forrás: http://salvi.chaosnet.org/texts/vt100.html
+        #ifdef WIN32
+            // Enable VT100 escape control characters on Windows
+            HANDLE hOutput = GetStdHandle(STD_OUTPUT_HANDLE);
+            DWORD dwMode;
+            GetConsoleMode(hOutput, &dwMode);
+            dwMode |= ENABLE_PROCESSED_OUTPUT | ENABLE_VIRTUAL_TERMINAL_PROCESSING;
+            SetConsoleMode(hOutput, dwMode);
+        #endif
+        ///forrás: http://salvi.chaosnet.org/texts/vt100.html
+
         ///ablak méretének beállítása
+        std::cout << '^[[8;80;25t';
+
         std::string sys = "mode con:cols=" + std::to_string(width) + " lines=" + std::to_string(height);
         const char *sss = sys.data();
         system(sss);
-        //system("mode con:cols=119 lines=25");
 
         ///ablak átnevezése
         UINT original_cp = GetConsoleCP();
@@ -171,6 +185,11 @@ void Game::init() const
         GetConsoleCursorInfo(outhandle, &cursor);
         cursor.bVisible = FALSE;
         SetConsoleCursorInfo(outhandle, &cursor);
+    }
+    ///Ha más az operációs rendszer...
+    else
+    {
+
     }
     econio_rawmode();
 }
@@ -231,7 +250,7 @@ FileIO &Game::getfile()
 ///-------------------------------///
 ///a fájkezelésért felelős osztály///
 ///-------------------------------///
-const notstd::vector<std::string> *FileIO::read(QuestQueue &queue)
+const notstd::vector<std::string> FileIO::read(QuestQueue &queue)
 {
     ///fájl megnyitása
     std::ifstream GAME;
@@ -247,17 +266,16 @@ const notstd::vector<std::string> *FileIO::read(QuestQueue &queue)
 
     ///beolvasás, ha nincs hiba
     std::string line;
-    notstd::vector<std::string> *sVector = new notstd::vector<std::string>;
+    notstd::vector<std::string> sVector;
     while (getline(GAME, line))
     {
-        sVector->push_back(line);
+        sVector.push_back(line);
     }
 
     ///ha üres a fájl...
-    if (sVector->empty())
+    if (sVector.empty())
     {
         ///kivételt dobunk
-        delete sVector;
         GAME.close();
         throw std::logic_error("Empty file!");
     }
@@ -287,7 +305,7 @@ const notstd::vector<std::string> *FileIO::read(QuestQueue &queue)
     return sVector;
 }
 
-void FileIO::load(const notstd::vector<std::string> *sVector, QuestQueue &queue)
+void FileIO::load(const notstd::vector<std::string> sVector, QuestQueue &queue)
 {
     ///temporális változók
     questtype TMP_type;
@@ -303,18 +321,18 @@ void FileIO::load(const notstd::vector<std::string> *sVector, QuestQueue &queue)
     std::string TMP_alternatedesc;
 
     ///ha üres a fájl...
-    if (sVector->empty())
+    if (sVector.empty())
     {
         ///kivételt dobunk
         throw std::logic_error("Empty file!");
     }
 
     ///beolvasáso ciklus
-    for (size_t i = 0; i < sVector->size(); i++)
+    for (size_t i = 0; i < sVector.size(); i++)
     {
         ///szétszedjük a szöveget a ';' karakterek mentén és belerakjuk egy dinamikus tömbbe
         notstd::vector<std::string> variable_arr;
-        std::istringstream strings((*sVector)[i]);
+        std::istringstream strings(sVector[i]);
         std::string s;
 
         while (getline(strings, s, ';'))
@@ -398,8 +416,6 @@ void FileIO::load(const notstd::vector<std::string> *sVector, QuestQueue &queue)
             throw std::logic_error("No such questtype!");
         }
     }
-    ///felszabadítjuk a dinamikusan foglalt részt
-    delete sVector;
 }
 
 void FileIO::save(const std::string &savegame, QuestQueue &queue)

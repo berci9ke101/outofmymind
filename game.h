@@ -50,7 +50,7 @@ public:
      * @param queue - Quest* tárolására alkalmas heterogén kollekció
      * @return - mutató a beolvasott fájl soraira egy 2D-s dinamikus tömbben
      * */
-    const notstd::vector<std::string> *read(QuestQueue &queue);
+    const notstd::vector<std::string> read(QuestQueue &queue);
 
 
     /**
@@ -58,7 +58,7 @@ public:
      * @param sVector - mutató a beolvasott fájl soraira egy 2D-s dinamikus tömbben
      * @param queue - Quest* tárolására alkalmas heterogén kollekció
      * */
-    void load(const notstd::vector<std::string> *sVector, QuestQueue &queue);
+    void load(const notstd::vector<std::string> sVector, QuestQueue &queue);
 
 
     /**
@@ -171,7 +171,7 @@ void savegame(char **argv, Game &savename, QuestQueue &queue);
 
 
 /**
- * Érzékeli, hogy az operációs rendszer Windows-e
+ * Érzékeli, hogy az operációs rendszer Windows típusú-e
  * */
 bool detect();
 
