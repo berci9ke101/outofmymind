@@ -40,7 +40,7 @@ int main(int argc, char **argv)
     {
         ///pontosabban megpróbáljuk beolvasni
         playgame.getfile().load(playgame.getfile().read(qq), qq);
-    } catch (std::ios_base::failure &failure)
+    } catch (file_failure &failure)
     {
         ///ha nem lehetett a fájlt megnyitni kilépünk a -1 hibakóddal
         exit(-1);

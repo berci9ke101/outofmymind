@@ -11,6 +11,33 @@
 #include "questqueue.h"
 
 /**
+ * Fájl hiba kivételosztály
+ */
+class file_failure : public std::ios_base::failure
+{
+public:
+    /**
+     * Konstruktor
+     * @param str - a hiba szövege
+     */
+    file_failure(const std::string &str);
+
+
+    /**
+     * Másolókonstruktor
+     * @param rhs - jobbérték
+     */
+    file_failure(const file_failure &rhs);
+
+
+    /**
+     * Destruktor
+     */
+    ~file_failure();
+};
+
+
+/**
  * Fájlkezelésért felelős osztály
  */
 class FileIO

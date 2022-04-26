@@ -50,6 +50,20 @@ void savegame(char **argv, Game &savename, QuestQueue &queue)
     queue.getcurrent_state() = -1;
 }
 
+///------------------------///
+///Fájl hiba kivételosztály///
+///------------------------///
+
+file_failure::file_failure(const std::string &str) : std::ios_base::failure(str)
+{}
+
+file_failure::file_failure(const file_failure &rhs) : std::ios_base::failure(rhs.what())
+{}
+
+file_failure::~file_failure()
+{}
+
+
 ///--------------------------///
 ///a játékért felelős osztály///
 ///--------------------------///
@@ -132,6 +146,7 @@ FileIO &Game::getfile()
     return file;
 }
 
+
 ///-------------------------------///
 ///a fájkezelésért felelős osztály///
 ///-------------------------------///
@@ -146,7 +161,7 @@ const notstd::vector<std::string> *FileIO::read(QuestQueue &queue)
     {
         ///kivételt dobunk
         GAME.close();
-        throw std::ios_base::failure("Could not open file!");
+        throw file_failure("Could not open file!");
     }
 
     ///beolvasás, ha nincs hiba
@@ -318,7 +333,7 @@ void FileIO::save(const std::string &savegame, QuestQueue &queue)
     {
         ///kivételt dobunk
         SAVE.close();
-        throw std::ios_base::failure("Could not open file!");
+        throw file_failure("Could not open file!");
     }
 
     ///kiírás, ha nincs hiba
