@@ -22,6 +22,12 @@ namespace notstd
          * */
         const size_t size() const;
 
+        /**
+         * Visszaadja, hogy üres-e a vektor vagy nem
+         * @return - logikai változó az ürességre
+         * */
+        bool empty() const;
+
 
         /**
          * Iterátor a vektor elejére
@@ -53,13 +59,6 @@ namespace notstd
          * @return - konstans referencia az n-edik indexű elemre
          * */
         const T &at(size_t n) const;
-
-
-        /**
-         * Visszaadja, hogy üres-e a vektor vagy nem
-         * @return - logikai változó az ürességre
-         * */
-        bool empty() const;
 
 
         /**
@@ -136,7 +135,8 @@ namespace notstd
     template<typename T>
     const T &vector<T>::at(size_t n) const
     {
-        if (n >= siz or n < 0)
+        ///túlindexeléskor std::out_of_range kivételt dobunk
+        if (n >= siz)
         {
             throw std::out_of_range("");
         }

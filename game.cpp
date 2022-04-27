@@ -76,7 +76,7 @@ void game(char **argv)
         exit(-2);
     } catch (std::exception &e)
     {
-        ///Imseretlen hiba történt
+        ///ismeretlen hiba történt
         std::cout << "\n\nAn unknown error occured!\n\nPress any button to exit!\n\n";
 
         ///bemeneti módra állítjuk
