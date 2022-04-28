@@ -5,4 +5,4 @@ set(CMAKE_CXX_STANDARD 11)
 
 set(CMAKE_CXX_FLAGS "-Wall -Werror -pedantic -std=c++11 -g -DMEMTRACE")
 
-add_executable(oomm outofmymind.cpp econio.h econio.cpp quest.h quest.cpp game.cpp game.h questqueue.cpp questqueue.h vector.hpp memtrace.cpp memtrace.h)
+add_executable(oomm outofmymind.cpp econio.h econio.cpp quest.h quest.cpp game.cpp game.h questqueue.cpp questqueue.h vector.hpp memtrace.cpp memtrace.h tests.cpp tests.h gtest_lite.h)

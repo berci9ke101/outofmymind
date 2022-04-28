@@ -127,7 +127,7 @@ namespace notstd
         ///túlindexeléskor std::out_of_range kivételt dobunk
         if (n >= siz)
         {
-            throw std::out_of_range("");
+           throw std::out_of_range("");
         }
         return (*this)[n];
     }
@@ -177,7 +177,7 @@ namespace notstd
     }
 
     template<typename T>
-    vector<T>::vector(): data(nullptr), siz(0)
+    vector<T>::vector(): data(NULL), siz(0)
     {}
 
     template<typename T>
