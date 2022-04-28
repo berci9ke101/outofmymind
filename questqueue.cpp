@@ -57,20 +57,11 @@ size_t &QuestQueue::getcurrent_state()
 
 Quest *QuestQueue::operator[](size_t n)
 {
-    ///nem foglalkozunk a hibakezeléssel, mert az notstd::vector::at() megvéd bennünket a túlindexeléstől
-    return queue.at(n);
+    return queue[n];
 }
 
 QuestQueue::QuestQueue() : current_state(0)
 {}
-
-QuestQueue::QuestQueue(const QuestQueue &rhs) : queue(), current_state(rhs.current_state)
-{
-    for (size_t i = 0; i < rhs.queue.size(); i++)
-    {
-        queue.push_back(rhs.queue[i]->clone());
-    }
-}
 
 QuestQueue::~QuestQueue()
 {

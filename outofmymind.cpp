@@ -9,7 +9,7 @@ int main(int argc, char **argv)
 
     ///Tesztesetek:
     vectortests();
-
+    gametests(argv);
 
     ///game(argv);
 

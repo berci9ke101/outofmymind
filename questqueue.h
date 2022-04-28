@@ -68,13 +68,6 @@ public:
 
 
     /**
-     * Másolókonstruktor
-     * @param rhs - jobbérték
-     * */
-    QuestQueue(const QuestQueue &rhs);
-
-
-    /**
      * Destruktor
      * */
     ~QuestQueue();

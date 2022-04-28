@@ -9,6 +9,8 @@
 void vectortests();
 
 /**
- *
+ * A játékosztály tesztjei
  */
+void gametests(char **argv);
+
 #endif //NAGYHF_TESTS_H
