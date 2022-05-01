@@ -6,12 +6,12 @@
 
 int main(int argc, char **argv)
 {
-
+#ifdef CPORTA
     ///Tesztesetek:
     vectortests();
     gametests(argv);
-
-    ///game(argv);
+#endif
+    game(argv);
 
     return 0;
 }
