@@ -238,13 +238,13 @@ void Game::writequest(Quest *rhs)
         std::cout << "B: " << rhs->getoptB();
     }
 
-    ///"help menu" --45--
-    econio_gotoxy(38, 22);
-    std::cout << "A button       - select option A";
-    econio_gotoxy(38, 23);
-    std::cout << "B button       - select option B";
-    econio_gotoxy(38, 24);
-    std::cout << "ESCAPE button  -   save and exit";
+    ///"help menu" --43--
+    econio_gotoxy(43, 22);
+    std::cout << "A button       -  select option A";
+    econio_gotoxy(43, 23);
+    std::cout << "B button       -  select option B";
+    econio_gotoxy(43, 24);
+    std::cout << "ESCAPE button  -    save and exit";
 }
 
 Game::Game() : width(25), height(119), iswin(detect()), file()
