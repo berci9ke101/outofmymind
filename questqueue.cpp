@@ -70,11 +70,3 @@ QuestQueue::~QuestQueue()
         delete queue[i];
     }
 }
-
-void QuestQueue::clear()
-{
-    for (size_t i = 0; i < queue.size(); i++)
-    {
-        delete queue[i];
-    }
-}

@@ -11,7 +11,7 @@ int main(int argc, char **argv)
     vectortests();
     gametests(argv);
 #endif
-    game(argv);
+    int exit_code = game(argv);
 
-    return 0;
+    return exit_code;
 }

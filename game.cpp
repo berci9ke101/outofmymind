@@ -23,7 +23,7 @@ bool detect()
     return false;
 }
 
-void game(char **argv)
+int game(char **argv)
 {
     ///megkérdezzük a felhasználót, hogy mi a játékfájl neve
     std::cout << "What's the name of the gamefile that you would like to load?: ";
@@ -62,7 +62,7 @@ void game(char **argv)
         econio_getch();
 
         ///és kilépünk -1 hibakóddal
-        exit(-1);
+        return -1;
     } catch (std::logic_error &error)
     {
         ///ha üres a fájl akkor hibát írunk a felhasználónak
@@ -73,8 +73,7 @@ void game(char **argv)
         econio_getch();
 
         ///és kilépünk -2 hibakóddal és felszabadítjuk a küldetéseket
-        ///qq.clear();
-        exit(-2);
+        return -2;
     } catch (std::exception &e)
     {
         ///ismeretlen hiba történt
@@ -85,7 +84,7 @@ void game(char **argv)
         econio_getch();
 
         ///és kilépünk -3 hibakóddal
-        exit(-3);
+        return -3;
     }
 
 
@@ -122,11 +121,12 @@ void game(char **argv)
                 } catch (std::ios_base::failure &failure)
                 {
                     ///ha nem sikerül, akkor kilépünk -3 hibakóddal
-                    exit(-3);
+                    return -3;
                 }
                 break;
         }
     }
+    return 0;
 }
 
 void savegame(char **argv, Game &savename, QuestQueue &queue)

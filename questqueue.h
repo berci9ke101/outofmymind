@@ -62,12 +62,6 @@ public:
 
 
     /**
-     * Kitörli a heterogén kollekciót és ezzel dinamikusan foglalt részeket
-     */
-     void clear();
-
-
-    /**
      * Paraméter nélkül hívható konstruktor
      * */
     QuestQueue();

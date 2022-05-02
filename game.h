@@ -179,7 +179,8 @@ bool detect();
 /**
  * Maga a játék
  * @param argv az argumentumvektor
+ * @return - a kilépési kód
  */
-void game(char **argv);
+int game(char **argv);
 
 #endif //NAGYHF_GAME_H
