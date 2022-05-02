@@ -60,6 +60,11 @@ public:
      * */
     Quest *operator[](size_t n);
 
+    /**
+     * Kitörli a heterogén kollekciót és ezzel dinamikusan foglalt részeket
+     */
+     void clear()
+
 
     /**
      * Paraméter nélkül hívható konstruktor
