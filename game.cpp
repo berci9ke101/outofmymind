@@ -73,11 +73,7 @@ void game(char **argv)
         econio_getch();
 
         ///és kilépünk -2 hibakóddal és felszabadítjuk a küldetéseket
-
-        for (size_t i = 0; i < qq.begin)
-        {
-
-        }
+        ///qq.clear();
         exit(-2);
     } catch (std::exception &e)
     {
