@@ -291,7 +291,11 @@ const notstd::vector<std::string> FileIO::read(QuestQueue &queue)
     notstd::vector<std::string> sVector;
     while (getline(GAME, line))
     {
-        sVector.push_back(line);
+        ///ha nem volt üres a sor, akkor belerakjuk a stringbe
+        if (line != std::string(""))
+        {
+            sVector.push_back(line);
+        }
     }
 
     ///ha üres a fájl...
