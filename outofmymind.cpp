@@ -11,6 +11,5 @@ int main(int argc, char **argv)
     vectortests();
     gametests(argv);
 #endif
-
     return game(argv);
 }
