@@ -151,7 +151,7 @@ const std::string RandomQuest::getdesc() const
     /// és belerakása egy dinamikus tömbbe
     while (getline(strings, s, '#'))
     {
-        ///ha nem volt üres a sor, akkor belerakjuk a stringbe
+        ///ha nem volt üres a string, akkor belerakjuk a vektorba
         if (s != std::string(""))
         {
             stringarr.push_back(s);
