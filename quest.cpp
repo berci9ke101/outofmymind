@@ -63,8 +63,8 @@ Quest::Quest() : type(Simple), ID(-1), desc("N/A"), optA("N/A"), jmpA(-1), optB(
 {}
 
 Quest::Quest(questtype type, size_t ID, std::string desc, std::string optA, size_t jmpA, std::string optB, size_t jmpB,
-             size_t jmpauto) : type(type), ID(ID), desc(std::move(desc)), optA(std::move(optA)), jmpA(jmpA), optB(std::move(optB)), jmpB(jmpB),
-                               jmpauto(jmpauto)
+             size_t jmpauto) : type(type), ID(ID), desc(std::move(desc)), optA(std::move(optA)), jmpA(jmpA),
+                               optB(std::move(optB)), jmpB(jmpB), jmpauto(jmpauto)
 {}
 
 Quest::Quest(const Quest &rhs) : type(rhs.type), ID(rhs.ID), desc(rhs.desc), optA(rhs.optA), jmpA(rhs.jmpA),
@@ -86,7 +86,8 @@ SimpleQuest::SimpleQuest() : Quest()
 {}
 
 SimpleQuest::SimpleQuest(questtype type, size_t ID, std::string desc, std::string optA, size_t jmpA, std::string optB,
-                         size_t jmpB, size_t jmpauto) : Quest(type, ID, std::move(desc), std::move(optA), jmpA, std::move(optB), jmpB, jmpauto)
+                         size_t jmpB, size_t jmpauto) : Quest(type, ID, std::move(desc), std::move(optA), jmpA,
+                                                              std::move(optB), jmpB, jmpauto)
 {}
 
 SimpleQuest::SimpleQuest(const SimpleQuest &rhs) : Quest(rhs)
@@ -123,9 +124,11 @@ VisitedQuest::VisitedQuest() : Quest(), alternatedesc("N/A")
 {}
 
 VisitedQuest::VisitedQuest(questtype type, size_t ID, std::string desc, std::string optA, size_t jmpA, std::string optB,
-                           size_t jmpB, size_t jmpauto, std::string alternatedesc) : Quest(type, ID, std::move(desc), std::move(optA), jmpA,
-                                                                                           std::move(optB), jmpB, jmpauto),
-                                                                                     alternatedesc(std::move(alternatedesc))
+                           size_t jmpB, size_t jmpauto, std::string alternatedesc) : Quest(type, ID, std::move(desc),
+                                                                                           std::move(optA), jmpA,
+                                                                                           std::move(optB), jmpB,
+                                                                                           jmpauto), alternatedesc(
+        std::move(alternatedesc))
 {}
 
 VisitedQuest::VisitedQuest(const VisitedQuest &rhs) : Quest(rhs), alternatedesc(rhs.alternatedesc)
@@ -148,7 +151,12 @@ const std::string RandomQuest::getdesc() const
     /// és belerakása egy dinamikus tömbbe
     while (getline(strings, s, '#'))
     {
-        stringarr.push_back(s);
+        ///ha nem volt üres a sor, akkor belerakjuk a stringbe
+        if (s != std::string(""))
+        {
+            stringarr.push_back(s);
+        }
+
     }
 
     ///ebből egy véletlen visszaadása
