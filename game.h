@@ -172,7 +172,7 @@ void savegame(char **argv, Game &savename, QuestQueue &queue);
 
 /**
  * Érzékeli, hogy az operációs rendszer Windows típusú-e
- * @return - igaz, ha windows, hamis, ha nem az
+ * @return - igaz, ha Windows, hamis, ha nem az
  * */
 bool detect();
 
