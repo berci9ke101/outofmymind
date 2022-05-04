@@ -7,7 +7,7 @@
 #include "vector.hpp"
 
 /**
- * A küldetések tárolásáért és az állapotátmenetekért felelős osztályű
+ * A küldetések tárolásáért és az állapotátmenetekért felelős osztály
  * (Quest heterogén kollekciója)
  */
 class QuestQueue
@@ -77,7 +77,7 @@ public:
  * Összehasonlítja a két Quest ID-jét és igazat ad vissza, ha b azonosítója nagyobb vagy egyenlő a azonosítójánál
  * @param a - mutató az egyik küldetésobjektumra
  * @param b - mutató a másik küldetésobjektumra
- * @return - igaz, ha b ID-je >= a ID-je, hamis, ha b ID-je <> a ID-je
+ * @return - igaz, ha b ID-je >= a ID-je, hamis, ha b ID-je < a ID-je
  * */
 bool compare(Quest *a, Quest *b);
 

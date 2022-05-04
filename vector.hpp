@@ -38,14 +38,14 @@ namespace notstd
 
         /**
          * Iterátor a vektor utolsó utáni elemére
-         * @return - egy iterátor a vektor utolsó utáni
+         * @return - egy iterátor a vektor utolsó utáni elemére
          */
         T *end();
 
 
         /**
          * Visszaadja a vektor n-edik indexén lévő elemet,
-         * std::out_of_range kivételt dob alúl vagy túlindexeléskor
+         * std::out_of_range kivételt dob alul vagy túlindexeléskor
          * @param n - az index
          * @return - referencia az n-edik indexű elemre
          * */
@@ -54,7 +54,7 @@ namespace notstd
 
         /**
          * Visszaadja a konstans vektor n-edik indexén lévő elemet,
-         * std::out_of_range kivételt dob alúl vagy túlindexeléskor
+         * std::out_of_range kivételt dob alul vagy túlindexeléskor
          * @param n - az index
          * @return - konstans referencia az n-edik indexű elemre
          * */
@@ -78,7 +78,7 @@ namespace notstd
 
 
         /**
-         * A vektor hátuljára beerakja az adattagot
+         * A vektor hátuljára berakja az adattagot
          * @param x - berakandó adattag
          * */
         void push_back(const T &x);

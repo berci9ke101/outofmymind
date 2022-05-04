@@ -120,7 +120,15 @@ int game(char **argv)
                     savegame(argv, playgame, qq);
                 } catch (std::ios_base::failure &failure)
                 {
-                    ///ha nem sikerül, akkor kilépünk -3 hibakóddal
+                    ///ha nem sikerül akkor hibát írunk a felhasználónak
+                    econio_clrscr();
+                    std::cout << "\n\nCouldn't save gamestate!\n\nPress any button to exit!\n\n";
+
+                    ///bemeneti módra állítjuk
+                    econio_rawmode();
+                    econio_getch();
+
+                    ///kilépünk -3 hibakóddal
                     return -3;
                 }
                 break;
@@ -208,9 +216,9 @@ void Game::init() const
 #endif
     }
     ///inicializáljuk az ablak méretét
-
     ///ablak méretének beállítása VT100 escape karakter szekvenciákkal
     std::cout << "\x1b[8;" << height << ';' << width << 't';
+
 
     ///billentyű lenyomás érzékelése miatt kel
     econio_rawmode();

@@ -83,7 +83,7 @@ public:
 
     /**
      * Visszaadja a küldetés leírását (azért nem referencia, mert Random küldetéstípusnál dolgozni kell a szöveggel)
-     * @return - a kuldetés leírása
+     * @return - a küldetés leírása
      * */
     virtual const std::string getdesc() const;
 
