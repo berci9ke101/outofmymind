@@ -10,6 +10,7 @@ void vectortests();
 
 /**
  * A játékosztály tesztjei
+ * @param argv - az argumentum vektor
  */
 void gametests(char **argv);
 
