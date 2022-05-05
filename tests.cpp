@@ -37,8 +37,9 @@ void vectortests()
             END
     TEST(Ures_Vektor, operator_[])
         {
-            EXPECT_EQ((void *) 0, &(charvec[0])) << "Elvileg sehova sem kellene indexelnie!";
-            EXPECT_EQ((void *) 0, &(constcharvec[0])) << "Elvileg ,a konstansnak is, sehova sem kellene indexelnie!";
+            EXPECT_EQ((const void *) 0, &(charvec[0])) << "Elvileg sehova sem kellene indexelnie!";
+            EXPECT_EQ((const void *) 0, &(constcharvec[0]))
+                    << "Elvileg ,a konstansnak is, sehova sem kellene indexelnie!";
         }
             END
 
@@ -76,8 +77,9 @@ void vectortests()
         }
             END
 
-    ///Másolt vektorra
+    ///Másolt és konstans vektorra
     notstd::vector<char> copy = charvec;
+    const notstd::vector<char> constcopy = charvec;
     TEST(Vektor, size)
         {
             EXPECT_EQ(size_t(1), copy.size()) << "Itt a vektornak egy elemet kellene tartalmaznia!";
@@ -98,10 +100,15 @@ void vectortests()
             EXPECT_EQ(copy.begin() + 1, copy.end()) << "Rosszul adja vissza a vektor végén lévő iterátort!";
         }
             END
-    TEST(Vektor, at)
+    TEST(Vektor, at1)
         {
             EXPECT_NO_THROW(copy.at(0)) << "New vártunk kivételt!";
             EXPECT_THROW(copy.at(1), const std::out_of_range&) << "Vártunk kivételt!";
+        }
+            END
+    TEST(Vektor, at2)
+        {
+            EXPECT_EQ('c', constcopy.at(0)) << "New vártunk kivételt!";
         }
             END
     TEST(Vektor, operator_[])
@@ -235,6 +242,50 @@ void gametests(char **argv)
     TEST(QuestQueue, compare)
         {
             EXPECT_EQ(true, compare(questQueue[0], questQueue[1])) << "Igazat vártunk!";
+        }
+            END
+
+
+    ///def konstruktor, másoló konstruktor, clone tesztek...
+    QuestQueue ctor; ///dummy queue az alapértelmezett értékeknek
+    ///feltöltjük 3 alapértelmezett questtel és ezek másolataival
+    ctor.add(new SimpleQuest());
+    ctor.add(new VisitedQuest());
+    ctor.add(new RandomQuest());
+    Quest *ptr1 = ctor[0]->clone();
+    Quest *ptr2 = ctor[1]->clone();
+    Quest *ptr3 = ctor[2]->clone();
+    ctor.add(ptr1);
+    ctor.add(ptr2);
+    ctor.add(ptr3);
+    TEST(Quest, def konstruktor1)
+        {
+            EXPECT_STREQ("N/A", ctor[0]->getdesc().c_str()) << "\"N/A\" szöveget vártunk";
+        }
+            END
+    TEST(Quest, def konstruktor2)
+        {
+            EXPECT_STREQ("N/A", ctor[1]->getoptA().c_str()) << "\"N/A\" szöveget vártunk";
+        }
+            END
+    TEST(Quest, def konstruktor3)
+        {
+            EXPECT_STREQ("N/A", ctor[2]->getoptB().c_str()) << "\"N/A\" szöveget vártunk";
+        }
+            END
+    TEST(Quest, clone1)
+        {
+            EXPECT_STREQ("N/A", ctor[3]->getdesc().c_str()) << "\"N/A\" szöveget vártunk";
+        }
+            END
+    TEST(Quest, clone2)
+        {
+            EXPECT_STREQ("N/A", ctor[4]->getoptA().c_str()) << "\"N/A\" szöveget vártunk";
+        }
+            END
+    TEST(Quest, clone3)
+        {
+            EXPECT_STREQ("N/A", ctor[5]->getoptB().c_str()) << "\"N/A\" szöveget vártunk";
         }
             END
 }

@@ -4,6 +4,8 @@
 
 #include "game.h"
 
+#define CPORTA
+
 int main(int argc, char **argv)
 {
 #ifdef CPORTA
@@ -11,5 +13,8 @@ int main(int argc, char **argv)
     vectortests();
     gametests(argv);
 #endif
+
+#ifndef CPORTA
     return game(argv);
+#endif
 }

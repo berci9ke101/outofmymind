@@ -5,32 +5,12 @@
 
 
 #include <windows.h>
-#include <stdio.h>
 #include <conio.h>
-#include <assert.h>
+#include <cassert>
 
 ///static WORD bgcolor = COL_BLACK;
 ///static WORD fgcolor = COL_LIGHTGRAY;
 static bool rawmode = false;
-
-/*static WORD colormap[] = {
-        [COL_BLACK]           = 0,
-        [COL_BLUE]            = FOREGROUND_BLUE,
-        [COL_GREEN]           = FOREGROUND_GREEN,
-        [COL_CYAN]            = FOREGROUND_GREEN | FOREGROUND_BLUE,
-        [COL_RED]             = FOREGROUND_RED,
-        [COL_MAGENTA]         = FOREGROUND_RED   | FOREGROUND_BLUE,
-        [COL_BROWN]           = FOREGROUND_RED   | FOREGROUND_GREEN,
-        [COL_LIGHTGRAY]       = FOREGROUND_RED   | FOREGROUND_GREEN | FOREGROUND_BLUE,
-        [COL_DARKGRAY]        = FOREGROUND_INTENSITY,
-        [COL_LIGHTBLUE]       = FOREGROUND_BLUE  | FOREGROUND_INTENSITY,
-        [COL_LIGHTGREEN]      = FOREGROUND_GREEN | FOREGROUND_INTENSITY,
-        [COL_LIGHTCYAN]       = FOREGROUND_GREEN | FOREGROUND_BLUE  | FOREGROUND_INTENSITY,
-        [COL_LIGHTRED]        = FOREGROUND_RED   | FOREGROUND_INTENSITY,
-        [COL_LIGHTMAGENTA]    = FOREGROUND_RED   | FOREGROUND_BLUE  | FOREGROUND_INTENSITY,
-        [COL_YELLOW]          = FOREGROUND_RED   | FOREGROUND_GREEN | FOREGROUND_INTENSITY,
-        [COL_WHITE]           = FOREGROUND_RED   | FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY,
-};*/
 
 #define STDOUT GetStdHandle(STD_OUTPUT_HANDLE)
 
@@ -41,32 +21,6 @@ void econio_gotoxy(int x, int y)
     dwCursorPosition.Y = (SHORT) y;
     SetConsoleCursorPosition(STDOUT, dwCursorPosition);
 }
-
-
-/*void econio_textbackground(int newcolor)
-{
-    if (newcolor == COL_RESET)
-    {
-        newcolor = COL_BLACK;
-    }
-    assert(newcolor >= 0 && newcolor < 16);
-    bgcolor = (WORD) (colormap[newcolor] << 4);
-    SetConsoleTextAttribute(STDOUT, fgcolor | bgcolor);
-}*/
-
-
-/*void econio_textcolor(int newcolor)
-{
-    if (newcolor == COL_RESET)
-    {
-        newcolor = COL_LIGHTGRAY;
-    }
-    assert(newcolor >= 0 && newcolor < 16);
-    fgcolor = (WORD) colormap[newcolor];
-    SetConsoleTextAttribute(STDOUT, fgcolor | bgcolor);
-}*/
-
-
 void econio_clrscr(void)
 {
     HANDLE hstdout = STDOUT;
@@ -82,37 +36,10 @@ void econio_clrscr(void)
     }
 }
 
-
-void econio_flush()
-{
-    fflush(stdout);
-}
-
-
-void econio_set_title(char const *title)
-{
-    SetConsoleTitle(title);
-}
-
-
 void econio_rawmode()
 {
     rawmode = true;
 }
-
-
-void econio_normalmode()
-{
-    rawmode = false;
-}
-
-
-bool econio_kbhit()
-{
-    assert(rawmode);
-    return _kbhit() != 0;
-}
-
 
 int econio_getch()
 {
@@ -168,13 +95,6 @@ int econio_getch()
     return KEY_UNKNOWNKEY;
 }
 
-
-void econio_sleep(double sec)
-{
-    Sleep(sec * 1000);
-}
-
-
 #else // defined _WIN32
 
 
@@ -194,7 +114,7 @@ void econio_textcolor(int color) {
     static int colormap[] = { 30, 34, 32, 36, 31, 35, 33, 37, 90, 94, 92, 96, 91, 95, 93, 97, 39 };
 
     assert(color >= 0 && color <= 16);
-    printf("\033[%dm", colormap[color]);
+    //printf("\033[%dm", colormap[color]);
 }
 
 
@@ -202,17 +122,17 @@ void econio_textbackground(int color) {
     static int colormap[] = { 40, 44, 42, 46, 41, 45, 43, 47, 100, 104, 102, 106, 101, 105, 103, 107, 49 };
 
     assert(color >= 0 && color <= 16);
-    printf("\033[%dm", colormap[color]);
+    //printf("\033[%dm", colormap[color]);
 }
 
 
 void econio_gotoxy(int x, int y) {
-    printf("\033[%d;%dH", y+1, x+1);
+    //printf("\033[%d;%dH", y+1, x+1);
 }
 
 
 void econio_clrscr() {
-    printf("\033[2J");
+    //printf("\033[2J");
     econio_gotoxy(0, 0);
 }
 
@@ -223,7 +143,7 @@ void econio_flush() {
 
 
 void econio_set_title(char const *title) {
-    printf("\033]2;%s\007", title);
+    //printf("\033]2;%s\007", title);
 }
 
 
