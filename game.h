@@ -47,6 +47,7 @@ class FileIO
 public:
     /**
      * Beolvassa a paraméterként kapott játékfájlt, illetve mentésfájlt
+     * Ha üres a fájl std::logic_error kivételt dob, ha nem lehetett megnyitni file_failure-t
      * @param queue - Quest* tárolására alkalmas heterogén kollekció
      * @return - a beolvasott fájl sorai egy 2D-s dinamikus tömbben
      * */
@@ -55,6 +56,7 @@ public:
 
     /**
      * Betölti a paraméterként kapott szövegtömbből a küldetéstömbbe a küldetéseket
+     * Ha üres a fájl vagy, ha hibás az egyik küldetés std::logic_error kivételt dob
      * @param sVector - beolvasott fájl sorai egy 2D-s dinamikus tömbben
      * @param queue - Quest* tárolására alkalmas heterogén kollekció
      * */
@@ -63,6 +65,7 @@ public:
 
     /**
      * Elmenti a játékállást a paraméterül kapott szöveg néven
+     * Ha nem lehet megnyitni a fájlt file_failure kivételt dob
      * @param savegame - a mentendő fájl neve
      * @param queue - Quest* tárolására alkalmas heterogén kollekció
      * */
