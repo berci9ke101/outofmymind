@@ -118,11 +118,11 @@ void vectortests()
             END
 }
 
-void classtests(char **argv)
+void classtests()
 {
     Game gm("", ""); ///létrehozunk egy olyan játékfáklt, amit valószínűleg nem tudunk megnyitni
-    Game testgame("load", "s"); ///létrehozunk egy oylat, amit meg tudunk nyitni
-    Game emptyfile("empty", ""); ///üres próbálunk megnyitni
+    Game testgame("load", "s"); ///létrehozunk egy olyat, amit meg tudunk nyitni
+    Game emptyfile("empty", ""); ///ürest próbálunk megnyitni
     Game errorfile("errorfile", ""); ///hibás küldetéssel rendelkezőt nyitunk meg
     ///teszteljük a másolókonstruktort - Game és FileIO osztályokét egyaránt
     Game copygame = testgame;
@@ -142,7 +142,7 @@ void classtests(char **argv)
             END
     TEST(FileIO, load)
         {
-            EXPECT_THROW(gm.getfile().load(emptyfile.getfile().read(emptyness), emptyness), const std::logic_error&)
+            EXPECT_THROW(emptyfile.getfile().load(emptyfile.getfile().read(emptyness), emptyness), const std::logic_error&)
             << "Vártunk kivételt!";
             EXPECT_THROW(errorfile.getfile().load(errorfile.getfile().read(errorquest), errorquest),
                          const std::logic_error&) << "Vártunk kivételt!";

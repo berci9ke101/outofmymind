@@ -12,7 +12,7 @@ void vectortests();
  * Az osztályok tesztjei
  * @param argv - az argumentum vektor
  */
- void classtests(char **argv);
+ void classtests();
 
 /**
 * Egy játék tesztesetei
