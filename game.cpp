@@ -58,7 +58,9 @@ int game(char **argv)
         std::cout << "\n\nCould not open load file!\n\nPress any button to exit!\n\n";
 
         ///bemeneti módra állítjuk
+#ifndef CPORTA
         econio_rawmode();
+#endif
         econio_getch();
 
         ///és kilépünk -1 hibakóddal
@@ -69,7 +71,9 @@ int game(char **argv)
         std::cout << "\n\nLoad file is empty or corrupted!\n\nPress any button to exit!\n\n";
 
         ///bemeneti módra állítjuk
+#ifndef CPORTA
         econio_rawmode();
+#endif
         econio_getch();
 
         ///és kilépünk -2 hibakóddal és felszabadítjuk a küldetéseket
@@ -80,7 +84,9 @@ int game(char **argv)
         std::cout << "\n\nAn unknown error occured!\n\nPress any button to exit!\n\n";
 
         ///bemeneti módra állítjuk
+#ifndef CPORTA
         econio_rawmode();
+#endif
         econio_getch();
 
         ///és kilépünk -3 hibakóddal
@@ -131,7 +137,9 @@ int game(char **argv)
                     std::cout << "\n\nCouldn't save gamestate!\n\nPress any button to exit!\n\n";
 
                     ///bemeneti módra állítjuk
+#ifndef CPORTA
                     econio_rawmode();
+#endif
                     econio_getch();
 
                     ///kilépünk -3 hibakóddal
@@ -228,7 +236,9 @@ void Game::init() const
 #endif
 
     ///billentyű lenyomás érzékelése miatt kel
+#ifndef CPORTA
     econio_rawmode();
+#endif
 }
 
 int Game::keypress()

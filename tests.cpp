@@ -122,33 +122,37 @@ void classtests(char **argv)
 {
     Game gm("", ""); ///létrehozunk egy olyan játékfáklt, amit valószínűleg nem tudunk megnyitni
     Game testgame("load", "s"); ///létrehozunk egy oylat, amit meg tudunk nyitni
+    Game emptyfile("empty", ""); ///üres próbálunk megnyitni
+    Game errorfile("errorfile", ""); ///hibás küldetéssel rendelkezőt nyitunk meg
     ///teszteljük a másolókonstruktort - Game és FileIO osztályokét egyaránt
     Game copygame = testgame;
 
-    QuestQueue queue; ///létrehozunk egy üres kollekciót
+    ///létrehozunk pár kollekciót
+    QuestQueue queue;
+    QuestQueue emptyness;
+    QuestQueue errorquest;
 
     TEST(FileIO, read)
         {
             EXPECT_THROW(gm.getfile().read(queue), const file_failure&) << "Vártunk kivételt!";
+            EXPECT_THROW(emptyfile.getfile().read(emptyness), const std::logic_error&) << "Vártunk kivételt!";
             EXPECT_NO_THROW(testgame.getfile().read(queue)) << "Nem vártunk kivételt!";
             EXPECT_NO_THROW(copygame.getfile().read(queue)) << "Nem vártunk kivételt!";
         }
             END
-    notstd::vector<std::string> emptyvec; ///generálun kegy üres vektort a teszthez
     TEST(FileIO, load)
         {
-            EXPECT_THROW(gm.getfile().load(emptyvec, queue), const std::logic_error&) << "Vártunk kivételt!";
+            EXPECT_THROW(gm.getfile().load(emptyfile.getfile().read(emptyness), emptyness), const std::logic_error&)
+            << "Vártunk kivételt!";
+            EXPECT_THROW(errorfile.getfile().load(errorfile.getfile().read(errorquest), errorquest),
+                         const std::logic_error&) << "Vártunk kivételt!";
             EXPECT_NO_THROW(testgame.getfile().load(testgame.getfile().read(queue), queue)) << "Nem vártunk kivételt!";
             EXPECT_NO_THROW(copygame.getfile().load(copygame.getfile().read(queue), queue)) << "Nem vártunk kivételt!";
         }
             END
-    TEST(FileIO, save1)
+    TEST(FileIO, save)
         {
             EXPECT_THROW(gm.getfile().save("", queue), const file_failure&) << "Vártunk kivételt!";
-        }
-            END
-    TEST(FileIO, save2)
-        {
             EXPECT_NO_THROW(gm.getfile().save("scratch", queue))
             << "Nem vártunk kivételt!";     ///mentsünk bele a scratch file-unkba
         }
@@ -158,7 +162,7 @@ void classtests(char **argv)
     testgame.getfile().load(testgame.getfile().read(questQueue), questQueue);
 
 
-    ///Quest osztály tesztjei
+    ///Quest osztály tesztjei, amik valójában a SimpleQuest-re tesztelnek
     TEST(Quest, getID)
         {
             EXPECT_EQ(size_t(1), questQueue[1]->getID()) << "1 értéket vártuk";
@@ -200,14 +204,23 @@ void classtests(char **argv)
             EXPECT_STREQ("Exit", q_ptr->getoptB().c_str()) << "\"Exit\" szöveget vártunk";
         }
             END
+
     delete q_ptr;
     questQueue[2]->change(); ///átállítjuk a típust
+
+    ///VisitedQuest
     TEST(VisitedQuest, getdesc)
         {
             EXPECT_STREQ("Been here", questQueue[2]->getdesc().c_str()) << "\"Been here\" szöveget vártunk";
         }
             END
-    ///RandomQuest leírása nem determinisztikus, így a tesztelése lehetetlen, mert az érték futási időben dől el
+    ///RandomQuest
+    TEST(RandomQuest, getdesc)
+        {
+            EXPECT_STRNE("", questQueue[1]->getdesc().c_str()) << "Nem üres sztringet vártunk";
+        }
+            END
+
 
 
     ///komolyabb tesztelések - mivel testgame-be már beolvastunk
@@ -296,5 +309,9 @@ void classtests(char **argv)
 void gametests(char **argv)
 {
     ///elindítunk egy játékot és bemeneteket adunk neki, ez csak a coverage teszt kimaxolása végett jött létre
-    game(argv);
+    TEST(Game, oomm)
+        {
+            EXPECT_EQ(0, game(argv)) << "0 értéket vártunk";
+        }
+            END
 }

@@ -165,20 +165,20 @@ void econio_sleep(double sec) {
 #include <time.h>
 
 
-void econio_textcolor(int color) {
+/*void econio_textcolor(int color) {
     static int colormap[] = { 30, 34, 32, 36, 31, 35, 33, 37, 90, 94, 92, 96, 91, 95, 93, 97, 39 };
 
     assert(color >= 0 && color <= 16);
     std::cout << "\033[" << colormap[color] << "m";
-}
+}*/
 
 
-void econio_textbackground(int color) {
+/*void econio_textbackground(int color) {
     static int colormap[] = { 40, 44, 42, 46, 41, 45, 43, 47, 100, 104, 102, 106, 101, 105, 103, 107, 49 };
 
     assert(color >= 0 && color <= 16);
     std::cout << "\033[" << colormap[color] << "m";
-}
+}*/
 
 
 void econio_gotoxy(int x, int y) {
@@ -197,29 +197,29 @@ void econio_flush() {
 }
 
 
-void econio_set_title(char const *title) {
+/*void econio_set_title(char const *title) {
     std::cout << "\033]2;" << title << "\007";
-}
+}*/
 
 
-void econio_rawmode() {
+/*void econio_rawmode() {
     int fd = fileno(stdin);
     struct termios attr;
     tcgetattr(fd, &attr);
     attr.c_lflag &= ~ICANON & ~ECHO;
     tcsetattr(fd, TCSADRAIN, &attr);
     setvbuf(stdin, NULL, _IONBF, BUFSIZ);
-}
+}*/
 
 
-void econio_normalmode() {
+/*void econio_normalmode() {
     int fd = fileno(stdin);
     struct termios attr;
     tcgetattr(fd, &attr);
     attr.c_lflag |= ICANON | ECHO;
     tcsetattr(fd, TCSADRAIN, &attr);
     setvbuf(stdin, NULL, _IOLBF, BUFSIZ);
-}
+}*/
 
 
 static bool inrawmode() {
@@ -230,7 +230,7 @@ static bool inrawmode() {
 }
 
 
-bool econio_kbhit() {
+/*bool econio_kbhit() {
     assert(inrawmode());
     econio_flush();
 
@@ -246,7 +246,7 @@ bool econio_kbhit() {
         return false;
     }
     return retval != 0;
-}
+}*/
 
 
 static int rawgetch() {
@@ -302,7 +302,7 @@ int econio_getch() {
     s[i++] = rawgetch();
     if (s[i-1] == 0x7F)
         return KEY_BACKSPACE;
-    if (s[i-1] != 0x1B || !econio_kbhit())     // only an escape sequence if other chars can be read
+    if (s[i-1] != 0x1B /*|| !econio_kbhit()*/)     // only an escape sequence if other chars can be read
         return s[i-1];
 
     // read following chars and concatenate to see the escape sequence
@@ -325,12 +325,12 @@ int econio_getch() {
 }
 
 
-void econio_sleep(double sec) {
+/*void econio_sleep(double sec) {
     struct timespec req, rem;
     req.tv_sec = (time_t) sec;
     req.tv_nsec = (long) ((sec - req.tv_sec) * 1e9);
     nanosleep(&req, &rem);
-}
+}*/
 
 
 #endif // defined _WIN32
