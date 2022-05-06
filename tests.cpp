@@ -198,14 +198,7 @@ void classtests()
             EXPECT_STREQ("Exit", questQueue[0]->getoptB().c_str()) << "\"Exit\" szöveget vártunk";
         }
             END
-    Quest *q_ptr = questQueue[0]->clone();
-    TEST(Quest, clone)
-        {
-            EXPECT_STREQ("Exit", q_ptr->getoptB().c_str()) << "\"Exit\" szöveget vártunk";
-        }
-            END
 
-    delete q_ptr;
     questQueue[2]->change(); ///átállítjuk a típust
 
     ///VisitedQuest
@@ -220,8 +213,6 @@ void classtests()
             EXPECT_STRNE("", questQueue[1]->getdesc().c_str()) << "Nem üres sztringet vártunk";
         }
             END
-
-
 
     ///komolyabb tesztelések - mivel testgame-be már beolvastunk
     ///beállítjuk a jelenlegi állapotot 0-ra
