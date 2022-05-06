@@ -250,7 +250,7 @@ void classtests()
             END
 
     /**
-     * Jporta COVARAGE által jelzett kódrészletek tesztesetei
+     * Jporta COVERAGE által jelzett kódrészletek tesztesetei
      */
 
     ///def konstruktor, másoló konstruktor, clone tesztek...
@@ -259,12 +259,9 @@ void classtests()
     ctor.add(new SimpleQuest());
     ctor.add(new VisitedQuest());
     ctor.add(new RandomQuest());
-    Quest *ptr1 = ctor[0]->clone();
-    Quest *ptr2 = ctor[1]->clone();
-    Quest *ptr3 = ctor[2]->clone();
-    ctor.add(ptr1);
-    ctor.add(ptr2);
-    ctor.add(ptr3);
+    ctor.add(ctor[0]->clone());
+    ctor.add(ctor[1]->clone());
+    ctor.add(ctor[2]->clone());
     TEST(Quest, def konstruktor1)
         {
             EXPECT_STREQ("N/A", ctor[0]->getdesc().c_str()) << "\"N/A\" szöveget vártunk";
@@ -287,7 +284,7 @@ void classtests()
             END
     TEST(Quest, clone2)
         {
-            EXPECT_STREQ("N/A", ctor[4]->getoptA().c_str()) << "\"N/A\" szöveget vártunk";
+            EXPECT_STREQ("N/A", ctor[4]->getoptB().c_str()) << "\"N/A\" szöveget vártunk";
         }
             END
     TEST(Quest, clone3)
