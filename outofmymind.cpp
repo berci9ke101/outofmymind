@@ -9,7 +9,7 @@ int main(int argc, char **argv)
 #ifdef CPORTA
     ///Tesztesetek:
     vectortests();
-    classtests(argv);
+    classtests();
     gametests(argv);
 #endif
 
