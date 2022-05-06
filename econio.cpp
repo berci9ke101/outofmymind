@@ -5,15 +5,15 @@
 
 
 #include <windows.h>
-#include <iostream>
+#include <stdio.h>
 #include <conio.h>
-#include <cassert>
+#include <assert.h>
 
-//static WORD bgcolor = COL_BLACK;
-//static WORD fgcolor = COL_LIGHTGRAY;
+static WORD bgcolor = COL_BLACK;
+static WORD fgcolor = COL_LIGHTGRAY;
 static bool rawmode = false;
 
-/*static WORD colormap[] = {
+static WORD colormap[] = {
         [COL_BLACK]           = 0,
         [COL_BLUE]            = FOREGROUND_BLUE,
         [COL_GREEN]           = FOREGROUND_GREEN,
@@ -30,7 +30,7 @@ static bool rawmode = false;
         [COL_LIGHTMAGENTA]    = FOREGROUND_RED   | FOREGROUND_BLUE  | FOREGROUND_INTENSITY,
         [COL_YELLOW]          = FOREGROUND_RED   | FOREGROUND_GREEN | FOREGROUND_INTENSITY,
         [COL_WHITE]           = FOREGROUND_RED   | FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY,
-};*/
+};
 
 #define STDOUT GetStdHandle(STD_OUTPUT_HANDLE)
 
@@ -42,22 +42,22 @@ void econio_gotoxy(int x, int y) {
 }
 
 
-/*void econio_textbackground(int newcolor) {
+void econio_textbackground(int newcolor) {
     if (newcolor == COL_RESET)
         newcolor = COL_BLACK;
     assert(newcolor >= 0 && newcolor < 16);
     bgcolor = (WORD) (colormap[newcolor] << 4);
     SetConsoleTextAttribute(STDOUT, fgcolor | bgcolor);
-}*/
+}
 
 
-/*void econio_textcolor(int newcolor) {
+void econio_textcolor(int newcolor) {
     if (newcolor == COL_RESET)
         newcolor = COL_LIGHTGRAY;
     assert(newcolor >= 0 && newcolor < 16);
     fgcolor = (WORD) colormap[newcolor];
     SetConsoleTextAttribute(STDOUT, fgcolor | bgcolor);
-}*/
+}
 
 
 void econio_clrscr(void) {
@@ -154,7 +154,7 @@ void econio_sleep(double sec) {
 
 
 #include <assert.h>
-#include <iostream>
+#include <stdio.h>
 #include <termios.h>
 #include <unistd.h>
 #include <stdbool.h>
@@ -165,29 +165,29 @@ void econio_sleep(double sec) {
 #include <time.h>
 
 
-/*void econio_textcolor(int color) {
+void econio_textcolor(int color) {
     static int colormap[] = { 30, 34, 32, 36, 31, 35, 33, 37, 90, 94, 92, 96, 91, 95, 93, 97, 39 };
 
     assert(color >= 0 && color <= 16);
-    std::cout << "\033[" << colormap[color] << "m";
-}*/
+    printf("\033[%dm", colormap[color]);
+}
 
 
-/*void econio_textbackground(int color) {
+void econio_textbackground(int color) {
     static int colormap[] = { 40, 44, 42, 46, 41, 45, 43, 47, 100, 104, 102, 106, 101, 105, 103, 107, 49 };
 
     assert(color >= 0 && color <= 16);
-    std::cout << "\033[" << colormap[color] << "m";
-}*/
+    printf("\033[%dm", colormap[color]);
+}
 
 
 void econio_gotoxy(int x, int y) {
-    std::cout << "\033[" << y+1 << ';' << x+1 << 'H';
+    printf("\033[%d;%dH", y+1, x+1);
 }
 
 
 void econio_clrscr() {
-    std::cout << "\033[2J";
+    printf("\033[2J");
     econio_gotoxy(0, 0);
 }
 
@@ -197,29 +197,29 @@ void econio_flush() {
 }
 
 
-/*void econio_set_title(char const *title) {
-    std::cout << "\033]2;" << title << "\007";
-}*/
+void econio_set_title(char const *title) {
+    printf("\033]2;%s\007", title);
+}
 
 
-/*void econio_rawmode() {
+void econio_rawmode() {
     int fd = fileno(stdin);
     struct termios attr;
     tcgetattr(fd, &attr);
     attr.c_lflag &= ~ICANON & ~ECHO;
     tcsetattr(fd, TCSADRAIN, &attr);
     setvbuf(stdin, NULL, _IONBF, BUFSIZ);
-}*/
+}
 
 
-/*void econio_normalmode() {
+void econio_normalmode() {
     int fd = fileno(stdin);
     struct termios attr;
     tcgetattr(fd, &attr);
     attr.c_lflag |= ICANON | ECHO;
     tcsetattr(fd, TCSADRAIN, &attr);
     setvbuf(stdin, NULL, _IOLBF, BUFSIZ);
-}*/
+}
 
 
 static bool inrawmode() {
@@ -230,7 +230,7 @@ static bool inrawmode() {
 }
 
 
-/*bool econio_kbhit() {
+bool econio_kbhit() {
     assert(inrawmode());
     econio_flush();
 
@@ -246,7 +246,7 @@ static bool inrawmode() {
         return false;
     }
     return retval != 0;
-}*/
+}
 
 
 static int rawgetch() {
@@ -302,7 +302,7 @@ int econio_getch() {
     s[i++] = rawgetch();
     if (s[i-1] == 0x7F)
         return KEY_BACKSPACE;
-    if (s[i-1] != 0x1B /*|| !econio_kbhit()*/)     // only an escape sequence if other chars can be read
+    if (s[i-1] != 0x1B || !econio_kbhit())     // only an escape sequence if other chars can be read
         return s[i-1];
 
     // read following chars and concatenate to see the escape sequence
@@ -325,12 +325,12 @@ int econio_getch() {
 }
 
 
-/*void econio_sleep(double sec) {
+void econio_sleep(double sec) {
     struct timespec req, rem;
     req.tv_sec = (time_t) sec;
     req.tv_nsec = (long) ((sec - req.tv_sec) * 1e9);
     nanosleep(&req, &rem);
-}*/
+}
 
 
 #endif // defined _WIN32
