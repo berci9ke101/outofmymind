@@ -118,7 +118,7 @@ void vectortests()
             END
 }
 
-void gametests(char **argv)
+void classtests(char **argv)
 {
     Game game("", ""); ///létrehozunk egy olyan játékfáklt, amit valószínűleg nem tudunk megnyitni
     Game testgame("load", "s"); ///létrehozunk egy oylat, amit meg tudunk nyitni

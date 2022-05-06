@@ -9,9 +9,15 @@
 void vectortests();
 
 /**
- * A játék tesztjei
+ * Az osztályok tesztjei
  * @param argv - az argumentum vektor
  */
+ void classtests(char **argv);
+
+/**
+* Egy játék tesztesetei
+* @param argv - az argumentum vektor
+*/
 void gametests(char **argv);
 
 #endif //NAGYHF_TESTS_H

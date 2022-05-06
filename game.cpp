@@ -245,13 +245,14 @@ void Game::writequest(Quest *rhs)
 
         econio_gotoxy(0, 17);
         std::cout << "B: " << rhs->getoptB();
+
+        econio_gotoxy(43, 22);
+        std::cout << "A button       -  select option A";
+        econio_gotoxy(43, 23);
+        std::cout << "B button       -  select option B";
     }
 
-    ///"help menu" --43--
-    econio_gotoxy(43, 22);
-    std::cout << "A button       -  select option A";
-    econio_gotoxy(43, 23);
-    std::cout << "B button       -  select option B";
+    ///"help menu"
     econio_gotoxy(43, 24);
     std::cout << "ESCAPE button  -    save and exit";
 }
