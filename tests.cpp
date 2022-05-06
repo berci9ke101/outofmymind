@@ -275,7 +275,7 @@ void classtests(char **argv)
             END
     TEST(Quest, clone1)
         {
-            EXPECT_STREQ("N/A", ctor[3]->getdesc().c_str()) << "\"N/A\" szöveget vártunk";
+            EXPECT_STREQ("N/A", ctor[3]->getoptA().c_str()) << "\"N/A\" szöveget vártunk";
         }
             END
     TEST(Quest, clone2)
@@ -285,7 +285,13 @@ void classtests(char **argv)
             END
     TEST(Quest, clone3)
         {
-            EXPECT_STREQ("N/A", ctor[5]->getoptB().c_str()) << "\"N/A\" szöveget vártunk";
+            EXPECT_STREQ("N/A", ctor[5]->getdesc().c_str()) << "\"N/A\" szöveget vártunk";
         }
             END
+}
+
+void gametests(char **argv)
+{
+    ///elindítunk egy játékot és random bemenetek adunk neki
+    game(argv);
 }

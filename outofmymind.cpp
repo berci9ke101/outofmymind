@@ -4,6 +4,8 @@
 
 #include "game.h"
 
+//#define CPORTA
+
 int main(int argc, char **argv)
 {
 #ifdef CPORTA
