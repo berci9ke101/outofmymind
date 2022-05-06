@@ -113,7 +113,13 @@ int game(char **argv)
             case 'b':
                 qq.chooseB();
                 break;
+#ifndef CPORTA
             case KEY_ESCAPE:
+#endif
+                ///ez azért kell, hogy a CPORTA x billentyűvel tudjon menteni
+#ifdef CPORTA
+                case 'x':
+#endif
                 ///megpróbáljuk elmenteni az állást
                 try
                 {
@@ -217,8 +223,9 @@ void Game::init() const
     }
     ///inicializáljuk az ablak méretét
     ///ablak méretének beállítása VT100 escape karakter szekvenciákkal
+#ifndef CPORTA
     std::cout << "\x1b[8;" << height << ';' << width << 't';
-
+#endif
 
     ///billentyű lenyomás érzékelése miatt kel
     econio_rawmode();

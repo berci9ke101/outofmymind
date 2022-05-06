@@ -120,7 +120,7 @@ void vectortests()
 
 void classtests(char **argv)
 {
-    Game game("", ""); ///létrehozunk egy olyan játékfáklt, amit valószínűleg nem tudunk megnyitni
+    Game gm("", ""); ///létrehozunk egy olyan játékfáklt, amit valószínűleg nem tudunk megnyitni
     Game testgame("load", "s"); ///létrehozunk egy oylat, amit meg tudunk nyitni
     ///teszteljük a másolókonstruktort - Game és FileIO osztályokét egyaránt
     Game copygame = testgame;
@@ -129,7 +129,7 @@ void classtests(char **argv)
 
     TEST(FileIO, read)
         {
-            EXPECT_THROW(game.getfile().read(queue), const file_failure&) << "Vártunk kivételt!";
+            EXPECT_THROW(gm.getfile().read(queue), const file_failure&) << "Vártunk kivételt!";
             EXPECT_NO_THROW(testgame.getfile().read(queue)) << "Nem vártunk kivételt!";
             EXPECT_NO_THROW(copygame.getfile().read(queue)) << "Nem vártunk kivételt!";
         }
@@ -137,19 +137,19 @@ void classtests(char **argv)
     notstd::vector<std::string> emptyvec; ///generálun kegy üres vektort a teszthez
     TEST(FileIO, load)
         {
-            EXPECT_THROW(game.getfile().load(emptyvec, queue), const std::logic_error&) << "Vártunk kivételt!";
+            EXPECT_THROW(gm.getfile().load(emptyvec, queue), const std::logic_error&) << "Vártunk kivételt!";
             EXPECT_NO_THROW(testgame.getfile().load(testgame.getfile().read(queue), queue)) << "Nem vártunk kivételt!";
             EXPECT_NO_THROW(copygame.getfile().load(copygame.getfile().read(queue), queue)) << "Nem vártunk kivételt!";
         }
             END
     TEST(FileIO, save1)
         {
-            EXPECT_THROW(game.getfile().save("", queue), const file_failure&) << "Vártunk kivételt!";
+            EXPECT_THROW(gm.getfile().save("", queue), const file_failure&) << "Vártunk kivételt!";
         }
             END
     TEST(FileIO, save2)
         {
-            EXPECT_NO_THROW(game.getfile().save("scratch", queue))
+            EXPECT_NO_THROW(gm.getfile().save("scratch", queue))
             << "Nem vártunk kivételt!";     ///mentsünk bele a scratch file-unkba
         }
             END
@@ -245,6 +245,9 @@ void classtests(char **argv)
         }
             END
 
+    /**
+     * Jporta COVARAGE által jelzett kódrészletek tesztesetei
+     */
 
     ///def konstruktor, másoló konstruktor, clone tesztek...
     QuestQueue ctor; ///dummy queue az alapértelmezett értékeknek
@@ -292,6 +295,6 @@ void classtests(char **argv)
 
 void gametests(char **argv)
 {
-    ///elindítunk egy játékot és random bemenetek adunk neki
+    ///elindítunk egy játékot és bemeneteket adunk neki, ez csak a coverage teszt kimaxolása végett jött létre
     game(argv);
 }
