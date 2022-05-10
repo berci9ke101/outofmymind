@@ -60,6 +60,11 @@ public:
      * */
     Quest *operator[](size_t n);
 
+    /**
+     * Visszaadja a jelenlegi küldetészámot
+     * @return - a jelenlegi küldetésszám
+     */
+    const size_t size();
 
     /**
      * Paraméter nélkül hívható konstruktor

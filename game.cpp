@@ -98,6 +98,13 @@ int game(char **argv)
     qq.sort();
 
 
+    ///ha a töltésfájlunk küldetés ID-je nagyobb, mint a betöltendő maximális küldetészám, akkor mégis 0 állapotból kezdjük
+    if (qq.getcurrent_state() >= qq.size())
+    {
+        qq.getcurrent_state() = 0;
+    }
+
+
     ///maga a játékloop, a -1 állapot a kilépési feltételünk
     size_t exit_state = -1;
     while (qq.getcurrent_state() != exit_state)

@@ -70,3 +70,8 @@ QuestQueue::~QuestQueue()
         delete queue[i];
     }
 }
+
+const size_t QuestQueue::size()
+{
+    return queue.size();
+}
