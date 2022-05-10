@@ -142,8 +142,8 @@ void classtests()
             END
     TEST(FileIO, load)
         {
-            EXPECT_THROW(emptyfile.getfile().load(emptyfile.getfile().read(emptyness), emptyness), const std::logic_error&)
-            << "Vártunk kivételt!";
+            EXPECT_THROW(emptyfile.getfile().load(emptyfile.getfile().read(emptyness), emptyness),
+                         const std::logic_error&) << "Vártunk kivételt!";
             EXPECT_THROW(errorfile.getfile().load(errorfile.getfile().read(errorquest), errorquest),
                          const std::logic_error&) << "Vártunk kivételt!";
             EXPECT_NO_THROW(testgame.getfile().load(testgame.getfile().read(queue), queue)) << "Nem vártunk kivételt!";
@@ -246,6 +246,11 @@ void classtests()
     TEST(QuestQueue, compare)
         {
             EXPECT_EQ(true, compare(questQueue[0], questQueue[1])) << "Igazat vártunk!";
+        }
+            END
+    TEST(QuestQueue, size)
+        {
+            EXPECT_EQ(size_t(4), questQueue.size()) << "Négyet vártunk!";
         }
             END
 
